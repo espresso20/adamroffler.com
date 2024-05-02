@@ -10,14 +10,11 @@
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             color: #333;
         }
         .container {
             text-align: center;
+            padding: 20px;
         }
         h1 {
             font-size: 2rem;
@@ -32,15 +29,19 @@
             text-decoration: none;
         }
         #theme-toggle {
-            background-color: #007bff;
+            background-color: #333;
             color: #fff;
             border: none;
-            padding: 10px 20px;
+            padding: 8px 16px;
             border-radius: 5px;
             cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.8rem;
         }
         #theme-toggle:hover {
-            background-color: #0056b3;
+            background-color: #555;
         }
         .dark-theme {
             background-color: #333;
@@ -54,8 +55,8 @@
         <p>Senior Cloud Engineer at Everbright</p>
         <p>Email: <a href="mailto:espresso20@pm.me">espresso20@pm.me</a></p>
         <p>Website: <a href="http://www.adamroffler.com">www.adamroffler.com</a></p>
-        <button id="theme-toggle">Toggle Dark Mode</button>
     </div>
+    <button id="theme-toggle">Toggle Dark Mode</button>
 
     <script>
         const toggleButton = document.getElementById('theme-toggle');
@@ -64,9 +65,9 @@
         toggleButton.addEventListener('click', () => {
             body.classList.toggle('dark-theme');
             if (body.classList.contains('dark-theme')) {
-                toggleButton.textContent = 'Toggle Light Mode';
+                toggleButton.textContent = 'Light Mode';
             } else {
-                toggleButton.textContent = 'Toggle Dark Mode';
+                toggleButton.textContent = 'Dark Mode';
             }
         });
     </script>
