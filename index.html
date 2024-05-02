@@ -7,67 +7,47 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #333;
+            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            transition: background-color 0.3s ease;
+            height: 100vh;
+            color: #333;
         }
-        .card {
-            background-color: #444;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            width: 90%;
-            max-width: 400px;
+        .container {
             text-align: center;
-            color: #ccc;
-            margin: auto;
         }
-        .card h1 {
+        h1 {
+            font-size: 2rem;
             margin-bottom: 10px;
-            color: #eee;
         }
-        .card p {
-            color: #bbb;
+        p {
+            font-size: 1.2rem;
             margin-bottom: 20px;
         }
-        .card a {
+        a {
             color: #007bff;
             text-decoration: none;
         }
-        .dark-theme {
-            background-color: #f4f4f4;
-            color: #ccc; /* Text color for light mode */
+        #theme-toggle {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
         }
-        .dark-theme .card {
-            background-color: #fff;
-            color: #000; /* Text color for light mode */
-        }
-        .dark-theme .card h1 {
-            color: #333;
-        }
-        .dark-theme .card p,
-        .dark-theme .card a {
-            color: #666; /* Default color */
-        }
-
-        /* Mobile responsiveness */
-        @media only screen and (max-width: 600px) {
-            .card {
-                width: 90%;
-            }
+        #theme-toggle:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <div class="card">
+    <div class="container">
         <h1>Adam Roffler</h1>
-        <p>Senior Cloud Engineer</p>
-        <p>Everbright</p>
+        <p>Senior Cloud Engineer at Everbright</p>
         <p>Email: <a href="mailto:espresso20@pm.me">espresso20@pm.me</a></p>
         <p>Website: <a href="http://www.adamroffler.com">www.adamroffler.com</a></p>
         <button id="theme-toggle">Toggle Dark Mode</button>
