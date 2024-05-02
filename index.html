@@ -1,3 +1,6 @@
+Apologies for that oversight. Let's add the dark/light mode button back to the page. We'll position it in the top right corner and adjust its size and styling. Here's the updated code:
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,6 +19,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            position: relative;
         }
         .profile-container {
             position: absolute;
@@ -47,6 +51,21 @@
             font-size: 1.2rem;
             margin-bottom: 20px;
         }
+        #theme-toggle {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 0.8rem;
+        }
+        #theme-toggle:hover {
+            background-color: #555;
+        }
     </style>
 </head>
 <body>
@@ -55,9 +74,27 @@
     </div>
     <div class="content">
         <h1>Adam Roffler</h1>
-        <p>Senior Cloud Engineer at Everbright</p>
+        <p>Senior DevOps Engineer @ Everbright</p>
         <p>Email: <a href="mailto:espresso20@pm.me">espresso20@pm.me</a></p>
         <p>Website: <a href="http://www.adamroffler.com">www.adamroffler.com</a></p>
     </div>
+    <button id="theme-toggle">Toggle Dark Mode</button>
+
+    <script>
+        const toggleButton = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        toggleButton.addEventListener('click', () => {
+            body.classList.toggle('dark-theme');
+            if (body.classList.contains('dark-theme')) {
+                toggleButton.textContent = 'Light Mode';
+            } else {
+                toggleButton.textContent = 'Dark Mode';
+            }
+        });
+    </script>
 </body>
 </html>
+```
+
+Now, the dark/light mode button is positioned in the top right corner of the page. You can adjust its size and styling as needed.
