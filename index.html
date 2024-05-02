@@ -57,7 +57,7 @@
         <p>Everbright</p>
         <p>Email: <a href="mailto:espresso20@pm.me">espresso20@pm.me</a></p>
         <p>Website: <a href="http://www.adamroffler.com">www.adamroffler.com</a></p>
-        <button id="theme-toggle">Toggle Dark/Light Mode</button>
+        <button id="theme-toggle">Toggle Dark Mode</button>
     </div>
 
     <script>
@@ -66,6 +66,11 @@
 
         toggleButton.addEventListener('click', () => {
             body.classList.toggle('dark-theme');
+            if (body.classList.contains('dark-theme')) {
+                toggleButton.textContent = 'Toggle Light Mode';
+            } else {
+                toggleButton.textContent = 'Toggle Dark Mode';
+            }
         });
     </script>
 </body>
