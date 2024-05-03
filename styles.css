@@ -59,6 +59,23 @@ a {
     right: 10px;
 }
 
+button {
+    background-color: transparent; /* Set background color to transparent */
+    color: #007bff; /* Set text color */
+    border: 1px solid #007bff; /* Add border */
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    margin-right: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; /* Add transition for smooth hover effect */
+}
+
+button:hover {
+    background-color: rgba(0, 123, 255, 0.1); /* Add slight background color on hover */
+}
+
+
 @media only screen and (max-width: 600px) {
     .container {
         padding: 10px;
