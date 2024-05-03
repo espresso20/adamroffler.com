@@ -3,7 +3,7 @@ body {
     background-color: #566573;
     margin: 0;
     padding: 0;
-    color: #333;
+    color: #EBEDEF;
     text-align: center;
     display: flex;
     justify-content: center;
@@ -34,13 +34,11 @@ body {
     text-align: left;
     padding: 20px;
     margin-top: 20px;
-    /*position: relative;*/
-    /*z-index: 0; /* Ensure other content is below the profile picture */
 }
 
 h1 {
-    font-size: 2rem;
-    margin-bottom: 10px;
+    font-size: 2.5rem; /* Increase font size for the header */
+    margin-bottom: 20px; /* Increase margin-bottom to create space between header and paragraphs */
 }
 
 p {
@@ -65,8 +63,8 @@ a {
     }
 
     h1 {
-        font_size: 1.5rem;
-        margin-bottom: 5px;
+        font-size: 2rem; /* Adjust font size for smaller screens */
+        margin-bottom: 15px; /* Adjust margin-bottom for smaller screens */
     }
 
     p {
