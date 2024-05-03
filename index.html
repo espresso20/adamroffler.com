@@ -8,31 +8,16 @@
 </head>
 <body>
     <div class="top-right-buttons" >
-        <button id="theme-toggle">Dark Mode</button>
         <a href="aws-cloud.html"><button>AWS Cloud</button></a>
     </div>
     <div class="profile-container">
         <img class="profile-image" src="profile-image.jpg" alt="Profile Photo">
     </div>
     <div class="container">
-        <h1>Adam Roffler</h1>
-        <p>Senior Cloud Engineer @ EverBright</p>
-        <p>Email: <a href="mailto:espresso20@pm.me">espresso20@pm.me</a></p>
+        <h1>Hi! I'm Adam Roffler</h1>
+        <p>DevOps Engineer / Cloud Architect</p>
         <p>Website: <a href="http://www.adamroffler.com">www.adamroffler.com</a></p>
     </div>
 
-    <script>
-        const toggleButton = document.getElementById('theme-toggle');
-        const body = document.body;
-
-        toggleButton.addEventListener('click', () => {
-            body.classList.toggle('dark-theme');
-            if (body.classList.contains('dark-theme')) {
-                toggleButton.textContent = 'Light Mode';
-            } else {
-                toggleButton.textContent = 'Dark Mode';
-            }
-        });
-    </script>
 </body>
 </html>
