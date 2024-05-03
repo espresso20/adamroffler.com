@@ -61,8 +61,7 @@ a {
 
 button {
     background-color: transparent; /* Set background color to transparent */
-    color: #007bff; /* Set text color */
-    border: 1px solid #007bff; /* Add border */
+    color: #EBEDEF; /* Set text color */
     padding: 8px 16px;
     border-radius: 5px;
     cursor: pointer;
