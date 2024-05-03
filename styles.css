@@ -52,6 +52,12 @@ a {
     text-decoration: none;
 }
 
+.top-right-buttons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
 #theme-toggle {
     background-color: #333;
     color: #fff;
@@ -59,10 +65,8 @@ a {
     padding: 8px 16px;
     border-radius: 5px;
     cursor: pointer;
-    position: absolute;
-    top: 10px;
-    right: 10px;
     font-size: 0.8rem;
+    margin-right: 10px;
 }
 
 #theme-toggle:hover {
