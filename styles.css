@@ -50,12 +50,12 @@ body {
 }
 
 h1 {
-    font-size: 5.0rem; /* Increase font size for the header */
-    margin-bottom: 50px; /* Increase margin-bottom to create space between header and paragraphs */
+    font-size: 4.0rem; /* Increase font size for the header */
+    margin-bottom: 30px; /* Increase margin-bottom to create space between header and paragraphs */
     text-align: center;
     position: absolute;
     top: 20px; /* Adjust the distance from the top */
-    left: 50%;
+    left: 40%;
 /*    transform: translateX(-50%);*/
 }
 
