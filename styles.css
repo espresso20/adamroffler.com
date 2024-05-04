@@ -100,8 +100,13 @@ button:hover {
         padding: 10px;
     }
 
+    body {
+        background-size: contain; /* Adjust background size for smaller screens */
+    }
+
     h1 {
         position: static; /* Reset positioning for smaller screens */
+        font-size: 2rem;
         margin-top: 20px; /* Adjust margin instead of absolute positioning */
         text-align: center; /* Center align the title */
     }
