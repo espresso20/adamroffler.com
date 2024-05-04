@@ -101,11 +101,15 @@ button:hover {
     }
 
     h1 {
-        font-size: 2rem; /* Adjust font size for smaller screens */
-        margin-bottom: 15px; /* Adjust margin-bottom for smaller screens */
+        position: static; /* Reset positioning for smaller screens */
+        margin-top: 20px; /* Adjust margin instead of absolute positioning */
+        text-align: center; /* Center align the title */
     }
 
     p {
+        position: static;
+        margin-top: 80px;
+        text-align: center;
         font-size: 1rem;
         margin-bottom: 10px;
     }
