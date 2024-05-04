@@ -64,7 +64,7 @@ p {
     margin-bottom: 20px;
     text-align: center;
     position: absolute;
-    top: 80px; /* Adjust the distance from the top */
+    top: 100px; /* Adjust the distance from the top */
     left: 40%;
 }
 
