@@ -10,6 +10,10 @@ body {
     align-items: center;
     height: 100vh;
     position: relative;
+    background-image: url('cloud.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .profile-container {
