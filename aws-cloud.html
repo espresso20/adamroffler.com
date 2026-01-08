@@ -3,17 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cloud</title>
+    <meta name="description" content="Adam Roffler - Cloud Projects & Infrastructure">
+    <title>Cloud Projects | Adam Roffler</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="top-right-buttons">
-        <a href="index.html"><button>Home</button></a>
-    </div>
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <i class="fas fa-moon"></i>
+    </button>
 
-    <h1>Cloud</h1>
-    <!-- Add your content here -->
+    <!-- Back to Home -->
+    <nav class="nav-menu" id="navMenu">
+        <ul>
+            <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+        </ul>
+    </nav>
 
-    
+    <!-- Cloud Section -->
+    <section class="section" style="min-height: 100vh; display: flex; align-items: center;">
+        <div class="container">
+            <h1 class="section-title" data-aos="fade-up">Cloud Projects</h1>
+
+            <div class="about-content glass-card" data-aos="fade-up" data-aos-delay="100" style="margin-bottom: 40px;">
+                <div class="about-text">
+                    <p style="text-align: center;">
+                        A collection of my cloud infrastructure projects, automation scripts,
+                        and architecture designs. From multi-region deployments to serverless
+                        architectures, these projects showcase real-world cloud solutions.
+                    </p>
+                </div>
+            </div>
+
+            <div class="skills-grid">
+                <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="150">
+                    <div class="skill-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3>Multi-Region Architecture</h3>
+                    <p>Designed and deployed highly available infrastructure across multiple AWS regions with automated failover</p>
+                </div>
+
+                <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="skill-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3>Serverless Solutions</h3>
+                    <p>Built cost-effective serverless applications using Lambda, API Gateway, and DynamoDB</p>
+                </div>
+
+                <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="250">
+                    <div class="skill-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3>VPC & Networking</h3>
+                    <p>Complex VPC designs with Transit Gateway, PrivateLink, and hybrid cloud connectivity</p>
+                </div>
+
+                <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="skill-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Database Migration</h3>
+                    <p>Zero-downtime database migrations from on-premises to RDS and Aurora with DMS</p>
+                </div>
+
+                <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="350">
+                    <div class="skill-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Security & Compliance</h3>
+                    <p>Implemented security best practices with IAM, KMS, GuardDuty, and compliance automation</p>
+                </div>
+
+                <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="skill-icon">
+                        <i class="fas fa-chart-area"></i>
+                    </div>
+                    <h3>Cost Optimization</h3>
+                    <p>Reduced cloud spend by 40% through rightsizing, reserved instances, and spot instances</p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 60px;" data-aos="fade-up" data-aos-delay="450">
+                <a href="index.html#contact" class="btn btn-primary">
+                    <i class="fas fa-envelope"></i> Get In Touch
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Adam Roffler. Built with passion and automation.</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>

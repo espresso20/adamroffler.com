@@ -3,17 +3,261 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adam Roffler</title>
+    <meta name="description" content="Adam Roffler - DevOps Engineer, Cloud Architect & Automation Enthusiast">
+    <meta name="author" content="Adam Roffler">
+    <title>Adam Roffler | DevOps Engineer & Cloud Architect</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="top-right-buttons" >
-        <a href="aws-cloud.html"><button>Cloud</button></a>
-    </div>
-    <div class="container">
-        <h1>Hello, I'm Adam Roffler.</h1>
-        <p>{  DevOps Engineer  /  Cloud Architect  /  Automation Enthusiast  }</p>
-    </div>
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <i class="fas fa-moon"></i>
+    </button>
 
+    <!-- Navigation -->
+    <nav class="nav-menu" id="navMenu">
+        <ul>
+            <li><a href="#home" class="nav-link active">Home</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#skills" class="nav-link">Skills</a></li>
+            <li><a href="#experience" class="nav-link">Experience</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background"></div>
+        <div class="hero-content">
+            <div class="profile-image-container">
+                <img src="profile-image.jpg" alt="Adam Roffler" class="profile-image">
+            </div>
+            <h1 class="hero-title">
+                <span class="greeting">Hello, I'm</span>
+                <span class="name">Adam Roffler</span>
+            </h1>
+            <div class="hero-subtitle">
+                <span class="typed-text"></span>
+                <span class="cursor">|</span>
+            </div>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                <a href="#about" class="btn btn-secondary">Learn More</a>
+            </div>
+            <div class="scroll-indicator">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">About Me</h2>
+            <div class="about-content glass-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="about-text">
+                    <p>
+                        I'm a passionate DevOps Engineer and Cloud Architect with a deep love for automation
+                        and infrastructure optimization. I specialize in building scalable, reliable, and
+                        secure cloud solutions that drive business value.
+                    </p>
+                    <p>
+                        My expertise spans across cloud platforms, containerization, CI/CD pipelines, and
+                        infrastructure as code. I believe in the power of automation to transform workflows
+                        and enable teams to focus on what matters most - innovation.
+                    </p>
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <div class="stat-number" data-target="5">0</div>
+                            <div class="stat-label">Years Experience</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-target="50">0</div>
+                            <div class="stat-label">Projects Completed</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-target="100">0</div>
+                            <div class="stat-label">Deployments</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Tech Stack</h2>
+            <div class="skills-grid">
+                <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="skill-icon">
+                        <i class="fab fa-aws"></i>
+                    </div>
+                    <h3>AWS</h3>
+                    <p>EC2, Lambda, S3, CloudFormation, ECS, EKS</p>
+                </div>
+                <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="150">
+                    <div class="skill-icon">
+                        <i class="fab fa-docker"></i>
+                    </div>
+                    <h3>Docker</h3>
+                    <p>Containerization, Docker Compose, Multi-stage builds</p>
+                </div>
+                <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="skill-icon">
+                        <i class="fas fa-dharmachakra"></i>
+                    </div>
+                    <h3>Kubernetes</h3>
+                    <p>Orchestration, Helm, Service Mesh, GitOps</p>
+                </div>
+                <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="250">
+                    <div class="skill-icon">
+                        <i class="fas fa-code-branch"></i>
+                    </div>
+                    <h3>CI/CD</h3>
+                    <p>Jenkins, GitLab CI, GitHub Actions, ArgoCD</p>
+                </div>
+                <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="skill-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3>Infrastructure as Code</h3>
+                    <p>Terraform, Ansible, CloudFormation, Pulumi</p>
+                </div>
+                <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="350">
+                    <div class="skill-icon">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <h3>Scripting</h3>
+                    <p>Python, Bash, PowerShell, Go</p>
+                </div>
+                <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="skill-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Monitoring</h3>
+                    <p>Prometheus, Grafana, ELK Stack, Datadog</p>
+                </div>
+                <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="450">
+                    <div class="skill-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Security</h3>
+                    <p>DevSecOps, Vault, SIEM, Compliance</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Experience Highlights</h2>
+            <div class="timeline">
+                <div class="timeline-item glass-card" data-aos="fade-right">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>Cloud Architecture & Migration</h3>
+                        <p class="timeline-description">
+                            Designed and executed large-scale cloud migrations, reducing infrastructure
+                            costs by 40% while improving performance and reliability.
+                        </p>
+                        <div class="timeline-tags">
+                            <span class="tag">AWS</span>
+                            <span class="tag">Terraform</span>
+                            <span class="tag">Migration</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item glass-card" data-aos="fade-left">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>CI/CD Pipeline Optimization</h3>
+                        <p class="timeline-description">
+                            Implemented automated deployment pipelines reducing deployment time from
+                            hours to minutes, with zero-downtime releases.
+                        </p>
+                        <div class="timeline-tags">
+                            <span class="tag">Jenkins</span>
+                            <span class="tag">GitLab CI</span>
+                            <span class="tag">ArgoCD</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item glass-card" data-aos="fade-right">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>Kubernetes Orchestration</h3>
+                        <p class="timeline-description">
+                            Built and maintained Kubernetes clusters serving millions of requests,
+                            implementing auto-scaling and disaster recovery strategies.
+                        </p>
+                        <div class="timeline-tags">
+                            <span class="tag">K8s</span>
+                            <span class="tag">Helm</span>
+                            <span class="tag">Monitoring</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item glass-card" data-aos="fade-left">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>Infrastructure Automation</h3>
+                        <p class="timeline-description">
+                            Automated infrastructure provisioning and configuration management,
+                            reducing manual effort by 80% and eliminating configuration drift.
+                        </p>
+                        <div class="timeline-tags">
+                            <span class="tag">Ansible</span>
+                            <span class="tag">Terraform</span>
+                            <span class="tag">Python</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-text glass-card" data-aos="fade-up" data-aos-delay="100">
+                    <p>
+                        I'm always open to discussing new projects, creative ideas, or opportunities
+                        to be part of your vision. Feel free to reach out!
+                    </p>
+                </div>
+                <div class="social-links" data-aos="fade-up" data-aos-delay="200">
+                    <a href="mailto:adam@example.com" class="social-link glass-card" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                        <span>Email</span>
+                    </a>
+                    <a href="https://linkedin.com/in/adamroffler" target="_blank" class="social-link glass-card" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="https://github.com/adamroffler" target="_blank" class="social-link glass-card" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                        <span>GitHub</span>
+                    </a>
+                    <a href="aws-cloud.html" class="social-link glass-card" aria-label="Cloud">
+                        <i class="fas fa-cloud"></i>
+                        <span>Cloud</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Adam Roffler. Built with passion and automation.</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
