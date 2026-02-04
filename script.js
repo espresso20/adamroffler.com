@@ -76,11 +76,11 @@ const typedTextSpan = document.querySelector('.typed-text');
 const cursorSpan = document.querySelector('.cursor');
 
 const textArray = [
-    'DevOps Engineer',
-    'Cloud Architect',
-    'Automation Enthusiast',
-    'Infrastructure Optimizer',
-    'CI/CD Specialist'
+    'Principal DevOps Engineer',
+    'Multi-Cloud Architect',
+    'Infrastructure Automation Expert',
+    'Datacenter to Serverless',
+    'Enterprise Solutions Architect'
 ];
 const typingDelay = 100;
 const erasingDelay = 50;
