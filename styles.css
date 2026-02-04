@@ -601,14 +601,35 @@ body {
 /* ============================================
    Responsive Design
    ============================================ */
+/* ============================================
+   Tablet & Mobile Responsive (768px and below)
+   ============================================ */
 @media (max-width: 768px) {
+    /* Navigation - More compact for tablets */
+    .nav-menu {
+        padding: 8px 15px;
+        max-width: 90%;
+    }
+
     .nav-menu ul {
-        gap: 5px;
+        gap: 3px;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     .nav-link {
         padding: 8px 12px;
-        font-size: 0.85rem;
+        font-size: 0.8rem;
+    }
+
+    /* Hero Section */
+    .hero {
+        padding: 80px 20px 40px;
+    }
+
+    .profile-image-container {
+        width: 160px;
+        height: 160px;
     }
 
     .name {
@@ -620,22 +641,54 @@ body {
     }
 
     .hero-subtitle {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
+        min-height: 50px;
     }
 
     .hero-buttons {
         flex-direction: column;
         gap: 15px;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 14px 30px;
+        font-size: 0.95rem;
+    }
+
+    /* Sections */
+    .section {
+        padding: 60px 20px;
     }
 
     .section-title {
         font-size: 2rem;
+        margin-bottom: 30px;
     }
 
+    /* About Section */
+    .about-text p {
+        font-size: 0.95rem;
+        margin-bottom: 15px;
+    }
+
+    /* Skills Grid - Single column */
     .skills-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
 
+    .skill-card {
+        padding: 25px;
+    }
+
+    .skill-icon {
+        font-size: 2.5rem;
+    }
+
+    /* Timeline - Single column layout */
     .timeline::before {
         left: 20px;
     }
@@ -650,46 +703,244 @@ body {
         left: -30px !important;
     }
 
-    .about-stats {
-        grid-template-columns: 1fr;
-        gap: 20px;
+    .timeline-content h3 {
+        font-size: 1.3rem;
     }
 
+    .timeline-company {
+        font-size: 0.9rem;
+    }
+
+    .timeline-description {
+        font-size: 0.9rem;
+    }
+
+    /* Contact Section */
     .social-links {
         grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .social-link {
+        padding: 20px;
     }
 }
 
+/* ============================================
+   Mobile Phones (480px and below)
+   ============================================ */
 @media (max-width: 480px) {
+    /* Base font size reduction */
+    html {
+        font-size: 14px;
+    }
+
+    /* Navigation - Smaller & scrollable if needed */
     .nav-menu {
-        padding: 8px 15px;
+        padding: 6px 10px;
+        max-width: 95%;
+        overflow-x: auto;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE/Edge */
+    }
+
+    .nav-menu::-webkit-scrollbar {
+        display: none; /* Chrome/Safari */
+    }
+
+    .nav-menu ul {
+        gap: 2px;
+        flex-wrap: nowrap;
     }
 
     .nav-link {
-        padding: 6px 10px;
-        font-size: 0.8rem;
+        padding: 8px 10px;
+        font-size: 0.75rem;
+        white-space: nowrap;
+        min-width: 60px;
     }
 
+    /* Theme Toggle */
     .theme-toggle {
         width: 45px;
         height: 45px;
         font-size: 1rem;
+        top: 15px;
+        right: 15px;
     }
 
-    .name {
-        font-size: 2rem;
+    /* Hero Section */
+    .hero {
+        min-height: 90vh;
+        padding: 100px 20px 40px;
     }
 
     .profile-image-container {
-        width: 140px;
-        height: 140px;
+        width: 120px;
+        height: 120px;
+        margin-bottom: 20px;
     }
 
+    .name {
+        font-size: 1.8rem;
+        line-height: 1.2;
+    }
+
+    .greeting {
+        font-size: 1rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.1rem;
+        min-height: 45px;
+        margin-bottom: 30px;
+    }
+
+    .hero-buttons {
+        gap: 12px;
+        max-width: 100%;
+    }
+
+    .btn {
+        padding: 14px 25px;
+        font-size: 0.9rem;
+        /* Ensure minimum 44px touch target */
+        min-height: 44px;
+    }
+
+    .scroll-indicator {
+        font-size: 1.5rem;
+        bottom: 20px;
+    }
+
+    /* Sections */
     .section {
-        padding: 60px 15px;
+        padding: 50px 15px;
+    }
+
+    .section-title {
+        font-size: 1.75rem;
+        margin-bottom: 25px;
+    }
+
+    /* About Section */
+    .about-text p {
+        font-size: 0.9rem;
+        line-height: 1.7;
+        margin-bottom: 15px;
+    }
+
+    /* Skills Cards */
+    .skill-card {
+        padding: 20px;
+    }
+
+    .skill-icon {
+        font-size: 2rem;
+        margin-bottom: 12px;
+    }
+
+    .skill-card h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+
+    .skill-card p {
+        font-size: 0.85rem;
+        line-height: 1.6;
+    }
+
+    /* Timeline */
+    .timeline-item {
+        margin-left: 35px !important;
+        padding-left: 15px;
+        margin-bottom: 30px;
+    }
+
+    .timeline-content {
+        padding: 20px;
+    }
+
+    .timeline-content h3 {
+        font-size: 1.15rem;
+        margin-bottom: 6px;
+    }
+
+    .timeline-company {
+        font-size: 0.85rem;
+        margin-bottom: 10px;
+    }
+
+    .timeline-description {
+        font-size: 0.85rem;
+        line-height: 1.6;
+        margin-bottom: 15px;
+    }
+
+    .timeline-tags {
+        gap: 6px;
+    }
+
+    .tag {
+        padding: 4px 10px;
+        font-size: 0.75rem;
+    }
+
+    /* Contact Section */
+    .contact-text {
+        padding: 20px;
+        font-size: 0.9rem;
     }
 
     .social-links {
         grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .social-link {
+        padding: 18px;
+        /* Ensure minimum 44px touch target */
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .social-link i {
+        font-size: 1.2rem;
+    }
+
+    .social-link span {
+        font-size: 0.95rem;
+    }
+
+    /* Footer */
+    .footer {
+        padding: 25px 15px;
+        font-size: 0.85rem;
+    }
+}
+
+/* ============================================
+   Very Small Phones (360px and below)
+   ============================================ */
+@media (max-width: 360px) {
+    .name {
+        font-size: 1.6rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .nav-link {
+        padding: 8px 8px;
+        font-size: 0.7rem;
+        min-width: 55px;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
     }
 }
