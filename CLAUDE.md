@@ -88,5 +88,5 @@ The repository has two Claude Code GitHub Actions:
 
 - Contact email (index.html): `espresso20@pm.me`
 - LinkedIn URL points to: `https://www.linkedin.com/in/adam-roffler/`
-- GitHub URL points to: `https://github.com/adamroffler`
+- GitHub URL points to: `https://github.com/espresso20`
 - Years of experience counter (index.html:74) has data-target="16"
