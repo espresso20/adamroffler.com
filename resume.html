@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Adam Roffler - Resume | Principal Cloud / DevOps Engineer | AWS Architecture | Security | Automation">
+    <meta name="author" content="Adam Roffler">
+    <title>Adam Roffler | Resume</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Navigation -->
+    <nav class="nav-menu" id="navMenu">
+        <ul>
+            <li><a href="index.html" class="nav-link"><i class="fas fa-arrow-left" style="margin-right: 5px;"></i>Home</a></li>
+            <li><a href="#experience" class="nav-link">Experience</a></li>
+            <li><a href="#skills" class="nav-link">Skills</a></li>
+            <li><a href="#certifications" class="nav-link">Certs</a></li>
+            <li><a href="#education" class="nav-link">Education</a></li>
+        </ul>
+    </nav>
+
+    <!-- Download Button (Fixed) -->
+    <a href="adam-roffler-resume.pdf" download class="download-fab" aria-label="Download Resume PDF">
+        <i class="fas fa-download"></i>
+        <span>Download PDF</span>
+    </a>
+
+    <!-- Resume Header -->
+    <section class="resume-hero">
+        <div class="container">
+            <div class="resume-header glass-card" data-aos="fade-up">
+                <h1 class="resume-name">Adam Roffler</h1>
+                <p class="resume-title">Principal Cloud / DevOps Engineer | AWS Architecture | Security | Automation</p>
+                <div class="resume-contact-row">
+                    <a href="mailto:espresso20@pm.me"><i class="fas fa-envelope"></i> espresso20@pm.me</a>
+                    <a href="https://www.linkedin.com/in/adam-roffler/" target="_blank"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+                    <a href="https://github.com/espresso20" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    <span><i class="fas fa-map-marker-alt"></i> Bonners Ferry, ID</span>
+                    <span><i class="fas fa-phone"></i> (509) 844-2201</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Experience</h2>
+
+            <div class="resume-job glass-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="resume-job-header">
+                    <div>
+                        <h3>Principal Cloud Ops Engineer</h3>
+                        <p class="resume-company">EverBright <span class="resume-location">| Remote</span></p>
+                    </div>
+                    <span class="resume-dates">Dec 2024 - Feb 2026</span>
+                </div>
+                <ul class="resume-bullets">
+                    <li>Served as subject matter expert on cloud architecture and security, advising cross-functional teams and leadership on AWS design decisions and strategic direction</li>
+                    <li>Designed and built enterprise cloud architectures in AWS, managing 10+ accounts using Control Tower and AWS Organizations for governance and compliance at scale</li>
+                    <li>Architected disaster recovery solutions across distributed multi-account environments, ensuring business continuity and minimal downtime</li>
+                    <li>Designed and deployed enterprise security solutions using GuardDuty, Security Hub, and Systems Manager with built-in redundancy and automated remediation</li>
+                    <li>Owned network security architecture, including B2B VPN tunnel design and implementation between business units</li>
+                    <li>Administered a large-scale enterprise GitHub organization, managing repository access, branching strategies, and CI/CD standards</li>
+                    <li>Developed infrastructure-as-code strategies using Terraform and CloudFormation for automated provisioning and compliance enforcement</li>
+                    <li>Built custom automation tooling in Python and Go to streamline operations, monitoring, and incident response</li>
+                    <li>Managed containerized workloads on large-scale EKS clusters with automated deployment pipelines</li>
+                    <li>Implemented CI/CD pipelines via GitHub Actions with automated testing and security scanning across multiple accounts</li>
+                </ul>
+            </div>
+
+            <div class="resume-job glass-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="resume-job-header">
+                    <div>
+                        <h3>Senior DevOps Engineer</h3>
+                        <p class="resume-company">EverBright <span class="resume-location">| Florida (Remote)</span></p>
+                    </div>
+                    <span class="resume-dates">Dec 2022 - Dec 2024</span>
+                </div>
+                <ul class="resume-bullets">
+                    <li>Developed and maintained large-scale Terraform and CloudFormation stacks for enterprise AWS infrastructure</li>
+                    <li>Built automation tooling in Python and Go to enhance cross-team workflows and operational efficiency</li>
+                    <li>Designed serverless automation with AWS Lambda for patching, credential management, and agent deployment across AWS and Azure</li>
+                    <li>Managed CI/CD pipelines and code review processes via GitHub, enforcing standards across development teams</li>
+                </ul>
+            </div>
+
+            <div class="resume-job glass-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="resume-job-header">
+                    <div>
+                        <h3>Senior DevOps Cloud Engineer</h3>
+                        <p class="resume-company">Aon <span class="resume-location">| Spokane-CDA Area (Remote)</span></p>
+                    </div>
+                    <span class="resume-dates">Feb 2020 - Nov 2022</span>
+                </div>
+                <ul class="resume-bullets">
+                    <li>Developed enterprise-level Terraform deployments for AWS hub/spoke account models at organizational scale</li>
+                    <li>Architected Infrastructure-as-Code solutions with Terraform and CloudFormation for cross-team development projects</li>
+                    <li>Designed Lambda-based automation for patching, keystore management, credential stores, and cross-cloud agent deployment (AWS/Azure)</li>
+                    <li>SME on AWS SAM and AWS SSM Automation processes and deployments</li>
+                    <li>Built automated deployment pipelines from GitLab CI/CD to JFrog Artifactory for large business units</li>
+                    <li>Created reusable Terraform module libraries adopted by teams across the AWS organization</li>
+                    <li>Built scaled developer platforms with Terraform including ECS clusters, API Gateway, Lambda, Aurora DB, and CI/CD pipelines</li>
+                </ul>
+            </div>
+
+            <div class="resume-job glass-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="resume-job-header">
+                    <div>
+                        <h3>Senior DevOps Engineer</h3>
+                        <p class="resume-company">2nd Watch <span class="resume-location">| Liberty Lake, WA</span></p>
+                    </div>
+                    <span class="resume-dates">May 2019 - Feb 2020</span>
+                </div>
+                <ul class="resume-bullets">
+                    <li>Lead engineer on enterprise patching solution built on AWS Systems Manager, automated with CodePipeline and CodeBuild, patching thousands of instances at scale</li>
+                    <li>Subject-matter-expert on AWS SAM and SSM Automation; developed serverless architecture on SAM/SAR for client deployments</li>
+                    <li>Wrote extensive Python Lambda functions for critical business automation</li>
+                    <li>Led internal effort to create a fully reusable Terraform module library</li>
+                </ul>
+            </div>
+
+            <div class="resume-job glass-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="resume-job-header">
+                    <div>
+                        <h3>DevOps Engineer</h3>
+                        <p class="resume-company">2nd Watch <span class="resume-location">| Liberty Lake, WA</span></p>
+                    </div>
+                    <span class="resume-dates">Dec 2017 - Apr 2019</span>
+                </div>
+                <ul class="resume-bullets">
+                    <li>Developed Lambda and SSM automation to reduce manual engineering overhead across multiple teams</li>
+                    <li>Designed and wrote automation scripts for Ansible and other platforms supporting production-facing infrastructure</li>
+                </ul>
+            </div>
+
+            <div class="resume-job glass-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="resume-job-header">
+                    <div>
+                        <h3>Platform Services Engineer</h3>
+                        <p class="resume-company">2nd Watch <span class="resume-location">| Liberty Lake, WA</span></p>
+                    </div>
+                    <span class="resume-dates">Feb 2017 - Dec 2017</span>
+                </div>
+                <ul class="resume-bullets">
+                    <li>Led client migration from legacy agent-based platforms to modern IAC-deployed systems using CloudFormation and Terraform</li>
+                    <li>Developed automated deployment processes for third-party security tools (AlertLogic, TrendMicro, Opsramp) using Ansible, Shell, and SSM</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Technology & Skills</h2>
+            <div class="resume-skills-grid">
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+                    <h3><i class="fas fa-microchip" style="color: var(--accent-primary); margin-right: 10px;"></i>Technology</h3>
+                    <div class="resume-tag-grid">
+                        <span class="tag">AWS (Expert)</span>
+                        <span class="tag">Cloud Security</span>
+                        <span class="tag">Terraform / Terragrunt</span>
+                        <span class="tag">CloudFormation</span>
+                        <span class="tag">Kubernetes / Docker</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">Go</span>
+                        <span class="tag">GitHub / GitHub Actions</span>
+                        <span class="tag">GitLab CI/CD</span>
+                        <span class="tag">Linux / Windows Server</span>
+                        <span class="tag">Infrastructure as Code</span>
+                        <span class="tag">AWS Lambda / SAM / SSM</span>
+                        <span class="tag">ECS / API Gateway</span>
+                        <span class="tag">GuardDuty / Security Hub</span>
+                        <span class="tag">Control Tower / Organizations</span>
+                        <span class="tag">Datadog</span>
+                    </div>
+                </div>
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <h3><i class="fas fa-star" style="color: var(--accent-primary); margin-right: 10px;"></i>Top Skills</h3>
+                    <ul class="resume-skills-list">
+                        <li>Cloud Architecture & Design</li>
+                        <li>DevOps & Automation</li>
+                        <li>Enterprise Security</li>
+                        <li>Infrastructure as Code</li>
+                        <li>CI/CD Pipeline Design</li>
+                        <li>Cross-team Technical Leadership</li>
+                        <li>Disaster Recovery Planning</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Certifications</h2>
+            <div class="resume-certs-grid">
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="resume-cert-item">
+                        <i class="fab fa-aws" style="font-size: 2rem;"></i>
+                        <div>
+                            <strong>AWS Cloud Practitioner</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="150">
+                    <div class="resume-cert-item">
+                        <i class="fab fa-aws" style="font-size: 2rem;"></i>
+                        <div>
+                            <strong>AWS Associate Architect</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="resume-cert-item">
+                        <i class="fab fa-aws" style="font-size: 2rem;"></i>
+                        <div>
+                            <strong>AWS Associate Developer</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="250">
+                    <div class="resume-cert-item">
+                        <i class="fab fa-aws" style="font-size: 2rem;"></i>
+                        <div>
+                            <strong>AWS Associate SysOps</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="resume-cert-item">
+                        <i class="fab fa-microsoft" style="font-size: 2rem;"></i>
+                        <div>
+                            <strong>Microsoft Azure Fundamentals</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="350">
+                    <div class="resume-cert-item">
+                        <i class="fas fa-cube" style="font-size: 2rem;"></i>
+                        <div>
+                            <strong>VMware VCA 6 - DCV</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Education</h2>
+            <div class="resume-job glass-card" data-aos="fade-up" data-aos-delay="100" style="max-width: 700px; margin: 0 auto;">
+                <div class="resume-job-header">
+                    <div>
+                        <h3>Colorado Tech</h3>
+                        <p class="resume-company">Business Math, English, and Business Analytics</p>
+                    </div>
+                    <span class="resume-dates">2010 - 2011</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Adam Roffler. Built with passion and automation.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

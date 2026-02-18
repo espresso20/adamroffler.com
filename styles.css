@@ -553,6 +553,301 @@ body {
 }
 
 /* ============================================
+   Resume Page
+   ============================================ */
+.resume-hero {
+    padding: 120px 20px 40px;
+}
+
+.resume-header {
+    text-align: center;
+    padding: 50px 40px;
+}
+
+.resume-header:hover {
+    transform: none;
+}
+
+.resume-name {
+    font-size: 3rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+}
+
+.resume-title {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    margin-bottom: 25px;
+    font-weight: 400;
+}
+
+.resume-contact-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.resume-contact-row a,
+.resume-contact-row span {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.resume-contact-row a:hover {
+    color: var(--accent-primary);
+}
+
+.resume-contact-row i {
+    margin-right: 5px;
+    color: var(--accent-primary);
+}
+
+.resume-job {
+    margin-bottom: 25px;
+}
+
+.resume-job:hover {
+    transform: none;
+}
+
+.resume-job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    gap: 15px;
+}
+
+.resume-job-header h3 {
+    font-size: 1.4rem;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.resume-company {
+    color: var(--accent-primary);
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.resume-location {
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+.resume-dates {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    white-space: nowrap;
+    padding-top: 4px;
+}
+
+.resume-bullets {
+    list-style: none;
+    padding: 0;
+}
+
+.resume-bullets li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 10px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+.resume-bullets li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-primary);
+}
+
+.resume-skills-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 30px;
+}
+
+.resume-skills-grid h3 {
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+}
+
+.resume-skills-grid .glass-card:hover {
+    transform: none;
+}
+
+.resume-tag-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.resume-skills-list {
+    list-style: none;
+    padding: 0;
+}
+
+.resume-skills-list li {
+    padding: 8px 0;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--glass-border);
+    font-size: 0.95rem;
+}
+
+.resume-skills-list li:last-child {
+    border-bottom: none;
+}
+
+.resume-certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.resume-certs-grid .glass-card {
+    padding: 20px 25px;
+}
+
+.resume-certs-grid .glass-card:hover {
+    transform: none;
+}
+
+.resume-cert-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.resume-cert-item i {
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.resume-cert-item strong {
+    color: var(--text-primary);
+    font-size: 0.95rem;
+}
+
+/* Download FAB Button */
+.download-fab {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 25px;
+    background: var(--accent-gradient);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.download-fab:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+}
+
+.download-fab i {
+    font-size: 1.1rem;
+}
+
+/* Resume Responsive */
+@media (max-width: 768px) {
+    .resume-hero {
+        padding: 100px 15px 20px;
+    }
+
+    .resume-header {
+        padding: 30px 20px;
+    }
+
+    .resume-name {
+        font-size: 2.2rem;
+    }
+
+    .resume-title {
+        font-size: 0.95rem;
+    }
+
+    .resume-contact-row {
+        gap: 12px;
+        font-size: 0.85rem;
+    }
+
+    .resume-job-header {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .resume-job-header h3 {
+        font-size: 1.2rem;
+    }
+
+    .resume-skills-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .resume-certs-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .download-fab span {
+        display: none;
+    }
+
+    .download-fab {
+        width: 55px;
+        height: 55px;
+        padding: 0;
+        justify-content: center;
+        border-radius: 50%;
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .download-fab i {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .resume-name {
+        font-size: 1.8rem;
+    }
+
+    .resume-contact-row {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .resume-bullets li {
+        font-size: 0.85rem;
+    }
+}
+
+/* ============================================
    Animations
    ============================================ */
 @keyframes fadeInDown {
