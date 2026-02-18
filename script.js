@@ -35,8 +35,9 @@ const sections = document.querySelectorAll('section[id]');
 
 navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
-        e.preventDefault();
         const targetId = link.getAttribute('href');
+        if (!targetId.startsWith('#')) return;
+        e.preventDefault();
         const targetSection = document.querySelector(targetId);
 
         if (targetSection) {
