@@ -336,84 +336,137 @@ if (particleCanvas) {
 }
 
 // ============================================
-// Interactive Terminal
+// Interactive Terminal (loops through scenarios)
 // ============================================
 const terminalBody = document.getElementById('terminalBody');
 
 if (terminalBody) {
-    const terminalCommands = [
-        {
-            cmd: 'aws sts get-caller-identity',
-            output: `{
+    const scenarios = [
+        [
+            {
+                cmd: 'aws sts get-caller-identity',
+                output: `{
     <span class="key">"UserId"</span>: <span class="value">"AROA3XFRBF47CLOUD0PS"</span>,
     <span class="key">"Account"</span>: <span class="value">"**** **** 9420"</span>,
     <span class="key">"Arn"</span>: <span class="value">"arn:aws:iam::role/PrincipalCloudOps"</span>
 }`
-        },
-        {
-            cmd: 'terraform --version',
-            output: `Terraform v1.9.5
-on darwin_arm64
-+ provider registry.terraform.io/hashicorp/aws v5.82.0`
-        },
-        {
-            cmd: 'kubectl get nodes --no-headers | wc -l',
-            output: `24 nodes ready`
-        }
+            },
+            {
+                cmd: 'aws organizations list-accounts --query "length(Accounts)"',
+                output: `<span class="value">12</span>`
+            }
+        ],
+        [
+            {
+                cmd: 'terraform plan -out=infra.tfplan',
+                output: `Plan: <span class="value">14 to add</span>, 2 to change, 0 to destroy.`
+            },
+            {
+                cmd: 'terraform apply infra.tfplan',
+                output: `<span class="value">Apply complete!</span> Resources: 14 added, 2 changed, 0 destroyed.`
+            }
+        ],
+        [
+            {
+                cmd: 'kubectl get nodes -o wide | head -5',
+                output: `NAME          STATUS   ROLES    VERSION    AGE
+eks-node-01   <span class="value">Ready</span>    &lt;none&gt;   v1.29.3    42d
+eks-node-02   <span class="value">Ready</span>    &lt;none&gt;   v1.29.3    42d
+eks-node-03   <span class="value">Ready</span>    &lt;none&gt;   v1.29.3    42d`
+            },
+            {
+                cmd: 'kubectl get pods -A --field-selector=status.phase=Running | wc -l',
+                output: `<span class="value">186</span> pods running`
+            }
+        ],
+        [
+            {
+                cmd: 'aws guardduty list-findings --query "length(FindingIds)"',
+                output: `<span class="value">0</span> active findings`
+            },
+            {
+                cmd: 'aws securityhub get-findings --query "Findings[?Severity.Label==\'CRITICAL\'] | length(@)"',
+                output: `<span class="value">0</span> critical findings`
+            }
+        ],
+        [
+            {
+                cmd: 'gh repo list --limit 5 --json name -q ".[].name"',
+                output: `infra-modules
+ci-cd-pipelines
+security-automation
+eks-platform
+lambda-toolkit`
+            },
+            {
+                cmd: 'gh run list --limit 3 --json status,conclusion -q ".[] | .status + \\": \\" + .conclusion"',
+                output: `completed: <span class="value">success</span>
+completed: <span class="value">success</span>
+completed: <span class="value">success</span>`
+            }
+        ]
     ];
 
-    let cmdIndex = 0;
+    let scenarioIndex = 0;
+    let terminalStarted = false;
 
-    function typeCommand(cmdObj, lineEl, callback) {
-        const cmdSpan = lineEl.querySelector('.terminal-command');
+    function typeCommand(cmdObj, callback) {
+        const newLine = document.createElement('div');
+        newLine.className = 'terminal-line';
+        newLine.innerHTML = '<span class="terminal-prompt">$</span><span class="terminal-command"></span>';
+        terminalBody.appendChild(newLine);
+
+        const cmdSpan = newLine.querySelector('.terminal-command');
         let i = 0;
         const interval = setInterval(() => {
             cmdSpan.textContent += cmdObj.cmd.charAt(i);
             i++;
             if (i >= cmdObj.cmd.length) {
                 clearInterval(interval);
-                setTimeout(callback, 400);
+                setTimeout(() => {
+                    const outputDiv = document.createElement('div');
+                    outputDiv.className = 'terminal-output';
+                    outputDiv.innerHTML = cmdObj.output;
+                    terminalBody.appendChild(outputDiv);
+                    callback();
+                }, 400);
             }
-        }, 40);
+        }, 30);
     }
 
-    function showOutput(cmdObj) {
-        const outputDiv = document.createElement('div');
-        outputDiv.className = 'terminal-output';
-        outputDiv.innerHTML = cmdObj.output;
-        terminalBody.appendChild(outputDiv);
-    }
+    function runScenario() {
+        const cmds = scenarios[scenarioIndex];
+        let cmdIdx = 0;
 
-    function addNewPrompt() {
-        cmdIndex++;
-        if (cmdIndex >= terminalCommands.length) return;
-
-        const newLine = document.createElement('div');
-        newLine.className = 'terminal-line';
-        newLine.innerHTML = '<span class="terminal-prompt">$</span><span class="terminal-command"></span>';
-        terminalBody.appendChild(newLine);
-
-        setTimeout(() => {
-            typeCommand(terminalCommands[cmdIndex], newLine, () => {
-                showOutput(terminalCommands[cmdIndex]);
-                setTimeout(addNewPrompt, 1200);
+        function nextCmd() {
+            if (cmdIdx >= cmds.length) {
+                // Pause, then clear and run next scenario
+                setTimeout(() => {
+                    terminalBody.innerHTML = '';
+                    scenarioIndex = (scenarioIndex + 1) % scenarios.length;
+                    runScenario();
+                }, 3000);
+                return;
+            }
+            typeCommand(cmds[cmdIdx], () => {
+                cmdIdx++;
+                setTimeout(nextCmd, 800);
             });
-        }, 300);
+        }
+
+        nextCmd();
     }
 
     // Start terminal animation when visible
     const terminalObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const firstLine = terminalBody.querySelector('.terminal-line');
-                typeCommand(terminalCommands[0], firstLine, () => {
-                    showOutput(terminalCommands[0]);
-                    setTimeout(addNewPrompt, 1200);
-                });
-                terminalObserver.unobserve(entry.target);
+            if (entry.isIntersecting && !terminalStarted) {
+                terminalStarted = true;
+                terminalBody.innerHTML = '';
+                runScenario();
             }
         });
-    }, { threshold: 0.5 });
+    }, { threshold: 0.3 });
 
     terminalObserver.observe(terminalBody.closest('.terminal'));
 }
