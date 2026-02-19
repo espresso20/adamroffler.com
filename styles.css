@@ -25,24 +25,24 @@
 }
 
 [data-theme="light"] {
-    --bg-primary: #f5f7fa;
+    --bg-primary: #f0f2f5;
     --bg-secondary: #ffffff;
-    --bg-gradient-start: #e8ecf3;
-    --bg-gradient-end: #f5f7fa;
+    --bg-gradient-start: #e2e6ee;
+    --bg-gradient-end: #f0f2f5;
 
     --text-primary: #1a202c;
-    --text-secondary: #4a5568;
+    --text-secondary: #3d4a5c;
     --text-accent: #2d3748;
 
-    --glass-bg: rgba(255, 255, 255, 0.7);
-    --glass-border: rgba(0, 0, 0, 0.1);
-    --glass-shadow: rgba(0, 0, 0, 0.1);
+    --glass-bg: rgba(255, 255, 255, 0.75);
+    --glass-border: rgba(0, 0, 0, 0.12);
+    --glass-shadow: rgba(0, 0, 0, 0.08);
 
-    --accent-primary: #5a67d8;
-    --accent-secondary: #667eea;
+    --accent-primary: #4c51bf;
+    --accent-secondary: #5a67d8;
 
-    --card-hover-bg: rgba(0, 0, 0, 0.05);
-    --shadow-color: rgba(0, 0, 0, 0.15);
+    --card-hover-bg: rgba(76, 81, 191, 0.06);
+    --shadow-color: rgba(0, 0, 0, 0.12);
 }
 
 /* ============================================
@@ -556,6 +556,354 @@ body {
     padding: 40px 20px;
     color: var(--text-secondary);
     font-size: 0.95rem;
+}
+
+/* ============================================
+   Particle Canvas
+   ============================================ */
+.particle-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* ============================================
+   Terminal Component
+   ============================================ */
+.terminal {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+.terminal:hover {
+    transform: none;
+}
+
+.terminal-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+[data-theme="light"] .terminal-header {
+    background: rgba(0, 0, 0, 0.06);
+}
+
+.terminal-dots {
+    display: flex;
+    gap: 8px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.dot.red { background: #ff5f57; }
+.dot.yellow { background: #febc2e; }
+.dot.green { background: #28c840; }
+
+.terminal-title {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+}
+
+.terminal-body {
+    padding: 20px;
+    min-height: 180px;
+}
+
+.terminal-line {
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+.terminal-prompt {
+    color: var(--accent-primary);
+    margin-right: 10px;
+    font-weight: 700;
+}
+
+.terminal-command {
+    color: var(--text-primary);
+}
+
+.terminal-output {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    padding-left: 22px;
+}
+
+.terminal-output .key {
+    color: var(--accent-primary);
+}
+
+.terminal-output .value {
+    color: var(--text-primary);
+}
+
+/* ============================================
+   Metrics Section
+   ============================================ */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+
+.metric-card {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.metric-card:hover {
+    transform: translateY(-5px);
+}
+
+.metric-number {
+    font-size: 3.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+}
+
+.metric-suffix {
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.metric-label {
+    margin-top: 10px;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* ============================================
+   Value Proposition Section
+   ============================================ */
+.value-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.value-card {
+    padding: 35px;
+}
+
+.value-card:hover {
+    transform: translateY(-5px);
+}
+
+.value-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.value-card h3 {
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+
+.value-card p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+/* ============================================
+   Page Transitions
+   ============================================ */
+body {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+body.loaded {
+    opacity: 1;
+}
+
+/* ============================================
+   Improved Scroll Animations
+   ============================================ */
+[data-aos="fade-up"] {
+    transform: translateY(40px);
+}
+
+[data-aos="fade-right"] {
+    transform: translateX(-40px);
+}
+
+[data-aos="fade-left"] {
+    transform: translateX(40px);
+}
+
+[data-aos="scale-up"] {
+    transform: scale(0.9);
+}
+
+[data-aos="scale-up"].aos-animate {
+    transform: scale(1);
+}
+
+.skill-card[data-aos].aos-animate {
+    animation: cardReveal 0.6s ease forwards;
+}
+
+@keyframes cardReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    60% {
+        opacity: 1;
+        transform: translateY(-5px) scale(1.02);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ============================================
+   Light Mode Polish
+   ============================================ */
+[data-theme="light"] .hero-background {
+    background:
+        radial-gradient(circle at 20% 50%, rgba(76, 81, 191, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(90, 103, 216, 0.08) 0%, transparent 50%);
+}
+
+[data-theme="light"] .tag {
+    background: linear-gradient(135deg, #4c51bf 0%, #5a67d8 100%);
+}
+
+[data-theme="light"] .btn-primary {
+    box-shadow: 0 10px 30px rgba(76, 81, 191, 0.25);
+}
+
+[data-theme="light"] .btn-primary:hover {
+    box-shadow: 0 15px 40px rgba(76, 81, 191, 0.35);
+}
+
+[data-theme="light"] .glass-card {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .glass-card:hover {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] .nav-menu {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .terminal-body {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+[data-theme="light"] .download-fab {
+    box-shadow: 0 10px 30px rgba(76, 81, 191, 0.3);
+}
+
+/* ============================================
+   Responsive - New Components
+   ============================================ */
+@media (max-width: 768px) {
+    .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .metric-number {
+        font-size: 2.5rem;
+    }
+
+    .metric-card {
+        padding: 25px 15px;
+    }
+
+    .value-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .terminal-body {
+        min-height: 150px;
+        padding: 15px;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .metric-number {
+        font-size: 2rem;
+    }
+
+    .metric-suffix {
+        font-size: 1.3rem;
+    }
+
+    .metric-label {
+        font-size: 0.8rem;
+    }
+
+    .metric-card {
+        padding: 20px 10px;
+    }
+
+    .terminal {
+        font-size: 0.75rem;
+    }
+
+    .terminal-body {
+        min-height: 130px;
+        padding: 12px;
+        overflow-x: auto;
+    }
+
+    .value-card {
+        padding: 25px;
+    }
+
+    .value-card h3 {
+        font-size: 1.15rem;
+    }
+
+    .value-card p {
+        font-size: 0.85rem;
+    }
 }
 
 /* ============================================

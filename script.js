@@ -129,10 +129,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ============================================
-// Animated Counter for Stats
+// Animated Counters (Metrics + Stats)
 // ============================================
-const statNumbers = document.querySelectorAll('.stat-number');
-
 function animateCounter(element) {
     const target = parseInt(element.getAttribute('data-target'));
     const duration = 2000;
@@ -142,7 +140,7 @@ function animateCounter(element) {
     const timer = setInterval(() => {
         current += increment;
         if (current >= target) {
-            element.textContent = target + '+';
+            element.textContent = target;
             clearInterval(timer);
         } else {
             element.textContent = Math.floor(current);
@@ -163,15 +161,14 @@ const observer = new IntersectionObserver((entries) => {
         if (entry.isIntersecting) {
             entry.target.classList.add('aos-animate');
 
-            // Trigger counter animation for stats
-            if (entry.target.classList.contains('about-content')) {
-                statNumbers.forEach(stat => {
-                    if (!stat.classList.contains('counted')) {
-                        stat.classList.add('counted');
-                        animateCounter(stat);
-                    }
-                });
-            }
+            // Trigger counter animation for metric numbers
+            const metrics = entry.target.querySelectorAll('.metric-number');
+            metrics.forEach(metric => {
+                if (!metric.classList.contains('counted')) {
+                    metric.classList.add('counted');
+                    animateCounter(metric);
+                }
+            });
         }
     });
 }, observerOptions);
@@ -179,20 +176,6 @@ const observer = new IntersectionObserver((entries) => {
 // Observe all elements with data-aos attribute
 const animatedElements = document.querySelectorAll('[data-aos]');
 animatedElements.forEach(el => observer.observe(el));
-
-// ============================================
-// Scroll Progress Indicator
-// ============================================
-function updateScrollProgress() {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrollProgress = (scrollTop / scrollHeight) * 100;
-
-    // You can add a progress bar element to the HTML if desired
-    // For now, this just calculates the value
-}
-
-window.addEventListener('scroll', updateScrollProgress);
 
 // ============================================
 // Hide scroll indicator on scroll
@@ -248,15 +231,190 @@ checkMobileNav();
 window.addEventListener('resize', checkMobileNav);
 
 // ============================================
-// Add smooth reveal on page load
+// Page Load Transition
 // ============================================
 window.addEventListener('load', () => {
-    document.body.style.opacity = '0';
-    setTimeout(() => {
-        document.body.style.transition = 'opacity 0.5s ease';
-        document.body.style.opacity = '1';
-    }, 100);
+    document.body.classList.add('loaded');
 });
+
+// Smooth transition when navigating away
+document.addEventListener('click', (e) => {
+    const link = e.target.closest('a');
+    if (link && link.href && !link.href.startsWith('#') && !link.hasAttribute('download')
+        && link.hostname === window.location.hostname && !link.getAttribute('target')) {
+        e.preventDefault();
+        document.body.classList.remove('loaded');
+        setTimeout(() => {
+            window.location.href = link.href;
+        }, 300);
+    }
+});
+
+// ============================================
+// Particle Network Background
+// ============================================
+const particleCanvas = document.getElementById('particleCanvas');
+
+if (particleCanvas) {
+    const ctx = particleCanvas.getContext('2d');
+    let particles = [];
+    let animationId;
+
+    function resizeCanvas() {
+        const hero = particleCanvas.parentElement;
+        particleCanvas.width = hero.offsetWidth;
+        particleCanvas.height = hero.offsetHeight;
+    }
+
+    function createParticles() {
+        particles = [];
+        const count = Math.min(60, Math.floor((particleCanvas.width * particleCanvas.height) / 15000));
+        for (let i = 0; i < count; i++) {
+            particles.push({
+                x: Math.random() * particleCanvas.width,
+                y: Math.random() * particleCanvas.height,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                radius: Math.random() * 2 + 1
+            });
+        }
+    }
+
+    function drawParticles() {
+        ctx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+        const isDark = html.getAttribute('data-theme') !== 'light';
+        const particleColor = isDark ? 'rgba(100, 255, 218, 0.5)' : 'rgba(76, 81, 191, 0.4)';
+        const lineColor = isDark ? 'rgba(100, 255, 218,' : 'rgba(76, 81, 191,';
+
+        particles.forEach((p, i) => {
+            // Move
+            p.x += p.vx;
+            p.y += p.vy;
+
+            // Wrap around edges
+            if (p.x < 0) p.x = particleCanvas.width;
+            if (p.x > particleCanvas.width) p.x = 0;
+            if (p.y < 0) p.y = particleCanvas.height;
+            if (p.y > particleCanvas.height) p.y = 0;
+
+            // Draw particle
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = particleColor;
+            ctx.fill();
+
+            // Draw connections
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = p.x - particles[j].x;
+                const dy = p.y - particles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < 150) {
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.strokeStyle = lineColor + (1 - dist / 150) * 0.15 + ')';
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                }
+            }
+        });
+
+        animationId = requestAnimationFrame(drawParticles);
+    }
+
+    resizeCanvas();
+    createParticles();
+    drawParticles();
+
+    window.addEventListener('resize', () => {
+        resizeCanvas();
+        createParticles();
+    });
+}
+
+// ============================================
+// Interactive Terminal
+// ============================================
+const terminalBody = document.getElementById('terminalBody');
+
+if (terminalBody) {
+    const terminalCommands = [
+        {
+            cmd: 'aws sts get-caller-identity',
+            output: `{
+    <span class="key">"UserId"</span>: <span class="value">"AROA3XFRBF47CLOUD0PS"</span>,
+    <span class="key">"Account"</span>: <span class="value">"**** **** 9420"</span>,
+    <span class="key">"Arn"</span>: <span class="value">"arn:aws:iam::role/PrincipalCloudOps"</span>
+}`
+        },
+        {
+            cmd: 'terraform --version',
+            output: `Terraform v1.9.5
+on darwin_arm64
++ provider registry.terraform.io/hashicorp/aws v5.82.0`
+        },
+        {
+            cmd: 'kubectl get nodes --no-headers | wc -l',
+            output: `24 nodes ready`
+        }
+    ];
+
+    let cmdIndex = 0;
+
+    function typeCommand(cmdObj, lineEl, callback) {
+        const cmdSpan = lineEl.querySelector('.terminal-command');
+        let i = 0;
+        const interval = setInterval(() => {
+            cmdSpan.textContent += cmdObj.cmd.charAt(i);
+            i++;
+            if (i >= cmdObj.cmd.length) {
+                clearInterval(interval);
+                setTimeout(callback, 400);
+            }
+        }, 40);
+    }
+
+    function showOutput(cmdObj) {
+        const outputDiv = document.createElement('div');
+        outputDiv.className = 'terminal-output';
+        outputDiv.innerHTML = cmdObj.output;
+        terminalBody.appendChild(outputDiv);
+    }
+
+    function addNewPrompt() {
+        cmdIndex++;
+        if (cmdIndex >= terminalCommands.length) return;
+
+        const newLine = document.createElement('div');
+        newLine.className = 'terminal-line';
+        newLine.innerHTML = '<span class="terminal-prompt">$</span><span class="terminal-command"></span>';
+        terminalBody.appendChild(newLine);
+
+        setTimeout(() => {
+            typeCommand(terminalCommands[cmdIndex], newLine, () => {
+                showOutput(terminalCommands[cmdIndex]);
+                setTimeout(addNewPrompt, 1200);
+            });
+        }, 300);
+    }
+
+    // Start terminal animation when visible
+    const terminalObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const firstLine = terminalBody.querySelector('.terminal-line');
+                typeCommand(terminalCommands[0], firstLine, () => {
+                    showOutput(terminalCommands[0]);
+                    setTimeout(addNewPrompt, 1200);
+                });
+                terminalObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    terminalObserver.observe(terminalBody.closest('.terminal'));
+}
 
 // ============================================
 // Add easter egg: Konami code
