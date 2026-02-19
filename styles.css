@@ -346,6 +346,15 @@ body {
 /* ============================================
    About Section
    ============================================ */
+.about-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 30px;
+    align-items: start;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
 .about-content {
     max-width: 900px;
     margin: 0 auto;
@@ -575,8 +584,6 @@ body {
    Terminal Component
    ============================================ */
 .terminal {
-    max-width: 700px;
-    margin: 0 auto;
     padding: 0;
     overflow: hidden;
     font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
@@ -584,6 +591,17 @@ body {
 
 .terminal:hover {
     transform: none;
+}
+
+.terminal-floating {
+    opacity: 0.85;
+    font-size: 0.85rem;
+    position: sticky;
+    top: 100px;
+}
+
+.terminal-floating:hover {
+    opacity: 1;
 }
 
 .terminal-header {
@@ -883,12 +901,13 @@ body.loaded {
         padding: 20px 10px;
     }
 
-    .terminal {
-        font-size: 0.75rem;
+    .terminal-floating {
+        font-size: 0.7rem;
+        opacity: 0.7;
     }
 
     .terminal-body {
-        min-height: 130px;
+        min-height: 120px;
         padding: 12px;
         overflow-x: auto;
     }
@@ -1318,6 +1337,16 @@ body.loaded {
     }
 
     /* About Section */
+    .about-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .terminal-floating {
+        opacity: 0.75;
+        font-size: 0.8rem;
+        position: static;
+    }
+
     .about-text p {
         font-size: 0.95rem;
         margin-bottom: 15px;

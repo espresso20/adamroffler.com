@@ -67,48 +67,44 @@
     <section id="about" class="section">
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">About Me</h2>
-            <div class="about-content glass-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="about-text">
-                    <p>
-                        From managing network operations centers and racking servers in hospital datacenters
-                        to architecting serverless applications at enterprise scale—I've built infrastructure
-                        across the entire evolution of modern computing.
-                    </p>
-                    <p>
-                        I started in the trenches: managing NOCs, deploying fiber, building VMware clusters,
-                        and keeping 500+ virtual desktops running in healthcare environments. Then in 2017, I
-                        made the jump to cloud and never looked back. Now as a Principal Cloud Ops Engineer, I
-                        architect enterprise-scale solutions that automate everything from patching thousands
-                        of instances to deploying multi-account AWS architectures with Control Tower and Organizations.
-                    </p>
-                    <p>
-                        What sets me apart? I speak both languages. I can architect a serverless application
-                        AND explain why your datacenter engineer is worried about network latency. I've debugged
-                        physical fiber connections and Lambda cold starts. I've managed Cisco firewalls and
-                        cloud-native security policies. This perspective helps me build better solutions and
-                        bridge the gap between traditional IT and cloud-native teams.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Terminal Component -->
-    <section class="section">
-        <div class="container">
-            <div class="terminal glass-card" data-aos="fade-up">
-                <div class="terminal-header">
-                    <div class="terminal-dots">
-                        <span class="dot red"></span>
-                        <span class="dot yellow"></span>
-                        <span class="dot green"></span>
+            <div class="about-layout">
+                <div class="about-content glass-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="about-text">
+                        <p>
+                            From managing network operations centers and racking servers in hospital datacenters
+                            to architecting serverless applications at enterprise scale—I've built infrastructure
+                            across the entire evolution of modern computing.
+                        </p>
+                        <p>
+                            I started in the trenches: managing NOCs, deploying fiber, building VMware clusters,
+                            and keeping 500+ virtual desktops running in healthcare environments. Then in 2017, I
+                            made the jump to cloud and never looked back. Now as a Principal Cloud Ops Engineer, I
+                            architect enterprise-scale solutions that automate everything from patching thousands
+                            of instances to deploying multi-account AWS architectures with Control Tower and Organizations.
+                        </p>
+                        <p>
+                            What sets me apart? I speak both languages. I can architect a serverless application
+                            AND explain why your datacenter engineer is worried about network latency. I've debugged
+                            physical fiber connections and Lambda cold starts. I've managed Cisco firewalls and
+                            cloud-native security policies. This perspective helps me build better solutions and
+                            bridge the gap between traditional IT and cloud-native teams.
+                        </p>
                     </div>
-                    <span class="terminal-title">adam@cloud-ops ~ %</span>
                 </div>
-                <div class="terminal-body" id="terminalBody">
-                    <div class="terminal-line">
-                        <span class="terminal-prompt">$</span>
-                        <span class="terminal-command" data-command="aws sts get-caller-identity"></span>
+                <div class="terminal terminal-floating glass-card" data-aos="fade-left" data-aos-delay="200">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <span class="terminal-title">adam@cloud-ops ~ %</span>
+                    </div>
+                    <div class="terminal-body" id="terminalBody">
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">$</span>
+                            <span class="terminal-command" data-command="aws sts get-caller-identity"></span>
+                        </div>
                     </div>
                 </div>
             </div>
