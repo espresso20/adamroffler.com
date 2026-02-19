@@ -240,7 +240,9 @@ window.addEventListener('load', () => {
 // Smooth transition when navigating away
 document.addEventListener('click', (e) => {
     const link = e.target.closest('a');
-    if (link && link.href && !link.href.startsWith('#') && !link.hasAttribute('download')
+    if (!link) return;
+    const href = link.getAttribute('href');
+    if (href && !href.startsWith('#') && !link.hasAttribute('download')
         && link.hostname === window.location.hostname && !link.getAttribute('target')) {
         e.preventDefault();
         document.body.classList.remove('loaded');
