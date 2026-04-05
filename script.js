@@ -472,6 +472,195 @@ completed: <span class="value">success</span>`
 }
 
 // ============================================
+// GitHub Repositories
+// ============================================
+const githubReposContainer = document.getElementById('github-repos');
+
+if (githubReposContainer) {
+    const GITHUB_USER = 'espresso20';
+    const CACHE_KEY = 'github-repos';
+    const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+    const MAX_REPOS = 6;
+
+    const languageColors = {
+        'JavaScript': '#f1e05a',
+        'TypeScript': '#3178c6',
+        'Python': '#3572A5',
+        'Go': '#00ADD8',
+        'HCL': '#844FBA',
+        'Shell': '#89e051',
+        'HTML': '#e34c26',
+        'CSS': '#563d7c',
+        'Dockerfile': '#384d54',
+        'Makefile': '#427819',
+        'Ruby': '#701516',
+        'Rust': '#dea584',
+        'Java': '#b07219'
+    };
+
+    function showSkeletons() {
+        githubReposContainer.innerHTML = '';
+        for (let i = 0; i < MAX_REPOS; i++) {
+            const skeleton = document.createElement('div');
+            skeleton.className = 'skeleton-card';
+            skeleton.setAttribute('data-aos', 'fade-up');
+            skeleton.setAttribute('data-aos-delay', String((i + 1) * 100));
+            githubReposContainer.appendChild(skeleton);
+        }
+    }
+
+    function renderRepos(repos) {
+        githubReposContainer.innerHTML = '';
+        repos.forEach((repo, i) => {
+            const card = document.createElement('a');
+            card.href = repo.html_url;
+            card.target = '_blank';
+            card.rel = 'noopener noreferrer';
+            card.className = 'repo-card glass-card';
+            card.setAttribute('data-aos', 'fade-up');
+            card.setAttribute('data-aos-delay', String((i + 1) * 100));
+
+            const desc = repo.description
+                ? (repo.description.length > 100 ? repo.description.substring(0, 100) + '...' : repo.description)
+                : 'No description';
+
+            let footerHTML = '';
+            if (repo.language) {
+                const color = languageColors[repo.language] || '#8b949e';
+                footerHTML += `<span><span class="repo-language-dot" style="background: ${color};"></span>${repo.language}</span>`;
+            }
+            if (repo.stargazers_count > 0) {
+                footerHTML += `<span><i class="fas fa-star"></i> ${repo.stargazers_count}</span>`;
+            }
+            if (repo.forks_count > 0) {
+                footerHTML += `<span><i class="fas fa-code-branch"></i> ${repo.forks_count}</span>`;
+            }
+
+            card.innerHTML = `
+                <div>
+                    <h3>${repo.name}</h3>
+                    <p>${desc}</p>
+                </div>
+                <div class="repo-card-footer">${footerHTML}</div>
+            `;
+
+            githubReposContainer.appendChild(card);
+        });
+
+        // Re-observe new elements for scroll animations
+        githubReposContainer.querySelectorAll('[data-aos]').forEach(el => observer.observe(el));
+    }
+
+    function showError() {
+        githubReposContainer.innerHTML = `
+            <div class="glass-card" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+                <p style="color: var(--text-secondary); margin-bottom: 15px;">Unable to load repositories</p>
+                <a href="https://github.com/${GITHUB_USER}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="display: inline-block;">
+                    <i class="fab fa-github" style="margin-right: 8px;"></i>View on GitHub
+                </a>
+            </div>
+        `;
+    }
+
+    async function fetchRepos() {
+        // Check cache
+        const cached = sessionStorage.getItem(CACHE_KEY);
+        if (cached) {
+            const { data, timestamp } = JSON.parse(cached);
+            if (Date.now() - timestamp < CACHE_TTL) {
+                renderRepos(data);
+                return;
+            }
+        }
+
+        showSkeletons();
+
+        try {
+            const response = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=30`);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const allRepos = await response.json();
+
+            const repos = allRepos
+                .filter(repo => !repo.fork)
+                .slice(0, MAX_REPOS);
+
+            sessionStorage.setItem(CACHE_KEY, JSON.stringify({ data: repos, timestamp: Date.now() }));
+            renderRepos(repos);
+        } catch (err) {
+            showError();
+        }
+    }
+
+    fetchRepos();
+}
+
+// ============================================
+// Starfield Canvas (Ageforge page)
+// ============================================
+const starfieldCanvas = document.getElementById('starfieldCanvas');
+
+if (starfieldCanvas) {
+    const sCtx = starfieldCanvas.getContext('2d');
+    let stars = [];
+
+    function resizeStarfield() {
+        const parent = starfieldCanvas.parentElement;
+        starfieldCanvas.width = parent.offsetWidth;
+        starfieldCanvas.height = parent.offsetHeight;
+    }
+
+    function createStars() {
+        stars = [];
+        const count = Math.min(120, Math.floor((starfieldCanvas.width * starfieldCanvas.height) / 8000));
+        for (let i = 0; i < count; i++) {
+            stars.push({
+                x: Math.random() * starfieldCanvas.width,
+                y: Math.random() * starfieldCanvas.height,
+                radius: Math.random() * 1.5 + 0.5,
+                vy: Math.random() * 0.3 + 0.1,
+                vx: (Math.random() - 0.5) * 0.15,
+                opacity: Math.random() * 0.6 + 0.4
+            });
+        }
+    }
+
+    function drawStarfield() {
+        sCtx.clearRect(0, 0, starfieldCanvas.width, starfieldCanvas.height);
+        const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
+
+        stars.forEach(star => {
+            star.x += star.vx;
+            star.y += star.vy;
+
+            if (star.y > starfieldCanvas.height) {
+                star.y = 0;
+                star.x = Math.random() * starfieldCanvas.width;
+            }
+            if (star.x < 0) star.x = starfieldCanvas.width;
+            if (star.x > starfieldCanvas.width) star.x = 0;
+
+            sCtx.beginPath();
+            sCtx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+            sCtx.fillStyle = isDark
+                ? `rgba(240, 165, 0, ${star.opacity * 0.5})`
+                : `rgba(200, 132, 0, ${star.opacity * 0.4})`;
+            sCtx.fill();
+        });
+
+        requestAnimationFrame(drawStarfield);
+    }
+
+    resizeStarfield();
+    createStars();
+    drawStarfield();
+
+    window.addEventListener('resize', () => {
+        resizeStarfield();
+        createStars();
+    });
+}
+
+// ============================================
 // Add easter egg: Konami code
 // ============================================
 let konamiCode = [];

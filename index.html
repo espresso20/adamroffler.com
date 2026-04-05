@@ -31,6 +31,7 @@
             <li><a href="#skills" class="nav-link">Skills</a></li>
             <li><a href="#experience" class="nav-link">Experience</a></li>
             <li><a href="#certifications" class="nav-link">Certifications</a></li>
+            <li><a href="#projects" class="nav-link">Projects</a></li>
             <li><a href="resume.html" class="nav-link">Resume</a></li>
             <li><a href="#contact" class="nav-link">Contact</a></li>
         </ul>
@@ -72,7 +73,7 @@
                     <div class="about-text">
                         <p>
                             From managing network operations centers and racking servers in hospital datacenters
-                            to architecting serverless applications at enterprise scale—I've built infrastructure
+                            to architecting serverless applications at enterprise scale, I've built infrastructure
                             across the entire evolution of modern computing.
                         </p>
                         <p>
@@ -382,23 +383,66 @@
                 <div class="value-card glass-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="value-icon"><i class="fas fa-rocket"></i></div>
                     <h3>Day-One Impact</h3>
-                    <p>I've built enterprise AWS environments from scratch multiple times. I don't need ramp-up time on your cloud stack — I've already solved the problems you're hiring for.</p>
+                    <p>I've built enterprise AWS environments from scratch multiple times. I don't need ramp-up time on your cloud stack. I've already solved the problems you're hiring for.</p>
                 </div>
                 <div class="value-card glass-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="value-icon"><i class="fas fa-lock"></i></div>
                     <h3>Security-First Mindset</h3>
-                    <p>Every architecture I build starts with security. GuardDuty, Security Hub, automated remediation — I don't bolt security on at the end, I design it into the foundation.</p>
+                    <p>Every architecture I build starts with security. GuardDuty, Security Hub, automated remediation. I don't bolt security on at the end, I design it into the foundation.</p>
                 </div>
                 <div class="value-card glass-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="value-icon"><i class="fas fa-users-cog"></i></div>
                     <h3>Force Multiplier</h3>
-                    <p>I build reusable Terraform modules, CI/CD standards, and automation tooling that make entire teams more productive — not just my own work faster.</p>
+                    <p>I build reusable Terraform modules, CI/CD standards, and automation tooling that make entire teams more productive, not just my own work faster.</p>
                 </div>
                 <div class="value-card glass-card" data-aos="fade-up" data-aos-delay="400">
                     <div class="value-icon"><i class="fas fa-language"></i></div>
                     <h3>Bilingual Engineer</h3>
                     <p>I translate between executives and engineers. I can whiteboard an architecture for a CTO and then write the Terraform to deploy it the same afternoon.</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Projects</h2>
+
+            <!-- Featured Ageforge Card -->
+            <div class="featured-project glass-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="featured-project-icon">
+                    <i class="fas fa-chess-rook"></i>
+                </div>
+                <div class="featured-project-info">
+                    <h3 class="featured-project-title">AgeForge</h3>
+                    <p class="featured-project-tagline">A Terminal-Based Idle Empire Builder</p>
+                    <p class="featured-project-description">
+                        Build civilizations from stone tools to the stars. AgeForge is a full terminal game
+                        written in Go that runs entirely in your terminal. No browser, no install wizard,
+                        just a keyboard and a terminal wide enough to dream big.
+                    </p>
+                    <div class="featured-project-stats">
+                        <span class="featured-stat"><strong>22</strong> Ages</span>
+                        <span class="featured-stat"><strong>284</strong> Buildings</span>
+                        <span class="featured-stat"><strong>52</strong> Technologies</span>
+                    </div>
+                    <div class="featured-project-buttons">
+                        <a href="ageforge.html" class="btn btn-primary"><i class="fas fa-info-circle" style="margin-right: 8px;"></i>Learn More</a>
+                        <a href="https://ageforge.io" target="_blank" rel="noopener noreferrer" class="btn btn-secondary"><i class="fas fa-play" style="margin-right: 8px;"></i>Play Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GitHub Repos Grid (dynamically populated) -->
+            <div id="github-repos" class="skills-grid" style="margin-top: 40px;">
+                <!-- Loading skeletons inserted by JS, then replaced with repo cards -->
+            </div>
+
+            <div style="text-align: center; margin-top: 40px;" data-aos="fade-up">
+                <a href="https://github.com/espresso20?tab=repositories" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                    <i class="fab fa-github" style="margin-right: 8px;"></i>View All Repositories
+                </a>
             </div>
         </div>
     </section>
@@ -435,6 +479,7 @@
     <!-- Footer -->
     <footer class="footer">
         <p>&copy; 2026 Adam Roffler. Built with passion and automation.</p>
+        <p class="vibe-credit">Vibe-coded with <a href="https://claude.ai" target="_blank" rel="noopener noreferrer">Claude</a></p>
     </footer>
 
     <script src="script.js"></script>

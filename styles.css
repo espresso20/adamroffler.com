@@ -567,6 +567,21 @@ body {
     font-size: 0.95rem;
 }
 
+.vibe-credit {
+    margin-top: 10px;
+    font-size: 0.8rem;
+    opacity: 0.6;
+}
+
+.vibe-credit a {
+    color: var(--accent-primary);
+    text-decoration: none;
+}
+
+.vibe-credit a:hover {
+    text-decoration: underline;
+}
+
 /* ============================================
    Particle Canvas
    ============================================ */
@@ -877,6 +892,50 @@ body.loaded {
         padding: 15px;
         font-size: 0.85rem;
     }
+
+    .featured-project {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px;
+        gap: 20px;
+    }
+
+    .featured-project-icon {
+        font-size: 3.5rem;
+    }
+
+    .featured-project-stats {
+        justify-content: center;
+    }
+
+    .featured-project-buttons {
+        justify-content: center;
+    }
+
+    .ageforge-page .section-title {
+        font-size: 1.4rem;
+    }
+
+    .ageforge-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .ageforge-stat-number {
+        font-size: 1.4rem;
+    }
+
+    .ageforge-logo {
+        font-size: 2.2rem;
+    }
+
+    .epochs-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .gameplay-loop {
+        padding: 30px 20px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -923,6 +982,449 @@ body.loaded {
     .value-card p {
         font-size: 0.85rem;
     }
+
+    .featured-project-title {
+        font-size: 1.5rem;
+    }
+
+    .featured-project-icon {
+        font-size: 3rem;
+    }
+
+    .featured-stat strong {
+        font-size: 1.1rem;
+    }
+
+    .ageforge-page .section-title {
+        font-size: 1.2rem;
+    }
+
+    .ageforge-logo {
+        font-size: 1.8rem;
+    }
+
+    .ageforge-tagline {
+        font-size: 1rem;
+    }
+
+    .ageforge-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .ageforge-stat-card {
+        padding: 20px 10px;
+    }
+
+    .ageforge-stat-number {
+        font-size: 1.2rem;
+    }
+
+    .ageforge-stat-label {
+        font-size: 0.75rem;
+    }
+
+    .epochs-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .loop-arrow {
+        display: none;
+    }
+
+    .gameplay-loop {
+        flex-direction: column;
+        gap: 10px;
+        padding: 25px 15px;
+    }
+}
+
+/* ============================================
+   Featured Project Card
+   ============================================ */
+.featured-project {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    padding: 40px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(240, 165, 0, 0.25);
+    background: rgba(240, 165, 0, 0.06);
+    box-shadow: 0 8px 32px rgba(240, 165, 0, 0.1), inset 0 1px 0 rgba(240, 165, 0, 0.1);
+}
+
+.featured-project:hover {
+    transform: translateY(-5px);
+    background: rgba(240, 165, 0, 0.1);
+    border-color: rgba(240, 165, 0, 0.35);
+    box-shadow: 0 15px 40px rgba(240, 165, 0, 0.15), inset 0 1px 0 rgba(240, 165, 0, 0.15);
+}
+
+[data-theme="light"] .featured-project {
+    border-color: rgba(200, 132, 0, 0.25);
+    background: rgba(240, 165, 0, 0.08);
+    box-shadow: 0 8px 32px rgba(200, 132, 0, 0.1), inset 0 1px 0 rgba(240, 165, 0, 0.1);
+}
+
+[data-theme="light"] .featured-project:hover {
+    background: rgba(240, 165, 0, 0.12);
+    border-color: rgba(200, 132, 0, 0.35);
+}
+
+.featured-project-icon {
+    font-size: 5rem;
+    background: linear-gradient(135deg, #f0a500, #ff6b35);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    flex-shrink: 0;
+}
+
+.featured-project-info {
+    flex: 1;
+}
+
+.featured-project-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 5px;
+}
+
+.featured-project-tagline {
+    font-size: 1.1rem;
+    color: #f0a500;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+[data-theme="light"] .featured-project-tagline {
+    color: #c88400;
+}
+
+.featured-project-description {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+.featured-project-stats {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.featured-stat {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+.featured-stat strong {
+    font-size: 1.3rem;
+    background: linear-gradient(135deg, #f0a500, #ff6b35);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-right: 5px;
+}
+
+.featured-project-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+/* ============================================
+   GitHub Repo Cards
+   ============================================ */
+.repo-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-decoration: none;
+    color: inherit;
+    padding: 30px;
+    min-height: 180px;
+}
+
+.repo-card:hover {
+    transform: translateY(-5px);
+}
+
+.repo-card h3 {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    word-break: break-word;
+}
+
+.repo-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    flex: 1;
+}
+
+.repo-card-footer {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    margin-top: 15px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    flex-wrap: wrap;
+}
+
+.repo-card-footer span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.repo-language-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+/* Skeleton Loading Cards */
+.skeleton-card {
+    min-height: 180px;
+    border-radius: 20px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    position: relative;
+    overflow: hidden;
+}
+
+.skeleton-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent 25%, var(--card-hover-bg) 50%, transparent 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* ============================================
+   Ageforge Page Overrides
+   ============================================ */
+.ageforge-page {
+    --accent-primary: #f0a500;
+    --accent-secondary: #ff6b35;
+    --accent-gradient: linear-gradient(135deg, #f0a500 0%, #ff6b35 100%);
+}
+
+[data-theme="light"] .ageforge-page {
+    --accent-primary: #c88400;
+    --accent-secondary: #d45a2b;
+    --accent-gradient: linear-gradient(135deg, #c88400 0%, #d45a2b 100%);
+}
+
+.ageforge-page .section-title,
+.ageforge-page .pixel-font {
+    font-family: 'Press Start 2P', cursive;
+}
+
+.ageforge-page .section-title {
+    font-size: 1.8rem;
+    line-height: 1.6;
+}
+
+.ageforge-hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+.ageforge-hero .hero-content {
+    z-index: 1;
+    padding: 20px;
+}
+
+.ageforge-logo {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 3.5rem;
+    background: linear-gradient(135deg, #f0a500, #ff6b35);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+    text-shadow: none;
+}
+
+[data-theme="light"] .ageforge-logo {
+    background: linear-gradient(135deg, #c88400, #d45a2b);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.ageforge-tagline {
+    font-size: 1.3rem;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+}
+
+.ageforge-subtitle {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    opacity: 0.8;
+    margin-bottom: 40px;
+}
+
+.ageforge-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.ageforge-about {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.ageforge-about p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
+
+.ageforge-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.ageforge-stat-card {
+    text-align: center;
+    padding: 30px 15px;
+}
+
+.ageforge-stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.ageforge-stat-number {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.8rem;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+    margin-bottom: 10px;
+}
+
+.ageforge-stat-label {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.epochs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.epoch-card {
+    text-align: center;
+    padding: 25px 15px;
+    position: relative;
+}
+
+.epoch-card:hover {
+    transform: translateY(-5px);
+}
+
+.epoch-number {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7rem;
+    color: var(--accent-primary);
+    margin-bottom: 8px;
+    opacity: 0.8;
+}
+
+.epoch-card h3 {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.epoch-card p {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.gameplay-loop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 30px;
+}
+
+.loop-step {
+    text-align: center;
+    padding: 15px 20px;
+}
+
+.loop-step i {
+    font-size: 2rem;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.loop-step span {
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.loop-arrow {
+    font-size: 1.5rem;
+    color: var(--accent-primary);
+    opacity: 0.6;
+}
+
+.starfield-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
 }
 
 /* ============================================
