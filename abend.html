@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ABEND - A command-line civilization simulation. Type commands. Run empires. 22 ages, 288 buildings, 7 epochs. Built in Godot 4, targeting Steam.">
+    <meta name="description" content="ABEND - A command-line civilization simulation. Type commands. Run empires. 22 ages, 288 buildings, 7 epochs. Built in Godot 4.">
     <meta name="author" content="Adam Roffler">
     <title>ABEND | Adam Roffler</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -34,9 +34,6 @@
             <p class="abend-subtitle">Type commands. Run the simulations. Build empires. 22 ages from the primitive to the stars.</p>
 
             <div class="abend-hero-buttons">
-                <a href="https://github.com/espresso20" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-                    <i class="fab fa-github" style="margin-right: 8px;"></i>View on GitHub
-                </a>
                 <a href="index.html#projects" class="btn btn-secondary">
                     <i class="fas fa-arrow-left" style="margin-right: 8px;"></i>Back to Projects
                 </a>
@@ -58,12 +55,11 @@
                 <p>
                     Built in Godot 4 with a full CRT shader aesthetic: phosphor glow, scanlines, monochrome
                     display, and mechanical keyboard input. Every age advancement plays a cinematic -- ASCII art,
-                    scrolling flavor text, audio crossfade. The city map transforms across 22 ages, from stone
-                    huts to orbital habitats, as a living record of your Operator history.
+                    scrolling flavor text, audio crossfade.
                 </p>
                 <p>
-                    Every mechanic from ABEND Classic is preserved and extended. Nothing is dumbed down.
-                    The command-line civilization builder niche on Steam is empty. ABEND owns it.
+                    Deep mechanics, nothing dumbed down. The command-line civilization builder niche is empty.
+                    ABEND owns it.
                 </p>
             </div>
         </div>
@@ -247,43 +243,24 @@
         </div>
     </section>
 
-    <!-- Two Versions -->
+    <!-- Status -->
     <section class="section">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Two Versions</h2>
-            <div class="abend-versions-grid">
-                <div class="abend-version-card glass-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="abend-version-icon"><i class="fas fa-terminal"></i></div>
-                    <h3>ABEND Classic</h3>
-                    <div class="abend-version-badge badge-free">Free Forever</div>
-                    <p>
-                        The original. Runs in an actual terminal, written in Go. No GPU required.
-                        Works over SSH. Classic feeds design ideas into Beta and never dies --
-                        it stays permanently free at abend.io.
-                    </p>
-                    <ul class="abend-version-features">
-                        <li><i class="fas fa-check"></i> Runs in any terminal</li>
-                        <li><i class="fas fa-check"></i> Works over SSH</li>
-                        <li><i class="fas fa-check"></i> Single binary, no install wizard</li>
-                        <li><i class="fas fa-check"></i> Permanently free</li>
-                    </ul>
-                </div>
-                <div class="abend-version-card glass-card abend-version-featured" data-aos="fade-up" data-aos-delay="200">
-                    <div class="abend-version-icon"><i class="fas fa-gamepad"></i></div>
-                    <h3>ABEND Beta</h3>
-                    <div class="abend-version-badge badge-dev">In Development</div>
-                    <p>
-                        The evolution. Godot 4 engine, CRT shader, animated city map, real audio,
-                        Steam achievements. Every Classic mechanic preserved and extended.
-                        Same terminal soul -- real game engine underneath.
-                    </p>
-                    <ul class="abend-version-features">
-                        <li><i class="fas fa-check"></i> Godot 4 + C# engine</li>
-                        <li><i class="fas fa-check"></i> CRT terminal aesthetic</li>
-                        <li><i class="fas fa-check"></i> Animated city map</li>
-                        <li><i class="fas fa-check"></i> Steam release planned at $4.99</li>
-                    </ul>
-                </div>
+            <h2 class="section-title" data-aos="fade-up">Status</h2>
+            <div class="abend-version-card glass-card abend-version-featured" data-aos="fade-up" data-aos-delay="100" style="max-width: 600px; margin: 0 auto;">
+                <div class="abend-version-icon"><i class="fas fa-gamepad"></i></div>
+                <h3>ABEND</h3>
+                <div class="abend-version-badge badge-dev">In Development</div>
+                <p>
+                    Godot 4 engine, CRT shader, real audio, and the full depth of the civilization
+                    simulation. Terminal soul -- real game engine underneath.
+                </p>
+                <ul class="abend-version-features">
+                    <li><i class="fas fa-check"></i> Godot 4 + C# engine</li>
+                    <li><i class="fas fa-check"></i> CRT terminal aesthetic</li>
+                    <li><i class="fas fa-check"></i> 288 buildings, 70 technologies, 22 ages</li>
+                    <li><i class="fas fa-check"></i> Full release planned</li>
+                </ul>
             </div>
         </div>
     </section>
@@ -297,21 +274,14 @@
                     <div class="abend-stack-icon"><i class="fas fa-cube"></i></div>
                     <div class="abend-stack-info">
                         <h4>Godot 4.6.1</h4>
-                        <p>MIT license, no royalties, mature Steam plugin, excellent 2D pipeline. The right call.</p>
+                        <p>MIT license, no royalties, excellent 2D pipeline. The right call.</p>
                     </div>
                 </div>
                 <div class="abend-stack-item glass-card">
                     <div class="abend-stack-icon"><i class="fas fa-code"></i></div>
                     <div class="abend-stack-info">
                         <h4>C# / .NET 10</h4>
-                        <p>Go-adjacent typing. Direct struct, map, and interface translation from Classic with no logic regression.</p>
-                    </div>
-                </div>
-                <div class="abend-stack-item glass-card">
-                    <div class="abend-stack-icon"><i class="fab fa-steam"></i></div>
-                    <div class="abend-stack-info">
-                        <h4>GodotSteam</h4>
-                        <p>Achievements, cloud saves, overlay. Actively maintained. Wired in Phase 7.</p>
+                        <p>Strongly typed, struct-friendly. Every mechanic ports cleanly from the original simulation engine.</p>
                     </div>
                 </div>
                 <div class="abend-stack-item glass-card">
@@ -319,6 +289,13 @@
                     <div class="abend-stack-info">
                         <h4>CRT Shader</h4>
                         <p>Phosphor glow, scanlines, ambient flicker. In-world the display is 30 years old and running because nothing better exists for this purpose.</p>
+                    </div>
+                </div>
+                <div class="abend-stack-item glass-card">
+                    <div class="abend-stack-icon"><i class="fas fa-database"></i></div>
+                    <div class="abend-stack-info">
+                        <h4>Data-Driven Design</h4>
+                        <p>288 buildings, 70 techs, 74 milestones -- all defined in JSON. The simulation engine reads config, not hardcode.</p>
                     </div>
                 </div>
             </div>
@@ -331,15 +308,10 @@
             <h2 class="section-title" data-aos="fade-up">Follow Development</h2>
             <div class="abend-about glass-card" data-aos="fade-up" data-aos-delay="100" style="margin-bottom: 40px;">
                 <p>
-                    ABEND Beta is actively in development. Follow the GitHub repo for progress
-                    and check back here as milestones ship. ABEND Classic is available now --
-                    free, in your terminal, no strings attached.
+                    ABEND is actively in development. Check back here as milestones ship.
                 </p>
             </div>
             <div class="abend-hero-buttons" data-aos="fade-up" data-aos-delay="200">
-                <a href="https://github.com/espresso20" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-                    <i class="fab fa-github" style="margin-right: 8px;"></i>GitHub
-                </a>
                 <a href="index.html#projects" class="btn btn-secondary">
                     <i class="fas fa-arrow-left" style="margin-right: 8px;"></i>Back to Projects
                 </a>
