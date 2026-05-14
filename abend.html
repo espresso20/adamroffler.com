@@ -170,31 +170,126 @@
             <h2 class="section-title" data-aos="fade-up">The Interface</h2>
             <div class="abend-about glass-card" data-aos="fade-up" data-aos-delay="100" style="margin-bottom: 30px;">
                 <p>
-                    The entire game renders inside a terminal-style layout. The status bar tracks the critical
-                    numbers. The main panel switches between Buildings, Research, Army, Trade, Workers, Map,
-                    and more. The log at the bottom is the terminal -- the Operator types here, the machine
-                    responds here. Everything else is context.
+                    The entire game renders inside a terminal-style layout. The status bar tracks session
+                    state. The main panel switches between Buildings, Research, Army, Trade, Workers, and more.
+                    The log at the bottom is where the Operator types -- the machine responds there too.
+                    Everything else is context.
                 </p>
             </div>
-            <div class="abend-interface-diagram glass-card" data-aos="fade-up" data-aos-delay="200">
-                <pre class="abend-ascii-layout">+----------------------------------------------------------------------+
-|  STATUS BAR -- Age . Ticks . Resources . Pop . Morale . Speed       |
-+----------------+--------------------------------+--------------------+
-|                |                                |                    |
-|  RESOURCES     |  MAIN PANEL (switchable)       |  NAV               |
-|                |                                |                    |
-|  Food   620    |  Buildings / Research /         |  Milestones        |
-|  Wood   875    |  Army / Trade / Stats /         |  Research          |
-|  Stone   43    |  Workers / Wonders /            |  Army              |
-|  ...           |  Logs / Epoch / History /       |  Trade             |
-|                |  Map                            |  Stats             |
-|  [queue]       |                                |  Workers           |
-|                |                                |  ...               |
-|                |                                |  Map               |
-+----------------+--------------------------------+--------------------+
-|  LOG -- scrollback output                                           |
-|  &gt; _  command input                                                  |
-+----------------------------------------------------------------------+</pre>
+            <div class="abend-interface-svg-wrap" data-aos="fade-up" data-aos-delay="200">
+                <svg class="abend-interface-svg" viewBox="0 0 820 490" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ABEND game interface layout diagram">
+                    <defs>
+                        <style>
+                            .ai-bg       { fill: #030a03; }
+                            .ai-panel    { fill: rgba(0,20,5,0.9); stroke: rgba(0,255,65,0.25); stroke-width: 1; }
+                            .ai-divider  { stroke: rgba(0,255,65,0.15); stroke-width: 1; stroke-dasharray: 3 3; }
+                            .ai-hi       { fill: rgba(0,255,65,0.08); }
+                            .ai-dim      { font-family:'Courier New',Courier,monospace; fill: rgba(0,255,65,0.3);  font-size: 8.5px; }
+                            .ai-mid      { font-family:'Courier New',Courier,monospace; fill: rgba(0,255,65,0.55); font-size: 8.5px; }
+                            .ai-lbl      { font-family:'Courier New',Courier,monospace; fill: rgba(0,255,65,0.55); font-size: 8px; letter-spacing: 1px; }
+                            .ai-bright   { font-family:'Courier New',Courier,monospace; fill: rgba(0,255,65,0.88); font-size: 8.5px; }
+                            .ai-active   { font-family:'Courier New',Courier,monospace; fill: #00ff41;             font-size: 8.5px; }
+                            .ai-alert    { font-family:'Courier New',Courier,monospace; fill: rgba(255,90,90,0.8); font-size: 8px; }
+                            .ai-cursor   { fill: rgba(0,255,65,0.9); animation: ai-cur 1.1s step-end infinite; }
+                            @keyframes ai-cur { 0%,100%{opacity:1} 50%{opacity:0} }
+                        </style>
+                    </defs>
+
+                    <!-- Background -->
+                    <rect width="820" height="490" class="ai-bg" rx="5"/>
+
+                    <!-- STATUS BAR -->
+                    <rect x="10" y="10" width="800" height="44" class="ai-panel"/>
+                    <text x="22" y="28" class="ai-lbl">SESSION 1  |  STAGE: PRIMITIVE AGE  |  CYC: 62.0K  |  PGY-0007  |  POP: 0/0  |  SPEED: 1.0x</text>
+                    <text x="22" y="46" class="ai-alert">[!] EVENT: Drought (1886 cyc remaining)</text>
+
+                    <!-- LEFT PANEL — Resources -->
+                    <rect x="10" y="64" width="168" height="310" class="ai-panel"/>
+                    <text x="22" y="80" class="ai-lbl">-- RESOURCES</text>
+
+                    <text x="22" y="98"  class="ai-mid">Food</text>
+                    <text x="140" y="98"  class="ai-bright">200</text>
+                    <text x="22" y="110" class="ai-dim">+8.00/cyc</text>
+
+                    <text x="22" y="126" class="ai-mid">Wood</text>
+                    <text x="140" y="126" class="ai-bright">100</text>
+                    <text x="22" y="138" class="ai-dim">+0.00/cyc</text>
+
+                    <text x="22" y="154" class="ai-mid">Knowledge</text>
+                    <text x="140" y="154" class="ai-bright">0.00</text>
+                    <text x="22" y="166" class="ai-dim">+0.00/cyc</text>
+
+                    <text x="22" y="182" class="ai-mid">Faith</text>
+                    <text x="140" y="182" class="ai-bright">0.00</text>
+                    <text x="22" y="194" class="ai-dim">+0.00/cyc</text>
+
+                    <line x1="10" y1="208" x2="178" y2="208" class="ai-divider"/>
+                    <text x="22" y="224" class="ai-lbl">[ BUILD QUEUE ]</text>
+                    <text x="22" y="239" class="ai-dim">Nothing queued</text>
+
+                    <!-- CENTER PANEL — Main (Buildings) -->
+                    <rect x="188" y="64" width="432" height="310" class="ai-panel"/>
+                    <text x="200" y="80" class="ai-lbl">UNCLASSIFIED//SIMULANT</text>
+                    <text x="200" y="94" class="ai-mid">-- BUILDINGS</text>
+                    <line x1="188" y1="102" x2="620" y2="102" class="ai-divider"/>
+                    <text x="200" y="118" class="ai-mid">Primitive Age ─────────────────────────────────────────</text>
+
+                    <text x="200" y="136" class="ai-bright">Hut</text>
+                    <text x="320"  y="136" class="ai-dim">x0  [passive]</text>
+                    <text x="212"  y="148" class="ai-dim">A crude shelter of sticks and leaves.  +10 pop cap.</text>
+
+                    <text x="200" y="164" class="ai-bright">Gathering Camp</text>
+                    <text x="320"  y="164" class="ai-dim">x0  [0/0 wkrs]</text>
+                    <text x="212"  y="176" class="ai-dim">Foragers gather berries and roots.  +0.50 food/cyc (1 worker).</text>
+
+                    <text x="200" y="192" class="ai-bright">Wood Camp</text>
+                    <text x="320"  y="192" class="ai-dim">x0  [0/0 wkrs]</text>
+                    <text x="212"  y="204" class="ai-dim">A basic camp for collecting wood.  +8.20 wood/cyc (3 workers).</text>
+
+                    <text x="200" y="220" class="ai-bright">Story Circle</text>
+                    <text x="320"  y="220" class="ai-dim">x0  [0/0 wkrs]</text>
+                    <text x="212"  y="232" class="ai-dim">Elders share stories around the fire.  +0.002 knowledge/cyc (2 workers).</text>
+
+                    <text x="200" y="248" class="ai-bright">Shrine</text>
+                    <text x="320"  y="248" class="ai-dim">x0  [0/0 wkrs]</text>
+                    <text x="212"  y="260" class="ai-dim">A small spirit shrine.  +0.002 faith/cyc (2 workers).</text>
+
+                    <text x="200" y="276" class="ai-bright">Sacred Grove</text>
+                    <text x="320"  y="276" class="ai-dim">x0  [passive]</text>
+                    <text x="212"  y="288" class="ai-dim">Nature's power flows here.  +0.02 knowledge, +0.05 food/cyc.  Unlocks +0.5x speed.</text>
+
+                    <!-- RIGHT PANEL — Nav -->
+                    <rect x="630" y="64" width="180" height="310" class="ai-panel"/>
+                    <text x="642" y="80" class="ai-lbl">DATA</text>
+
+                    <text x="642" y="98"  class="ai-mid">[F1] Help</text>
+                    <text x="642" y="113" class="ai-mid">[F2] Stats</text>
+                    <rect x="631" y="119" width="178" height="15" class="ai-hi"/>
+                    <text x="642" y="131" class="ai-active">[F3] Buildings  ▸</text>
+                    <text x="642" y="146" class="ai-mid">[F4] Workers</text>
+                    <text x="642" y="161" class="ai-mid">[F5] Research</text>
+                    <text x="642" y="176" class="ai-mid">[F6] Milestones</text>
+                    <text x="642" y="191" class="ai-mid">[F7] Army</text>
+                    <text x="642" y="206" class="ai-mid">[F8] Trade</text>
+                    <text x="642" y="221" class="ai-mid">[F9] Prestige</text>
+                    <text x="642" y="236" class="ai-mid">[F10] Vault</text>
+                    <line x1="630" y1="248" x2="810" y2="248" class="ai-divider"/>
+                    <text x="642" y="264" class="ai-dim">Archive</text>
+                    <text x="642" y="279" class="ai-dim">Achievements</text>
+                    <text x="642" y="294" class="ai-dim">Logs</text>
+                    <text x="642" y="309" class="ai-dim">Overlook</text>
+                    <text x="642" y="324" class="ai-dim">Decrypt</text>
+                    <text x="642" y="339" class="ai-dim">Radio</text>
+
+                    <!-- LOG / TERMINAL -->
+                    <rect x="10" y="384" width="800" height="96" class="ai-panel"/>
+                    <text x="22" y="400" class="ai-dim">[22:19:24]  FRAGMENT : 1 of 1</text>
+                    <text x="22" y="414" class="ai-dim">[22:19:24]  DATED    : 1966-05-01 18:00Z  |  CRC: OK  DECRYPTED</text>
+                    <text x="22" y="428" class="ai-dim">[22:19:25]  RECOVERED FRAGMENT</text>
+                    <text x="22" y="442" class="ai-mid">Halon ghost event. The halon dump fires with no cause logged.</text>
+                    <text x="22" y="470" class="ai-bright">&gt;</text>
+                    <rect x="36" y="458" width="6" height="13" class="ai-cursor"/>
+                </svg>
             </div>
         </div>
     </section>

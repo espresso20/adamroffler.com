@@ -1755,25 +1755,18 @@ body.loaded {
     font-weight: 500;
 }
 
-.abend-interface-diagram {
+.abend-interface-svg-wrap {
     max-width: 820px;
     margin: 0 auto;
-    padding: 28px 32px;
-    background: rgba(0, 0, 0, 0.45);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 255, 65, 0.06);
 }
 
-.abend-ascii-layout {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 0.76rem;
-    line-height: 1.6;
-    color: rgba(0, 255, 65, 0.55);
-    margin: 0;
-    white-space: pre;
-    overflow-x: auto;
-}
-
-[data-theme="light"] .abend-ascii-layout {
-    color: rgba(0, 100, 30, 0.6);
+.abend-interface-svg {
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
 .abend-versions-grid {
