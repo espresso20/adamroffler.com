@@ -490,7 +490,7 @@ completed: <span class="value">success</span>`
         help() {
             return [
                 'Available commands:',
-                '  whoami      who is Adam?',
+                '  whoami      get your IP info',
                 '  skills      jump to the tech stack',
                 '  projects    jump to projects',
                 '  experience  jump to work history',
@@ -504,10 +504,23 @@ completed: <span class="value">success</span>`
                 '  exit        back to the live feed',
             ].join('\n');
         },
-        whoami() {
-            return 'Adam Roffler — Principal Cloud Ops Engineer.\n' +
-                   'AWS architecture, infrastructure automation, and enterprise security.\n' +
-                   '15+ years from datacenter racks to serverless at scale.';
+        async whoami() {
+            try {
+                const response = await fetch('https://ipapi.co/json/', {
+                    signal: AbortSignal.timeout(5000)
+                });
+                if (!response.ok) throw new Error('API request failed');
+                const data = await response.json();
+
+                return [
+                    `IP Address: ${data.ip || 'Unknown'}`,
+                    `Location:   ${data.city || '?'}, ${data.region || '?'}, ${data.country_name || '?'}`,
+                    `ISP:        ${data.org || 'Unknown'}`,
+                    `Timezone:   ${data.timezone || 'Unknown'}`,
+                ].join('\n');
+            } catch (error) {
+                return 'Unable to fetch IP info (network error or API unavailable)';
+            }
         },
         about()      { goTo('#about');          return 'Scrolling to About...'; },
         skills()     { goTo('#skills');         return 'Opening the tech stack...'; },
@@ -544,7 +557,7 @@ completed: <span class="value">success</span>`
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
-    function runCommand(raw) {
+    async function runCommand(raw) {
         const value = raw.trim();
         if (value) { history.push(value); historyIdx = history.length; }
 
@@ -565,7 +578,11 @@ completed: <span class="value">success</span>`
 
         if (handler) {
             let out = '';
-            try { out = handler.call(commands, args) || ''; }
+            try {
+                const result = handler.call(commands, args);
+                // Handle both sync and async commands
+                out = (result instanceof Promise ? await result : result) || '';
+            }
             catch (e) { out = 'Error running command.'; }
             if (out) printOutput(out);
         } else {
