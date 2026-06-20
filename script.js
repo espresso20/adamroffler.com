@@ -699,31 +699,79 @@ function startMatrix(persist = true) {
     function size() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
     size();
 
+    // Radial fade: trails linger (brighter) in the center and decay faster at
+    // the edges, giving the whole field an atmospheric, focused-depth glow.
+    let fadeGradient;
+    function buildFade() {
+        const cx = canvas.width / 2, cy = canvas.height / 2;
+        const r = Math.hypot(cx, cy);
+        const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+        g.addColorStop(0, 'rgba(0, 0, 0, 0.045)');
+        g.addColorStop(1, 'rgba(0, 0, 0, 0.13)');
+        fadeGradient = g;
+    }
+    buildFade();
+
     const glyphs = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ0123456789ABCDEFｦｧｨｩ$+*=<>'.split('');
-    const fontSize = 16;
-    let columns = Math.floor(canvas.width / fontSize);
-    let drops = new Array(columns).fill(1);
+
+    // Three depth layers, drawn far -> near. Far layers are smaller, dimmer
+    // and slower; near layers are larger, brighter, faster -> parallax depth.
+    const layerDefs = [
+        { fontSize: 11, speed: 0.45, head: '170, 255, 200', tail: '0, 150, 70',  glow: 0,  resetChance: 0.985 },
+        { fontSize: 16, speed: 0.85, head: '200, 255, 215', tail: '0, 200, 95',  glow: 0,  resetChance: 0.975 },
+        { fontSize: 24, speed: 1.35, head: '225, 255, 235', tail: '20, 255, 120', glow: 12, resetChance: 0.965 },
+    ];
+
+    function buildLayer(def) {
+        const columns = Math.ceil(canvas.width / def.fontSize) + 1;
+        const drops = new Array(columns);
+        for (let i = 0; i < columns; i++) {
+            // Stagger initial positions so the layers don't start in lockstep.
+            drops[i] = Math.random() * -canvas.height / def.fontSize;
+        }
+        return { ...def, columns, drops };
+    }
+
+    let layers = layerDefs.map(buildLayer);
     let raf;
 
-    function draw() {
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.06)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = '#00ff66';
-        ctx.font = fontSize + 'px monospace';
-        for (let i = 0; i < drops.length; i++) {
-            const text = glyphs[Math.floor(Math.random() * glyphs.length)];
-            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
-            drops[i]++;
+    function drawLayer(layer) {
+        ctx.font = `${layer.fontSize}px monospace`;
+        ctx.shadowColor = layer.glow ? `rgba(${layer.tail}, 0.9)` : 'transparent';
+        for (let i = 0; i < layer.columns; i++) {
+            const x = i * layer.fontSize;
+            const y = layer.drops[i] * layer.fontSize;
+            const glyph = glyphs[Math.floor(Math.random() * glyphs.length)];
+
+            // Bright leading character with optional glow...
+            ctx.shadowBlur = layer.glow;
+            ctx.fillStyle = `rgb(${layer.head})`;
+            ctx.fillText(glyph, x, y);
+
+            // ...and a dimmer character just behind it to thicken the trail.
+            ctx.shadowBlur = 0;
+            ctx.fillStyle = `rgb(${layer.tail})`;
+            ctx.fillText(glyphs[Math.floor(Math.random() * glyphs.length)], x, y - layer.fontSize);
+
+            if (y > canvas.height && Math.random() > layer.resetChance) layer.drops[i] = 0;
+            layer.drops[i] += layer.speed;
         }
+    }
+
+    function draw() {
+        // Soft radial fade leaves trailing streaks and focuses depth at center.
+        ctx.fillStyle = fadeGradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        for (const layer of layers) drawLayer(layer);
+        ctx.shadowBlur = 0;
         raf = requestAnimationFrame(draw);
     }
     draw();
 
     function onResize() {
         size();
-        columns = Math.floor(canvas.width / fontSize);
-        drops = new Array(columns).fill(1);
+        buildFade();
+        layers = layerDefs.map(buildLayer);
     }
     window.addEventListener('resize', onResize);
 
