@@ -742,6 +742,50 @@ body {
     caret-color: var(--accent-primary);
 }
 
+/* ============================================
+   Matrix Theme (opt-in via the `matrix` terminal command)
+   Overrides the active theme with a phosphor-green palette while the
+   rain is running. Higher specificity than :root and [data-theme].
+   ============================================ */
+html.matrix-mode {
+    --bg-primary: #030a06;
+    --bg-secondary: #07140d;
+    --bg-gradient-start: #05140b;
+    --bg-gradient-end: #010503;
+
+    --text-primary: #d6ffe4;
+    --text-secondary: #7fdca8;
+    --text-accent: #00ff66;
+
+    --glass-bg: rgba(0, 255, 102, 0.04);
+    --glass-border: rgba(0, 255, 102, 0.18);
+    --glass-shadow: rgba(0, 255, 102, 0.12);
+
+    --accent-primary: #00ff66;
+    --accent-secondary: #00cc52;
+    --accent-gradient: linear-gradient(135deg, #00ff66 0%, #00b347 100%);
+
+    --card-hover-bg: rgba(0, 255, 102, 0.08);
+    --shadow-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Greened ambient hero blobs while in matrix mode */
+html.matrix-mode .hero-background {
+    background:
+        radial-gradient(circle at 20% 50%, rgba(0, 255, 102, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(0, 179, 71, 0.1) 0%, transparent 50%);
+}
+
+/* Glowy green glass while in matrix mode (game banners keep their own look) */
+html.matrix-mode .glass-card {
+    box-shadow: 0 8px 32px var(--glass-shadow), 0 0 18px var(--glass-shadow);
+}
+
+html.matrix-mode .glass-card:hover {
+    border-color: var(--accent-primary);
+    box-shadow: 0 15px 40px var(--glass-shadow), 0 0 30px var(--glass-shadow);
+}
+
 /* Matrix rain background -- sits behind all page content */
 .matrix-canvas {
     position: fixed;
