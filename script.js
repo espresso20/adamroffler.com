@@ -684,11 +684,13 @@ function activateEasterEgg() {
     // 1. Rainbow color flash across the whole page
     document.body.style.animation = 'rainbow 2s linear infinite';
 
-    // 2. Giant centered "KONAMI" banner (fixed = always centered in viewport)
+    // 2. Giant centered "KONAMI" banner.
+    // Attach to <html>, NOT <body>: the rainbow filter on <body> would make it
+    // the containing block for fixed children, breaking viewport centering.
     const banner = document.createElement('div');
     banner.className = 'konami-banner';
     banner.textContent = 'KONAMI';
-    document.body.appendChild(banner);
+    document.documentElement.appendChild(banner);
 
     // 3. After the banner, sweep the Konami arrow sequence across the screen
     const ARROWS = ['↑', '↑', '↓', '↓', '←', '→', '←', '→', 'B', 'A'];
@@ -700,7 +702,7 @@ function activateEasterEgg() {
 
         const arrowLayer = document.createElement('div');
         arrowLayer.className = 'konami-arrow-layer';
-        document.body.appendChild(arrowLayer);
+        document.documentElement.appendChild(arrowLayer);
 
         ARROWS.forEach((symbol, i) => {
             setTimeout(() => {
