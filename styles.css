@@ -2,48 +2,47 @@
    CSS Variables for Theme Support
    ============================================ */
 :root {
-    /* Matrix Theme (Default - dark phosphor) */
-    --bg-primary: #030a06;
-    --bg-secondary: #07140d;
-    --bg-gradient-start: #05140b;
-    --bg-gradient-end: #010503;
+    /* Dark Theme (Default) */
+    --bg-primary: #0a0e27;
+    --bg-secondary: #151932;
+    --bg-gradient-start: #1a1f3a;
+    --bg-gradient-end: #0d1128;
 
-    --text-primary: #d6ffe4;
-    --text-secondary: #7fdca8;
-    --text-accent: #00ff66;
+    --text-primary: #e8eaed;
+    --text-secondary: #b8bdc8;
+    --text-accent: #64ffda;
 
-    --glass-bg: rgba(0, 255, 102, 0.04);
-    --glass-border: rgba(0, 255, 102, 0.18);
-    --glass-shadow: rgba(0, 255, 102, 0.12);
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: rgba(0, 0, 0, 0.3);
 
-    --accent-primary: #00ff66;
-    --accent-secondary: #00cc52;
-    --accent-gradient: linear-gradient(135deg, #00ff66 0%, #00b347 100%);
+    --accent-primary: #64ffda;
+    --accent-secondary: #6c63ff;
+    --accent-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 
-    --card-hover-bg: rgba(0, 255, 102, 0.08);
-    --shadow-color: rgba(0, 0, 0, 0.6);
+    --card-hover-bg: rgba(255, 255, 255, 0.08);
+    --shadow-color: rgba(0, 0, 0, 0.5);
 }
 
 [data-theme="light"] {
-    /* Matrix Theme (light phosphor) */
-    --bg-primary: #e9f5ec;
+    --bg-primary: #f0f2f5;
     --bg-secondary: #ffffff;
-    --bg-gradient-start: #dff0e4;
-    --bg-gradient-end: #eef7f0;
+    --bg-gradient-start: #e2e6ee;
+    --bg-gradient-end: #f0f2f5;
 
-    --text-primary: #06210f;
-    --text-secondary: #2f5d40;
-    --text-accent: #007a33;
+    --text-primary: #1a202c;
+    --text-secondary: #3d4a5c;
+    --text-accent: #2d3748;
 
-    --glass-bg: rgba(255, 255, 255, 0.72);
-    --glass-border: rgba(0, 140, 60, 0.18);
-    --glass-shadow: rgba(0, 140, 60, 0.1);
+    --glass-bg: rgba(255, 255, 255, 0.75);
+    --glass-border: rgba(0, 0, 0, 0.12);
+    --glass-shadow: rgba(0, 0, 0, 0.08);
 
-    --accent-primary: #00a341;
-    --accent-secondary: #008c39;
+    --accent-primary: #4c51bf;
+    --accent-secondary: #5a67d8;
 
-    --card-hover-bg: rgba(0, 200, 90, 0.07);
-    --shadow-color: rgba(0, 80, 30, 0.12);
+    --card-hover-bg: rgba(76, 81, 191, 0.06);
+    --shadow-color: rgba(0, 0, 0, 0.12);
 }
 
 /* ============================================
@@ -164,8 +163,8 @@ body {
     width: 100%;
     height: 100%;
     background:
-        radial-gradient(circle at 20% 50%, rgba(0, 255, 102, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(0, 179, 71, 0.1) 0%, transparent 50%);
+        radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
     animation: float 20s ease-in-out infinite;
 }
 
@@ -264,12 +263,12 @@ body {
 .btn-primary {
     background: var(--accent-gradient);
     color: white;
-    box-shadow: 0 10px 30px rgba(0, 255, 102, 0.3);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
 }
 
 .btn-primary:hover {
     transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(0, 255, 102, 0.4);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
 }
 
 .btn-secondary {
@@ -334,15 +333,14 @@ body {
     border: 1px solid var(--glass-border);
     border-radius: 20px;
     padding: 30px;
-    box-shadow: 0 8px 32px var(--glass-shadow), 0 0 18px var(--glass-shadow);
+    box-shadow: 0 8px 32px var(--glass-shadow);
     transition: all 0.3s ease;
 }
 
 .glass-card:hover {
     background: var(--card-hover-bg);
     transform: translateY(-5px);
-    border-color: var(--accent-primary);
-    box-shadow: 0 15px 40px var(--glass-shadow), 0 0 30px var(--glass-shadow);
+    box-shadow: 0 15px 40px var(--glass-shadow);
 }
 
 /* ============================================
@@ -717,11 +715,11 @@ body {
 @keyframes hintPulse {
     0%, 100% {
         opacity: 0.55;
-        box-shadow: 0 0 0 0 rgba(0, 255, 102, 0);
+        box-shadow: 0 0 0 0 rgba(100, 255, 218, 0);
     }
     50% {
         opacity: 1;
-        box-shadow: 0 0 10px 0 rgba(0, 255, 102, 0.35);
+        box-shadow: 0 0 10px 0 rgba(100, 255, 218, 0.35);
     }
 }
 
@@ -742,6 +740,50 @@ body {
     font-size: inherit;
     line-height: inherit;
     caret-color: var(--accent-primary);
+}
+
+/* ============================================
+   Matrix Theme (opt-in via the `matrix` terminal command)
+   Overrides the active theme with a phosphor-green palette while the
+   rain is running. Higher specificity than :root and [data-theme].
+   ============================================ */
+html.matrix-mode {
+    --bg-primary: #030a06;
+    --bg-secondary: #07140d;
+    --bg-gradient-start: #05140b;
+    --bg-gradient-end: #010503;
+
+    --text-primary: #d6ffe4;
+    --text-secondary: #7fdca8;
+    --text-accent: #00ff66;
+
+    --glass-bg: rgba(0, 255, 102, 0.04);
+    --glass-border: rgba(0, 255, 102, 0.18);
+    --glass-shadow: rgba(0, 255, 102, 0.12);
+
+    --accent-primary: #00ff66;
+    --accent-secondary: #00cc52;
+    --accent-gradient: linear-gradient(135deg, #00ff66 0%, #00b347 100%);
+
+    --card-hover-bg: rgba(0, 255, 102, 0.08);
+    --shadow-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Greened ambient hero blobs while in matrix mode */
+html.matrix-mode .hero-background {
+    background:
+        radial-gradient(circle at 20% 50%, rgba(0, 255, 102, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(0, 179, 71, 0.1) 0%, transparent 50%);
+}
+
+/* Glowy green glass while in matrix mode (game banners keep their own look) */
+html.matrix-mode .glass-card {
+    box-shadow: 0 8px 32px var(--glass-shadow), 0 0 18px var(--glass-shadow);
+}
+
+html.matrix-mode .glass-card:hover {
+    border-color: var(--accent-primary);
+    box-shadow: 0 15px 40px var(--glass-shadow), 0 0 30px var(--glass-shadow);
 }
 
 /* Matrix rain background -- sits behind all page content */
@@ -973,20 +1015,20 @@ body.loaded {
    ============================================ */
 [data-theme="light"] .hero-background {
     background:
-        radial-gradient(circle at 20% 50%, rgba(0, 163, 65, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(0, 200, 90, 0.08) 0%, transparent 50%);
+        radial-gradient(circle at 20% 50%, rgba(76, 81, 191, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(90, 103, 216, 0.08) 0%, transparent 50%);
 }
 
 [data-theme="light"] .tag {
-    background: linear-gradient(135deg, #00a341 0%, #008c39 100%);
+    background: linear-gradient(135deg, #4c51bf 0%, #5a67d8 100%);
 }
 
 [data-theme="light"] .btn-primary {
-    box-shadow: 0 10px 30px rgba(0, 163, 65, 0.25);
+    box-shadow: 0 10px 30px rgba(76, 81, 191, 0.25);
 }
 
 [data-theme="light"] .btn-primary:hover {
-    box-shadow: 0 15px 40px rgba(0, 163, 65, 0.35);
+    box-shadow: 0 15px 40px rgba(76, 81, 191, 0.35);
 }
 
 [data-theme="light"] .glass-card {
@@ -1006,7 +1048,7 @@ body.loaded {
 }
 
 [data-theme="light"] .download-fab {
-    box-shadow: 0 10px 30px rgba(0, 163, 65, 0.3);
+    box-shadow: 0 10px 30px rgba(76, 81, 191, 0.3);
 }
 
 /* ============================================
@@ -2354,14 +2396,14 @@ body.loaded {
     border-radius: 50px;
     font-weight: 600;
     font-size: 0.95rem;
-    box-shadow: 0 10px 30px rgba(0, 255, 102, 0.4);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
     z-index: 1000;
     transition: all 0.3s ease;
 }
 
 .download-fab:hover {
     transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(0, 255, 102, 0.5);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
 }
 
 .download-fab i {

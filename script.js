@@ -285,8 +285,9 @@ if (particleCanvas) {
     function drawParticles() {
         ctx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
         const isDark = html.getAttribute('data-theme') !== 'light';
-        const particleColor = isDark ? 'rgba(0, 255, 102, 0.5)' : 'rgba(0, 163, 65, 0.4)';
-        const lineColor = isDark ? 'rgba(0, 255, 102,' : 'rgba(0, 163, 65,';
+        const isMatrix = html.classList.contains('matrix-mode');
+        const particleColor = isMatrix ? 'rgba(0, 255, 102, 0.5)' : (isDark ? 'rgba(100, 255, 218, 0.5)' : 'rgba(76, 81, 191, 0.4)');
+        const lineColor = isMatrix ? 'rgba(0, 255, 102,' : (isDark ? 'rgba(100, 255, 218,' : 'rgba(76, 81, 191,');
 
         particles.forEach((p, i) => {
             // Move
