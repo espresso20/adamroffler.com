@@ -531,7 +531,7 @@ completed: <span class="value">success</span>`
         experience() { goTo('#experience');     return 'Pulling up work history...'; },
         certs()        { goTo('#certifications'); return 'Showing certifications...'; },
         certifications() { return this.certs(); },
-        contact()    { goTo('#contact');        return 'Reach me at espresso20@pm.me'; },
+        contact()    { goTo('#contact');        return 'Reach me at espresso20@pm.me\n(recruiters: feeling bold? there\'s a one-word command for you...)'; },
         email()      { window.location.href = 'mailto:espresso20@pm.me'; return 'Opening mail client...'; },
         resume()     { window.open('resume.html', '_blank', 'noopener'); return 'Opening resume in a new tab...'; },
         cv()         { return this.resume(); },
@@ -1199,3 +1199,20 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// ============================================
+// Console hints for the curious (devtools crowd)
+// Subtle nudges toward the hidden eggs without spelling them all out.
+// ============================================
+(function consoleHints() {
+    const title = 'color:#64ffda;font-weight:bold;font-size:14px;font-family:monospace;';
+    const body = 'color:#8a83ff;font-size:12px;font-family:monospace;';
+    const dim = 'color:#7a8290;font-size:12px;font-family:monospace;';
+
+    console.log('%cWell now — someone opened the console. 👀', title);
+    console.log('%cYou seem like the type who pokes around, so a couple of breadcrumbs:', body);
+    console.log('%c  • The terminal up top takes real commands. Start with: help', body);
+    console.log('%c  • Old-school gamers know this one:  ↑ ↑ ↓ ↓ ← → ← → B A', body);
+    console.log('%c  • Hiring? The terminal has a one-word shortcut to my inbox.', body);
+    console.log('%cFind them all and you have officially out-curious-ed 99%% of visitors.', dim);
+})();
