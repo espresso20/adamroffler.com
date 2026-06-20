@@ -409,6 +409,19 @@ completed: <span class="value">success</span>`
 
     let scenarioIndex = 0;
     let terminalStarted = false;
+    let interactive = false;
+    const demoTimers = [];
+
+    // Track demo timers so we can stop the auto-feed when the user takes over.
+    function track(id) { demoTimers.push(id); return id; }
+    function clearDemo() {
+        demoTimers.forEach(id => { clearTimeout(id); clearInterval(id); });
+        demoTimers.length = 0;
+    }
+
+    function scrollToBottom() {
+        terminalBody.scrollTop = terminalBody.scrollHeight;
+    }
 
     function typeCommand(cmdObj, callback) {
         const newLine = document.createElement('div');
@@ -418,49 +431,233 @@ completed: <span class="value">success</span>`
 
         const cmdSpan = newLine.querySelector('.terminal-command');
         let i = 0;
-        const interval = setInterval(() => {
+        const interval = track(setInterval(() => {
             cmdSpan.textContent += cmdObj.cmd.charAt(i);
             i++;
             if (i >= cmdObj.cmd.length) {
                 clearInterval(interval);
-                setTimeout(() => {
+                track(setTimeout(() => {
                     const outputDiv = document.createElement('div');
                     outputDiv.className = 'terminal-output';
-                    outputDiv.innerHTML = cmdObj.output;
+                    outputDiv.innerHTML = cmdObj.output; // authored constants only
                     terminalBody.appendChild(outputDiv);
                     callback();
-                }, 400);
+                }, 400));
             }
-        }, 30);
+        }, 30));
     }
 
     function runScenario() {
+        if (interactive) return;
         const cmds = scenarios[scenarioIndex];
         let cmdIdx = 0;
 
         function nextCmd() {
+            if (interactive) return;
             if (cmdIdx >= cmds.length) {
                 // Pause, then clear and run next scenario
-                setTimeout(() => {
+                track(setTimeout(() => {
+                    if (interactive) return;
                     terminalBody.innerHTML = '';
                     scenarioIndex = (scenarioIndex + 1) % scenarios.length;
                     runScenario();
-                }, 3000);
+                }, 3000));
                 return;
             }
             typeCommand(cmds[cmdIdx], () => {
                 cmdIdx++;
-                setTimeout(nextCmd, 800);
+                track(setTimeout(nextCmd, 800));
             });
         }
 
         nextCmd();
     }
 
-    // Start terminal animation when visible
+    // ---- Interactive mode --------------------------------------------------
+    const history = [];
+    let historyIdx = 0;
+
+    function printOutput(text, isError) {
+        const div = document.createElement('div');
+        div.className = 'terminal-output' + (isError ? ' terminal-error' : '');
+        div.textContent = text; // textContent: user input can never inject markup
+        terminalBody.appendChild(div);
+        scrollToBottom();
+    }
+
+    // Commands wired to real "things". Each returns a string to print (or '').
+    const commands = {
+        help() {
+            return [
+                'Available commands:',
+                '  whoami      get your IP info',
+                '  skills      jump to the tech stack',
+                '  projects    jump to projects',
+                '  experience  jump to work history',
+                '  certs       jump to certifications',
+                '  contact     how to reach me',
+                '  resume      open my resume',
+                '  github      open my GitHub',
+                '  linkedin    open my LinkedIn',
+                '  theme       toggle dark / light',
+                '  clear       clear the screen',
+                '  exit        back to the live feed',
+            ].join('\n');
+        },
+        async whoami() {
+            try {
+                const response = await fetch('https://ipapi.co/json/', {
+                    signal: AbortSignal.timeout(5000)
+                });
+                if (!response.ok) throw new Error('API request failed');
+                const data = await response.json();
+
+                return [
+                    `IP Address: ${data.ip || 'Unknown'}`,
+                    `Location:   ${data.city || '?'}, ${data.region || '?'}, ${data.country_name || '?'}`,
+                    `ISP:        ${data.org || 'Unknown'}`,
+                    `Timezone:   ${data.timezone || 'Unknown'}`,
+                ].join('\n');
+            } catch (error) {
+                return 'Unable to fetch IP info (network error or API unavailable)';
+            }
+        },
+        about()      { goTo('#about');          return 'Scrolling to About...'; },
+        skills()     { goTo('#skills');         return 'Opening the tech stack...'; },
+        projects()   { goTo('#projects');       return 'Loading projects...'; },
+        experience() { goTo('#experience');     return 'Pulling up work history...'; },
+        certs()        { goTo('#certifications'); return 'Showing certifications...'; },
+        certifications() { return this.certs(); },
+        contact()    { goTo('#contact');        return 'Reach me at espresso20@pm.me'; },
+        email()      { window.location.href = 'mailto:espresso20@pm.me'; return 'Opening mail client...'; },
+        resume()     { window.open('resume.html', '_blank', 'noopener'); return 'Opening resume in a new tab...'; },
+        cv()         { return this.resume(); },
+        github()     { window.open('https://github.com/espresso20', '_blank', 'noopener'); return 'Opening GitHub...'; },
+        linkedin()   { window.open('https://www.linkedin.com/in/adam-roffler/', '_blank', 'noopener'); return 'Opening LinkedIn...'; },
+        cloud()      { window.location.href = 'aws-cloud.html'; return 'Entering the cloud...'; },
+        theme(args) {
+            const target = (args[0] || '').toLowerCase();
+            const current = document.documentElement.getAttribute('data-theme') || 'dark';
+            const next = (target === 'dark' || target === 'light') ? target : (current === 'dark' ? 'light' : 'dark');
+            document.documentElement.setAttribute('data-theme', next);
+            try { localStorage.setItem('theme', next); } catch (e) {}
+            if (typeof updateThemeIcon === 'function') updateThemeIcon(next);
+            return `Theme set to ${next}.`;
+        },
+        echo(args)   { return args.join(' '); },
+        date()       { return new Date().toString(); },
+        sudo()       { return "Nice try. You don't have root here. 😏"; },
+        // --- hidden easter eggs (not listed in help) ---
+        matrix()     { matrixRain(); return 'Wake up, Neo...'; },
+        hire()       { showRecruitMessage(); return ''; },
+    };
+
+    function goTo(selector) {
+        const el = document.querySelector(selector);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    async function runCommand(raw) {
+        const value = raw.trim();
+        if (value) { history.push(value); historyIdx = history.length; }
+
+        if (value === '') { newPrompt(); return; }
+        if (value === 'clear') { terminalBody.innerHTML = ''; newPrompt(); return; }
+        if (value === 'exit') {
+            interactive = false;
+            terminalBody.innerHTML = '';
+            scenarioIndex = 0;
+            runScenario();
+            return;
+        }
+
+        const parts = value.split(/\s+/);
+        const name = parts[0].toLowerCase();
+        const args = parts.slice(1);
+        const handler = commands[name];
+
+        if (handler) {
+            let out = '';
+            try {
+                const result = handler.call(commands, args);
+                // Handle both sync and async commands
+                out = (result instanceof Promise ? await result : result) || '';
+            }
+            catch (e) { out = 'Error running command.'; }
+            if (out) printOutput(out);
+        } else {
+            printOutput(`command not found: ${name}  —  type 'help' for options`, true);
+        }
+        newPrompt();
+    }
+
+    function newPrompt() {
+        const line = document.createElement('div');
+        line.className = 'terminal-line terminal-input-line';
+
+        const prompt = document.createElement('span');
+        prompt.className = 'terminal-prompt';
+        prompt.textContent = '$';
+
+        const input = document.createElement('input');
+        input.className = 'terminal-input';
+        input.type = 'text';
+        input.setAttribute('autocomplete', 'off');
+        input.setAttribute('autocapitalize', 'off');
+        input.setAttribute('autocorrect', 'off');
+        input.setAttribute('spellcheck', 'false');
+        input.setAttribute('aria-label', 'Terminal command input');
+
+        line.appendChild(prompt);
+        line.appendChild(input);
+        terminalBody.appendChild(line);
+        input.focus();
+        scrollToBottom();
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const value = input.value;
+                const frozen = document.createElement('span');
+                frozen.className = 'terminal-command';
+                frozen.textContent = value;
+                line.replaceChild(frozen, input);
+                runCommand(value);
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (historyIdx > 0) { historyIdx--; input.value = history[historyIdx] || ''; }
+            } else if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (historyIdx < history.length) { historyIdx++; input.value = history[historyIdx] || ''; }
+            }
+        });
+    }
+
+    function enterInteractive() {
+        if (interactive) return;
+        interactive = true;
+        clearDemo();
+        terminalBody.innerHTML = '';
+        const hintEl = document.getElementById('terminalHint');
+        if (hintEl) hintEl.style.display = 'none';
+        printOutput("adam@cloud-ops — type 'help' to get started.");
+        newPrompt();
+    }
+
+    // Click anywhere in the terminal to take over
+    const terminalEl = terminalBody.closest('.terminal');
+    terminalEl.addEventListener('click', () => {
+        if (!interactive) enterInteractive();
+        else {
+            const input = terminalBody.querySelector('.terminal-input');
+            if (input) input.focus();
+        }
+    });
+
+    // Start the auto-demo when visible
     const terminalObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting && !terminalStarted) {
+            if (entry.isIntersecting && !terminalStarted && !interactive) {
                 terminalStarted = true;
                 terminalBody.innerHTML = '';
                 runScenario();
@@ -468,7 +665,109 @@ completed: <span class="value">success</span>`
         });
     }, { threshold: 0.3 });
 
-    terminalObserver.observe(terminalBody.closest('.terminal'));
+    terminalObserver.observe(terminalEl);
+}
+
+// ============================================
+// Matrix rain effect (triggered via terminal: `matrix`)
+// ============================================
+function matrixRain(duration = 6000) {
+    if (document.querySelector('.matrix-canvas')) return;
+
+    const canvas = document.createElement('canvas');
+    canvas.className = 'matrix-canvas';
+    // Attach to <html> so it overlays everything regardless of body filters
+    document.documentElement.appendChild(canvas);
+    const ctx = canvas.getContext('2d');
+
+    function size() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    size();
+
+    const glyphs = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ0123456789ABCDEFｦｧｨｩ$+*=<>'.split('');
+    const fontSize = 16;
+    let columns = Math.floor(canvas.width / fontSize);
+    let drops = new Array(columns).fill(1);
+    let raf;
+
+    function draw() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.06)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#00ff66';
+        ctx.font = fontSize + 'px monospace';
+        for (let i = 0; i < drops.length; i++) {
+            const text = glyphs[Math.floor(Math.random() * glyphs.length)];
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+            drops[i]++;
+        }
+        raf = requestAnimationFrame(draw);
+    }
+    draw();
+
+    function onResize() {
+        size();
+        columns = Math.floor(canvas.width / fontSize);
+        drops = new Array(columns).fill(1);
+    }
+    window.addEventListener('resize', onResize);
+
+    function teardown() {
+        cancelAnimationFrame(raf);
+        window.removeEventListener('resize', onResize);
+        canvas.removeEventListener('click', teardown);
+        canvas.style.transition = 'opacity 0.8s ease';
+        canvas.style.opacity = '0';
+        setTimeout(() => canvas.remove(), 800);
+    }
+
+    canvas.addEventListener('click', teardown); // click to dismiss early
+    setTimeout(teardown, duration);
+}
+
+// ============================================
+// Secret recruiting message (triggered via terminal: `hire`)
+// ============================================
+function showRecruitMessage() {
+    if (document.querySelector('.recruit-overlay')) return;
+
+    const overlay = document.createElement('div');
+    overlay.className = 'recruit-overlay';
+
+    const card = document.createElement('div');
+    card.className = 'recruit-card glass-card';
+
+    const close = document.createElement('button');
+    close.className = 'recruit-close';
+    close.setAttribute('aria-label', 'Close');
+    close.textContent = '✕';
+
+    const h = document.createElement('h3');
+    h.textContent = 'You found the secret. 🎯';
+
+    const p1 = document.createElement('p');
+    p1.textContent = "Most people just scroll. You went digging — that's exactly the kind of curiosity I like to work with.";
+
+    const p2 = document.createElement('p');
+    p2.textContent = "If you're hiring (or just want to talk cloud, automation, or terminal games), let's talk:";
+
+    const cta = document.createElement('a');
+    cta.className = 'btn btn-primary';
+    cta.href = 'mailto:espresso20@pm.me';
+    cta.textContent = 'espresso20@pm.me';
+
+    card.append(close, h, p1, p2, cta);
+    overlay.appendChild(card);
+    document.documentElement.appendChild(overlay);
+
+    function dismiss() {
+        overlay.remove();
+        document.removeEventListener('keydown', onKey);
+    }
+    function onKey(e) { if (e.key === 'Escape') dismiss(); }
+
+    close.addEventListener('click', dismiss);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) dismiss(); });
+    document.addEventListener('keydown', onKey);
 }
 
 // ============================================
