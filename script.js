@@ -675,19 +675,143 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+let easterEggActive = false;
+
 function activateEasterEgg() {
+    if (easterEggActive) return;
+    easterEggActive = true;
+
+    // 1. Rainbow color flash across the whole page
     document.body.style.animation = 'rainbow 2s linear infinite';
+
+    // 2. Giant centered "KONAMI" banner (fixed = always centered in viewport)
+    const banner = document.createElement('div');
+    banner.className = 'konami-banner';
+    banner.textContent = 'KONAMI';
+    document.body.appendChild(banner);
+
+    // 3. After the banner, sweep the Konami arrow sequence across the screen
+    const ARROWS = ['↑', '↑', '↓', '↓', '←', '→', '←', '→', 'B', 'A'];
+    const BANNER_MS = 3000;
+
     setTimeout(() => {
-        document.body.style.animation = '';
-    }, 5000);
+        banner.classList.add('konami-banner-out');
+        setTimeout(() => banner.remove(), 500);
+
+        const arrowLayer = document.createElement('div');
+        arrowLayer.className = 'konami-arrow-layer';
+        document.body.appendChild(arrowLayer);
+
+        ARROWS.forEach((symbol, i) => {
+            setTimeout(() => {
+                const el = document.createElement('span');
+                el.className = 'konami-arrow';
+                el.textContent = symbol;
+                arrowLayer.appendChild(el);
+                // Clean up each arrow after it finishes flying
+                setTimeout(() => el.remove(), 1200);
+            }, i * 180);
+        });
+
+        // Tear down the arrow layer and stop the rainbow once the sweep ends
+        const totalArrowTime = ARROWS.length * 180 + 1200;
+        setTimeout(() => {
+            arrowLayer.remove();
+            document.body.style.animation = '';
+            easterEggActive = false;
+        }, totalArrowTime);
+    }, BANNER_MS);
 }
 
-// Add rainbow animation
+// Add easter egg animations + styling
 const style = document.createElement('style');
 style.textContent = `
     @keyframes rainbow {
         0% { filter: hue-rotate(0deg); }
         100% { filter: hue-rotate(360deg); }
+    }
+
+    .konami-banner {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.3);
+        z-index: 100000;
+        font-size: clamp(3rem, 18vw, 14rem);
+        font-weight: 900;
+        letter-spacing: 0.1em;
+        font-family: 'Courier New', monospace;
+        background: linear-gradient(135deg, #ff0080, #ff8c00, #ffe600, #00ff88, #00cfff, #8a2be2);
+        background-size: 300% 300%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 40px rgba(255, 255, 255, 0.4);
+        filter: drop-shadow(0 0 30px rgba(255, 0, 128, 0.6));
+        pointer-events: none;
+        opacity: 0;
+        animation: konamiPop 0.5s cubic-bezier(0.18, 1.5, 0.5, 1) forwards,
+                   konamiGradient 3s linear infinite,
+                   konamiPulse 0.8s ease-in-out 0.5s infinite alternate;
+    }
+
+    .konami-banner-out {
+        animation: konamiOut 0.5s ease forwards !important;
+    }
+
+    @keyframes konamiPop {
+        0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.3) rotate(-8deg); }
+        100% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+    }
+
+    @keyframes konamiPulse {
+        from { transform: translate(-50%, -50%) scale(1); }
+        to   { transform: translate(-50%, -50%) scale(1.08); }
+    }
+
+    @keyframes konamiGradient {
+        0%   { background-position: 0% 50%; }
+        100% { background-position: 300% 50%; }
+    }
+
+    @keyframes konamiOut {
+        from { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        to   { opacity: 0; transform: translate(-50%, -50%) scale(2.2); }
+    }
+
+    .konami-arrow-layer {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 100000;
+        pointer-events: none;
+        display: flex;
+        gap: 0.15em;
+        font-size: clamp(2.5rem, 10vw, 8rem);
+        font-weight: 900;
+        font-family: 'Courier New', monospace;
+    }
+
+    .konami-arrow {
+        display: inline-block;
+        opacity: 0;
+        color: #fff;
+        text-shadow: 0 0 20px #00cfff, 0 0 40px #ff0080;
+        animation: konamiArrow 1.2s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+    }
+
+    @keyframes konamiArrow {
+        0%   { opacity: 0; transform: translateY(60px) scale(0.4); }
+        25%  { opacity: 1; transform: translateY(0) scale(1.3); }
+        70%  { opacity: 1; transform: translateY(0) scale(1); }
+        100% { opacity: 0; transform: translateY(-50px) scale(0.8); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .konami-banner, .konami-arrow {
+            animation-duration: 0.01ms !important;
+        }
     }
 `;
 document.head.appendChild(style);
