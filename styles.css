@@ -742,15 +742,20 @@ body {
     caret-color: var(--accent-primary);
 }
 
-/* Matrix rain overlay */
+/* Matrix rain background -- sits behind all page content */
 .matrix-canvas {
     position: fixed;
     inset: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 99998;
+    z-index: -1;
     background: #000;
-    cursor: pointer;
+    pointer-events: none;
+}
+
+/* When matrix mode is active, let the rain show through as the page background */
+html.matrix-mode body {
+    background: transparent;
 }
 
 /* Secret recruiting message */

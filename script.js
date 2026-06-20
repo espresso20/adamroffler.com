@@ -550,7 +550,14 @@ completed: <span class="value">success</span>`
         date()       { return new Date().toString(); },
         sudo()       { return "Nice try. You don't have root here. 😏"; },
         // --- hidden easter eggs (not listed in help) ---
-        matrix()     { matrixRain(); return 'Wake up, Neo...'; },
+        matrix(args) {
+            const arg = (args[0] || '').toLowerCase();
+            if (arg === 'off') { stopMatrix(); return 'Disconnecting... welcome back to reality.'; }
+            if (arg === 'on')  { startMatrix(); return 'Wake up, Neo... the matrix is now your background. (type "matrix off" to leave)'; }
+            return toggleMatrix()
+                ? 'Wake up, Neo... the matrix is now your background. (type "matrix off" to leave)'
+                : 'Disconnecting... welcome back to reality.';
+        },
         hire()       { showRecruitMessage(); return ''; },
     };
 
@@ -671,15 +678,22 @@ completed: <span class="value">success</span>`
 }
 
 // ============================================
-// Matrix rain effect (triggered via terminal: `matrix`)
+// Matrix rain background (toggled via terminal: `matrix`)
+// Runs behind the page content and persists across visits via localStorage.
 // ============================================
-function matrixRain(duration = 6000) {
-    if (document.querySelector('.matrix-canvas')) return;
+const MATRIX_KEY = 'matrixMode';
+let matrixActive = false;
+let stopMatrixImpl = null;
+
+function startMatrix(persist = true) {
+    if (matrixActive) return;
+    matrixActive = true;
 
     const canvas = document.createElement('canvas');
     canvas.className = 'matrix-canvas';
-    // Attach to <html> so it overlays everything regardless of body filters
+    // Attach to <html> and let the .matrix-mode class turn it into the page background
     document.documentElement.appendChild(canvas);
+    document.documentElement.classList.add('matrix-mode');
     const ctx = canvas.getContext('2d');
 
     function size() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
@@ -713,18 +727,36 @@ function matrixRain(duration = 6000) {
     }
     window.addEventListener('resize', onResize);
 
-    function teardown() {
+    // Closure that fully tears the background down again.
+    stopMatrixImpl = function () {
         cancelAnimationFrame(raf);
         window.removeEventListener('resize', onResize);
-        canvas.removeEventListener('click', teardown);
-        canvas.style.transition = 'opacity 0.8s ease';
-        canvas.style.opacity = '0';
-        setTimeout(() => canvas.remove(), 800);
-    }
+        canvas.remove();
+        document.documentElement.classList.remove('matrix-mode');
+        matrixActive = false;
+        stopMatrixImpl = null;
+    };
 
-    canvas.addEventListener('click', teardown); // click to dismiss early
-    setTimeout(teardown, duration);
+    if (persist) {
+        try { localStorage.setItem(MATRIX_KEY, 'on'); } catch (e) {}
+    }
 }
+
+function stopMatrix() {
+    if (stopMatrixImpl) stopMatrixImpl();
+    try { localStorage.removeItem(MATRIX_KEY); } catch (e) {}
+}
+
+function toggleMatrix() {
+    if (matrixActive) { stopMatrix(); return false; }
+    startMatrix();
+    return true;
+}
+
+// Restore the matrix background if it was left on during a previous visit.
+try {
+    if (localStorage.getItem(MATRIX_KEY) === 'on') startMatrix(false);
+} catch (e) {}
 
 // ============================================
 // Secret recruiting message (triggered via terminal: `hire`)
