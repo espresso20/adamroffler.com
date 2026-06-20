@@ -502,6 +502,8 @@ completed: <span class="value">success</span>`
                 '  theme       toggle dark / light',
                 '  clear       clear the screen',
                 '  exit        back to the live feed',
+                '',
+                "  ...and maybe a few more. Neo would approve of the curious. 🕶️",
             ].join('\n');
         },
         async whoami() {
