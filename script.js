@@ -717,9 +717,9 @@ function startMatrix(persist = true) {
     // Three depth layers, drawn far -> near. Far layers are smaller, dimmer
     // and slower; near layers are larger, brighter, faster -> parallax depth.
     const layerDefs = [
-        { fontSize: 11, speed: 0.45, head: '170, 255, 200', tail: '0, 150, 70',  glow: 0,  resetChance: 0.985 },
-        { fontSize: 16, speed: 0.85, head: '200, 255, 215', tail: '0, 200, 95',  glow: 0,  resetChance: 0.975 },
-        { fontSize: 24, speed: 1.35, head: '225, 255, 235', tail: '20, 255, 120', glow: 12, resetChance: 0.965 },
+        { fontSize: 11, speed: 0.12, head: '170, 255, 200', tail: '0, 150, 70',  glow: 0,  resetChance: 0.985 },
+        { fontSize: 16, speed: 0.25, head: '200, 255, 215', tail: '0, 200, 95',  glow: 0,  resetChance: 0.975 },
+        { fontSize: 24, speed: 0.40, head: '225, 255, 235', tail: '20, 255, 120', glow: 12, resetChance: 0.965 },
     ];
 
     function buildLayer(def) {
