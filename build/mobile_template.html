@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Adam Roffler | Cloud &amp; DevOps Engineer</title>
+<meta name="description" content="Adam Roffler - Cloud and DevOps Engineer. AWS architecture, security and automation.">
+<link rel="canonical" href="https://adamroffler.com/">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<meta name="theme-color" content="#0a0e27">
+<style>
+:root{
+  --bg:#0a0e27; --bg2:#151932; --card:#1a1f3d;
+  --line:rgba(255,255,255,.09);
+  --text:#e8eaed; --dim:#b8bdc8; --faint:#8990a5;
+  --accent:#64ffda; --accent2:#6c63ff;
+  --tab-h:58px;
+  --pad:18px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:calc(var(--tab-h) + env(safe-area-inset-bottom));
+  overflow-x:hidden;
+}
+a{color:var(--accent);text-decoration:none}
+h1,h2,h3{margin:0;line-height:1.2}
+p{margin:0 0 12px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:8px}
+
+.wrap{padding:0 var(--pad)}
+section{padding:34px 0 6px;scroll-margin-top:14px}
+.eyebrow{
+  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint);margin-bottom:10px;
+}
+.h2{font-size:22px;font-weight:800;letter-spacing:-.02em;margin-bottom:16px}
+
+/* ---------- hero ---------- */
+.hero{padding:calc(26px + env(safe-area-inset-top)) 0 8px;text-align:center}
+.mark{
+  width:96px;height:96px;margin:0 auto 16px;border-radius:50%;
+  overflow:hidden;border:3px solid var(--line);background:var(--bg2);
+}
+.mark img{width:100%;height:100%;object-fit:cover;display:block}
+.hero h1{font-size:30px;font-weight:800;letter-spacing:-.03em}
+.hero .role{color:var(--accent);font-weight:600;font-size:15px;margin-top:6px}
+.hero .where{color:var(--faint);font-size:13.5px;margin-top:2px}
+.cta{
+  display:flex;gap:10px;margin:20px 0 4px;
+}
+.cta a{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  min-height:48px;border-radius:14px;font-weight:600;font-size:15px;
+}
+.cta .primary{background:var(--accent);color:#04231c}
+.cta .ghost{border:1px solid var(--line);color:var(--text)}
+
+/* ---------- projects ---------- */
+.pcard{
+  display:grid;
+  grid-template-columns:1fr auto;
+  grid-template-rows:auto auto;
+  align-items:center;
+  gap:2px 12px;
+  padding:15px 16px;margin-bottom:10px;
+  border-radius:16px;
+  background:var(--card);
+  border:1px solid color-mix(in oklab, var(--a) 40%, transparent);
+  position:relative;overflow:hidden;isolation:isolate;
+}
+.pcard::before{
+  content:"";position:absolute;inset:0;z-index:-1;opacity:.15;
+  background:linear-gradient(135deg,var(--a),var(--b));
+}
+.pcard-name{
+  font-size:18px;font-weight:800;letter-spacing:-.01em;
+  background:linear-gradient(135deg,var(--a),var(--b));
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:var(--a);
+}
+.pcard-desc{grid-column:1;font-size:13px;color:var(--dim)}
+.pcard-go{grid-column:2;grid-row:1/3;font-size:20px;color:var(--a)}
+
+/* ---------- about ---------- */
+.about p{color:var(--dim);font-size:15px}
+
+/* ---------- lists ---------- */
+.rows{list-style:none;margin:0;padding:0}
+.rows li{
+  padding:13px 0;border-bottom:1px solid var(--line);
+  display:flex;flex-direction:column;gap:3px;
+}
+.rows li:last-child{border-bottom:0}
+.rows b{font-size:15px;font-weight:650}
+.rows span{font-size:13px;color:var(--faint)}
+
+/* ---------- experience ---------- */
+.jobs{list-style:none;margin:0;padding:0}
+.job{
+  background:var(--bg2);border:1px solid var(--line);
+  border-radius:16px;padding:16px;margin-bottom:12px;
+}
+.job-current{border-color:color-mix(in oklab,var(--accent) 45%,transparent)}
+.job h3{font-size:16.5px;font-weight:700}
+.job-org{margin:4px 0 0;font-size:14px;color:var(--accent);font-weight:600}
+.job-meta{margin:1px 0 0;font-size:12.5px;color:var(--faint)}
+.job-desc{
+  margin:10px 0 0;font-size:13.5px;color:var(--dim);
+  display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;
+}
+.job.open .job-desc{-webkit-line-clamp:unset}
+.job-more{
+  margin-top:8px;background:none;border:0;padding:6px 0;
+  color:var(--accent);font:inherit;font-size:13px;font-weight:600;cursor:pointer;
+}
+.job-tags{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin:11px 0 0;padding:0}
+.job-tags li{
+  font-size:11.5px;padding:4px 9px;border-radius:20px;
+  background:rgba(100,255,218,.09);color:var(--accent);border:0;
+}
+
+/* ---------- contact ---------- */
+.contact{display:grid;gap:10px;margin-bottom:8px}
+.contact a{
+  display:flex;align-items:center;gap:12px;min-height:52px;
+  padding:0 16px;border-radius:14px;
+  background:var(--bg2);border:1px solid var(--line);
+  color:var(--text);font-weight:600;font-size:15px;
+}
+.contact a span{color:var(--faint);font-weight:400;font-size:13px;margin-left:auto}
+
+footer{
+  padding:26px 0 34px;text-align:center;color:var(--faint);font-size:12.5px;
+}
+footer a{display:inline-block;margin-top:10px;padding:10px 16px;
+  border:1px solid var(--line);border-radius:12px;color:var(--dim)}
+
+/* ---------- bottom tab bar: thumb reach, not a top hamburger ---------- */
+.tabs{
+  position:fixed;left:0;right:0;bottom:0;z-index:50;
+  height:calc(var(--tab-h) + env(safe-area-inset-bottom));
+  padding-bottom:env(safe-area-inset-bottom);
+  display:grid;grid-template-columns:repeat(4,1fr);
+  background:#0d1230;border-top:1px solid var(--line);
+}
+.tabs a{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:3px;color:var(--faint);font-size:11px;font-weight:600;letter-spacing:.02em;
+}
+.tabs a svg{width:20px;height:20px;fill:currentColor}
+.tabs a.on{color:var(--accent)}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hero wrap">
+  <div class="mark"><img src="../profile-image.jpg" alt="Adam Roffler" width="1024" height="1024"></div>
+  <h1>Adam Roffler</h1>
+  <p class="role">Senior Engineer III</p>
+  <p class="where">27Global &middot; Kansas City, KS</p>
+  <div class="cta">
+    <a class="primary" href="../resume.html">Resume</a>
+    <a class="ghost" href="#contact">Contact</a>
+  </div>
+</header>
+
+<section id="projects" class="wrap">
+  <p class="eyebrow">Things I built</p>
+  <h2 class="h2">Projects</h2>
+  <!--PROJECTS-->
+</section>
+
+<section id="about" class="wrap about">
+  <p class="eyebrow">Background</p>
+  <h2 class="h2">About</h2>
+  <!--ABOUT-->
+</section>
+
+<section id="skills" class="wrap">
+  <p class="eyebrow">What I work in</p>
+  <h2 class="h2">Tech stack</h2>
+  <ul class="rows"><!--SKILLS--></ul>
+</section>
+
+<section id="work" class="wrap">
+  <p class="eyebrow">Career</p>
+  <h2 class="h2">Experience</h2>
+  <ul class="jobs"><!--JOBS--></ul>
+</section>
+
+<section id="certs" class="wrap">
+  <p class="eyebrow">Credentials</p>
+  <h2 class="h2">Certifications</h2>
+  <ul class="rows"><!--CERTS--></ul>
+</section>
+
+<section id="contact" class="wrap">
+  <p class="eyebrow">Get in touch</p>
+  <h2 class="h2">Contact</h2>
+  <div class="contact">
+    <a href="mailto:espresso20@pm.me">Email<span>espresso20@pm.me</span></a>
+    <a href="https://www.linkedin.com/in/adam-roffler/" target="_blank" rel="noopener noreferrer">LinkedIn<span>adam-roffler</span></a>
+    <a href="https://github.com/espresso20" target="_blank" rel="noopener noreferrer">GitHub<span>espresso20</span></a>
+  </div>
+  <footer>
+    <div>&copy; 2026 Adam Roffler</div>
+    <a href="../index.html?desktop=1">View desktop site</a>
+  </footer>
+</section>
+
+<nav class="tabs" aria-label="Sections">
+  <a href="#projects" class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h7v7H4zm9 0h7v7h-7zM4 13h7v7H4zm9 0h7v7h-7z"/></svg>Projects</a>
+  <a href="#about"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-5 0-9 2.5-9 5.5V22h18v-2.5c0-3-4-5.5-9-5.5z"/></svg>About</a>
+  <a href="#work"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4h6a2 2 0 0 1 2 2v1h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h3V6a2 2 0 0 1 2-2zm0 3h6V6H9z"/></svg>Work</a>
+  <a href="#contact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2l-10 6L2 6zm0 2.4V18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8.4l-10 6-10-6z"/></svg>Contact</a>
+</nav>
+
+<script>
+// Remember the choice, so "View desktop site" is not undone by the redirect.
+try {
+  if (new URLSearchParams(location.search).get('mobile') === '1') {
+    localStorage.removeItem('preferDesktop');
+  }
+} catch (e) {}
+
+// Expand a role's detail rather than truncating it permanently.
+document.querySelectorAll('.job').forEach(function (job) {
+  var desc = job.querySelector('.job-desc');
+  if (!desc) return;
+  requestAnimationFrame(function () {
+    if (desc.scrollHeight <= desc.clientHeight + 4) return;
+    var btn = document.createElement('button');
+    btn.className = 'job-more';
+    btn.type = 'button';
+    btn.textContent = 'Read more';
+    btn.setAttribute('aria-expanded', 'false');
+    btn.addEventListener('click', function () {
+      var open = job.classList.toggle('open');
+      btn.textContent = open ? 'Show less' : 'Read more';
+      btn.setAttribute('aria-expanded', String(open));
+    });
+    desc.after(btn);
+  });
+});
+
+// Highlight the tab for whatever section is on screen.
+var tabs = [].slice.call(document.querySelectorAll('.tabs a'));
+var byId = {};
+tabs.forEach(function (t) { byId[t.getAttribute('href').slice(1)] = t; });
+var obs = new IntersectionObserver(function (entries) {
+  entries.forEach(function (e) {
+    if (!e.isIntersecting) return;
+    var tab = byId[e.target.id];
+    if (!tab) return;
+    tabs.forEach(function (t) { t.classList.remove('on'); });
+    tab.classList.add('on');
+  });
+}, { rootMargin: '-45% 0px -45% 0px' });
+['projects', 'about', 'work', 'contact'].forEach(function (id) {
+  var el = document.getElementById(id);
+  if (el) obs.observe(el);
+});
+</script>
+</body>
+</html>

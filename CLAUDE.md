@@ -84,6 +84,43 @@ The repository has two Claude Code GitHub Actions:
 - AOS animations triggered via `data-aos` attributes and Intersection Observer
 - Profile image and cloud.jpeg are the only image assets
 
+
+## Mobile Site
+
+`m/index.html` is a separate mobile-first page. It is **generated**, not
+hand-written:
+
+```bash
+python3 build/gen_mobile.py     # re-read index.html, rewrite m/index.html
+```
+
+`build/gen_mobile.py` scrapes the experience timeline, tech stack,
+certifications, about copy and project cards out of `index.html` and re-lays
+them out for a phone. Editing `m/index.html` directly means the next run
+overwrites it -- change `index.html` and regenerate instead. That is the whole
+reason it is generated: a hand-maintained second page drifts the first time a
+job is added to one and not the other.
+
+**Re-run it after any content change to index.html.**
+
+### Routing
+An inline script in `index.html` sends `(max-width: 640px)` *and*
+`(pointer: coarse)` visitors to `m/index.html`. That is feature detection, not
+User-Agent sniffing, which misreads tablets, foldables and desktop-mode-on-phone.
+
+- "View desktop site" on mobile links to `index.html?desktop=1`, which sets
+  `localStorage.preferDesktop` and suppresses the redirect from then on.
+- `m/index.html?mobile=1` clears that flag.
+- `index.html` carries `rel="alternate"` and `m/index.html` carries
+  `rel="canonical"` back to the root, so search engines treat them as one page.
+
+### Design notes
+The mobile page shares no CSS with the desktop site -- its styles are inline and
+self-contained. It deliberately avoids `backdrop-filter` (renders as a solid
+pale box on several mobile browsers), the particle canvas, the typing animation
+and parallax. Navigation is a bottom tab bar rather than a top hamburger,
+because that is where thumbs are.
+
 ## Important Notes
 
 - Contact email: `espresso20@pm.me`

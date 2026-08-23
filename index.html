@@ -13,6 +13,25 @@
     <meta name="twitter:description" content="Principal Cloud / DevOps Engineer specializing in AWS Architecture, Security, and Automation.">
     <title>Adam Roffler | Principal Cloud Ops Engineer | AWS Architecture & Security</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate" media="only screen and (max-width: 640px)" href="https://adamroffler.com/m/">
+    <script>
+    // Route phones to the mobile build. Feature detection, not UA sniffing --
+    // UA strings misread tablets, foldables and desktop-mode-on-phone, and go
+    // stale with every new device. Runs before paint so there is no flash.
+    (function () {
+        try {
+            var qs = new URLSearchParams(location.search);
+            if (qs.get('desktop') === '1') {
+                localStorage.setItem('preferDesktop', '1');
+                return;
+            }
+            if (localStorage.getItem('preferDesktop') === '1') return;
+            var small = window.matchMedia('(max-width: 640px)').matches;
+            var touch = window.matchMedia('(pointer: coarse)').matches;
+            if (small && touch) location.replace('m/index.html');
+        } catch (e) { /* never block the desktop page on this */ }
+    })();
+    </script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
