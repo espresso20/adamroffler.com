@@ -1228,3 +1228,24 @@ document.head.appendChild(style);
     console.log('%c  • Hiring? The terminal has a one-word shortcut to my inbox.', body);
     console.log('%cFind them all and you have officially out-curious-ed 99%% of visitors.', dim);
 })();
+
+
+// ============================================
+// Hero Project Banner Width
+// ============================================
+// The nav pill is sized by its own content, so there is no number to hardcode
+// here. Measure it and let the hero banner row mirror it.
+(function matchNavWidth() {
+    const nav = document.getElementById('navMenu');
+    const row = document.querySelector('.hero-projects');
+    if (!nav || !row) return;
+
+    const sync = () => {
+        document.documentElement.style.setProperty('--nav-width', nav.offsetWidth + 'px');
+    };
+
+    sync();
+    window.addEventListener('resize', sync, { passive: true });
+    // Fonts land after first paint and change the nav's intrinsic width.
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(sync);
+})();

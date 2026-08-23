@@ -154,6 +154,10 @@ body {
     justify-content: center;
     position: relative;
     overflow: hidden;
+    /* The nav is position:fixed, so centred hero content can slide underneath
+       it on a short viewport. Reserve its height now that the project banners
+       sit at the top of the stack. */
+    padding: 118px 0 40px;
 }
 
 .hero-background {
@@ -3085,4 +3089,132 @@ select:focus-visible {
 .hero-links a:hover {
     color: var(--accent-primary);
     border-bottom-color: currentColor;
+}
+
+
+/* ============================================
+   Hero Project Banners
+   ============================================ */
+/* Three floaters in the gap between the nav pill and the AR mark. The row
+   matches the nav's width exactly -- the nav is intrinsically sized by its own
+   links, so --nav-width is measured at runtime rather than guessed here. */
+
+.hero-projects {
+    width: var(--nav-width, 720px);
+    max-width: calc(100vw - 40px);
+    margin: 0 auto 46px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.hero-project {
+    --hp-a: var(--accent-primary);
+    --hp-b: var(--accent-secondary);
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 4px;
+    min-height: 84px;
+    padding: 16px 20px;
+    border-radius: 16px;
+    text-decoration: none;
+    overflow: hidden;
+    isolation: isolate;
+
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid color-mix(in oklab, var(--hp-a) 42%, transparent);
+    box-shadow: 0 10px 30px -12px color-mix(in oklab, var(--hp-a) 55%, transparent);
+
+    animation: hpFloat 7s ease-in-out infinite;
+    transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+/* Staggered so they drift independently rather than moving as one block. */
+.hero-projects .hero-project:nth-child(2) { animation-delay: -2.3s; }
+.hero-projects .hero-project:nth-child(3) { animation-delay: -4.6s; }
+
+/* The colour wash sits behind the text, keyed to each project's own accents. */
+.hero-project::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.16;
+    background: linear-gradient(135deg, var(--hp-a) 0%, var(--hp-b) 100%);
+    transition: opacity 0.28s ease;
+}
+
+.hero-project:hover {
+    transform: translateY(-6px);
+    border-color: color-mix(in oklab, var(--hp-a) 78%, transparent);
+    box-shadow: 0 18px 42px -14px color-mix(in oklab, var(--hp-a) 75%, transparent);
+}
+
+.hero-project:hover::before { opacity: 0.3; }
+
+.hp-kicker {
+    font-size: 0.66rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+.hp-name {
+    font-size: 1.35rem;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    background: linear-gradient(135deg, var(--hp-a) 0%, var(--hp-b) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--hp-a);
+}
+
+/* Each project wears its own scheme, taken from its own page. */
+.hp-ageforge   { --hp-a: #f0a500; --hp-b: #ff6b35; }
+.hp-abend      { --hp-a: #00ff41; --hp-b: #39ffb0; }
+.hp-neonferatu { --hp-a: #ff3a8b; --hp-b: #b767fc; }
+
+/* Light theme needs darker accents to stay legible on a pale card. */
+[data-theme="light"] .hp-ageforge   { --hp-a: #c88400; --hp-b: #d45a2b; }
+[data-theme="light"] .hp-abend      { --hp-a: #007a20; --hp-b: #00a840; }
+[data-theme="light"] .hp-neonferatu { --hp-a: #d8006e; --hp-b: #9644d8; }
+
+/* ABEND and Neonferatu are terminal things; let their names read that way. */
+.hp-abend .hp-name,
+.hp-neonferatu .hp-name {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 1.25rem;
+    letter-spacing: 0.02em;
+}
+
+.hp-abend .hp-name { text-transform: uppercase; }
+
+@keyframes hpFloat {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-9px); }
+}
+
+@media (max-width: 820px) {
+    .hero-projects {
+        width: 100%;
+        max-width: 420px;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-bottom: 34px;
+    }
+    .hero-project { min-height: 0; animation: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-project { animation: none; }
+    .hero-project:hover { transform: none; }
 }
