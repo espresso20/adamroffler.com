@@ -578,6 +578,99 @@ body {
     text-decoration: none;
 }
 
+/* ============================================
+   Pixel-art gamepad easter egg hint
+   Hover/focus reveals the legendary Konami code.
+   ============================================ */
+.konami-hint {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 0 auto 20px;
+    cursor: pointer;
+    border-radius: 8px;
+    outline: none;
+}
+
+.retro-gamepad {
+    display: block;
+    color: var(--text-secondary);
+    opacity: 0.35;
+    filter: drop-shadow(0 0 2px var(--accent-primary));
+    transition: opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease;
+}
+
+.konami-hint:hover .retro-gamepad,
+.konami-hint:focus-visible .retro-gamepad {
+    opacity: 0.95;
+    filter: drop-shadow(0 0 8px var(--accent-primary)) drop-shadow(0 0 16px var(--accent-primary));
+    transform: scale(1.12);
+    animation: gamepadWiggle 0.5s ease;
+}
+
+/* The revealed code -- hidden until hover/focus */
+.konami-hint-code {
+    display: flex;
+    gap: 7px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    text-shadow: 0 0 8px var(--accent-primary);
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.konami-hint:hover .konami-hint-code,
+.konami-hint:focus-visible .konami-hint-code {
+    opacity: 0.9;
+    transform: translateY(0);
+}
+
+/* Each glyph pops in sequence, like the code is being entered */
+.konami-hint-code span {
+    opacity: 0;
+}
+
+.konami-hint:hover .konami-hint-code span,
+.konami-hint:focus-visible .konami-hint-code span {
+    animation: konamiGlyphPop 0.3s ease forwards;
+}
+
+.konami-hint-code span:nth-child(1) { animation-delay: 0.05s; }
+.konami-hint-code span:nth-child(2) { animation-delay: 0.13s; }
+.konami-hint-code span:nth-child(3) { animation-delay: 0.21s; }
+.konami-hint-code span:nth-child(4) { animation-delay: 0.29s; }
+.konami-hint-code span:nth-child(5) { animation-delay: 0.40s; }
+
+/* Trailing "..." winks that there's more to the sequence */
+.konami-hint-ellipsis {
+    letter-spacing: 0.1em;
+    opacity: 0.6;
+}
+
+@keyframes gamepadWiggle {
+    0%, 100% { transform: scale(1.12) rotate(0deg); }
+    25%      { transform: scale(1.12) rotate(-7deg); }
+    75%      { transform: scale(1.12) rotate(7deg); }
+}
+
+@keyframes konamiGlyphPop {
+    0%   { opacity: 0; transform: translateY(6px) scale(0.6); }
+    60%  { opacity: 1; transform: translateY(0) scale(1.25); }
+    100% { opacity: 0.9; transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .konami-hint:hover .retro-gamepad,
+    .konami-hint:focus-visible .retro-gamepad { animation: none; }
+    .konami-hint-code span { opacity: 0.9; animation: none !important; }
+}
+
 .vibe-credit a:hover {
     text-decoration: underline;
 }
@@ -684,6 +777,192 @@ body {
 
 .terminal-output .value {
     color: var(--text-primary);
+}
+
+/* Interactive terminal */
+.terminal { cursor: text; }
+
+.terminal-output {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.terminal-error { color: #ff6b6b; }
+
+.terminal-hint {
+    margin-left: auto;
+    font-size: 0.65rem;
+    color: var(--accent-primary);
+    border: 1px solid var(--accent-primary);
+    border-radius: 12px;
+    padding: 2px 10px;
+    cursor: pointer;
+    white-space: nowrap;
+    animation: hintPulse 2s ease-in-out infinite;
+}
+
+.terminal-hint i {
+    margin-right: 4px;
+}
+
+@keyframes hintPulse {
+    0%, 100% {
+        opacity: 0.55;
+        box-shadow: 0 0 0 0 rgba(100, 255, 218, 0);
+    }
+    50% {
+        opacity: 1;
+        box-shadow: 0 0 10px 0 rgba(100, 255, 218, 0.35);
+    }
+}
+
+.terminal-input-line {
+    display: flex;
+    align-items: center;
+}
+
+.terminal-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 0;
+    margin: 0;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    caret-color: var(--accent-primary);
+}
+
+/* ============================================
+   Matrix Theme (opt-in via the `matrix` terminal command)
+   Overrides the active theme with a phosphor-green palette while the
+   rain is running. Higher specificity than :root and [data-theme].
+   ============================================ */
+html.matrix-mode {
+    --bg-primary: #030a06;
+    --bg-secondary: #07140d;
+    --bg-gradient-start: #05140b;
+    --bg-gradient-end: #010503;
+
+    --text-primary: #d6ffe4;
+    --text-secondary: #7fdca8;
+    --text-accent: #00ff66;
+
+    --glass-bg: rgba(0, 255, 102, 0.04);
+    --glass-border: rgba(0, 255, 102, 0.18);
+    --glass-shadow: rgba(0, 255, 102, 0.12);
+
+    --accent-primary: #00ff66;
+    --accent-secondary: #00cc52;
+    --accent-gradient: linear-gradient(135deg, #00ff66 0%, #00b347 100%);
+
+    --card-hover-bg: rgba(0, 255, 102, 0.08);
+    --shadow-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Greened ambient hero blobs while in matrix mode */
+html.matrix-mode .hero-background {
+    background:
+        radial-gradient(circle at 20% 50%, rgba(0, 255, 102, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(0, 179, 71, 0.1) 0%, transparent 50%);
+}
+
+/* Glowy green glass while in matrix mode (game banners keep their own look) */
+html.matrix-mode .glass-card {
+    box-shadow: 0 8px 32px var(--glass-shadow), 0 0 18px var(--glass-shadow);
+}
+
+html.matrix-mode .glass-card:hover {
+    border-color: var(--accent-primary);
+    box-shadow: 0 15px 40px var(--glass-shadow), 0 0 30px var(--glass-shadow);
+}
+
+/* Matrix rain background -- sits behind all page content */
+.matrix-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    background: #000;
+    pointer-events: none;
+}
+
+/* When matrix mode is active, let the rain show through as the page background */
+html.matrix-mode body {
+    background: transparent;
+}
+
+/* Secret recruiting message */
+.recruit-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    animation: recruitFade 0.3s ease both;
+}
+
+.recruit-card {
+    position: relative;
+    max-width: 460px;
+    text-align: center;
+    animation: recruitPop 0.45s cubic-bezier(0.18, 1.4, 0.5, 1) both;
+}
+
+.recruit-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 18px;
+    color: var(--text-primary);
+}
+
+.recruit-card p {
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+    line-height: 1.7;
+}
+
+.recruit-card .btn {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.recruit-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+
+.recruit-close:hover { color: var(--text-primary); }
+
+@keyframes recruitFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes recruitPop {
+    from { opacity: 0; transform: scale(0.85) translateY(12px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .terminal-hint,
+    .recruit-card,
+    .recruit-overlay { animation: none; }
 }
 
 /* ============================================

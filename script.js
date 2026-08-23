@@ -291,8 +291,9 @@ if (particleCanvas && !PREFERS_REDUCED_MOTION) {
     function drawParticles() {
         ctx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
         const isDark = html.getAttribute('data-theme') !== 'light';
-        const particleColor = isDark ? 'rgba(100, 255, 218, 0.5)' : 'rgba(76, 81, 191, 0.4)';
-        const lineColor = isDark ? 'rgba(100, 255, 218,' : 'rgba(76, 81, 191,';
+        const isMatrix = html.classList.contains('matrix-mode');
+        const particleColor = isMatrix ? 'rgba(0, 255, 102, 0.5)' : (isDark ? 'rgba(100, 255, 218, 0.5)' : 'rgba(76, 81, 191, 0.4)');
+        const lineColor = isMatrix ? 'rgba(0, 255, 102,' : (isDark ? 'rgba(100, 255, 218,' : 'rgba(76, 81, 191,');
 
         particles.forEach((p, i) => {
             // Move
@@ -415,6 +416,19 @@ completed: <span class="value">success</span>`
 
     let scenarioIndex = 0;
     let terminalStarted = false;
+    let interactive = false;
+    const demoTimers = [];
+
+    // Track demo timers so we can stop the auto-feed when the user takes over.
+    function track(id) { demoTimers.push(id); return id; }
+    function clearDemo() {
+        demoTimers.forEach(id => { clearTimeout(id); clearInterval(id); });
+        demoTimers.length = 0;
+    }
+
+    function scrollToBottom() {
+        terminalBody.scrollTop = terminalBody.scrollHeight;
+    }
 
     function typeCommand(cmdObj, callback) {
         const newLine = document.createElement('div');
@@ -424,49 +438,243 @@ completed: <span class="value">success</span>`
 
         const cmdSpan = newLine.querySelector('.terminal-command');
         let i = 0;
-        const interval = setInterval(() => {
+        const interval = track(setInterval(() => {
             cmdSpan.textContent += cmdObj.cmd.charAt(i);
             i++;
             if (i >= cmdObj.cmd.length) {
                 clearInterval(interval);
-                setTimeout(() => {
+                track(setTimeout(() => {
                     const outputDiv = document.createElement('div');
                     outputDiv.className = 'terminal-output';
-                    outputDiv.innerHTML = cmdObj.output;
+                    outputDiv.innerHTML = cmdObj.output; // authored constants only
                     terminalBody.appendChild(outputDiv);
                     callback();
-                }, 400);
+                }, 400));
             }
-        }, 30);
+        }, 30));
     }
 
     function runScenario() {
+        if (interactive) return;
         const cmds = scenarios[scenarioIndex];
         let cmdIdx = 0;
 
         function nextCmd() {
+            if (interactive) return;
             if (cmdIdx >= cmds.length) {
                 // Pause, then clear and run next scenario
-                setTimeout(() => {
+                track(setTimeout(() => {
+                    if (interactive) return;
                     terminalBody.innerHTML = '';
                     scenarioIndex = (scenarioIndex + 1) % scenarios.length;
                     runScenario();
-                }, 3000);
+                }, 3000));
                 return;
             }
             typeCommand(cmds[cmdIdx], () => {
                 cmdIdx++;
-                setTimeout(nextCmd, 800);
+                track(setTimeout(nextCmd, 800));
             });
         }
 
         nextCmd();
     }
 
-    // Start terminal animation when visible
+    // ---- Interactive mode --------------------------------------------------
+    const history = [];
+    let historyIdx = 0;
+
+    function printOutput(text, isError) {
+        const div = document.createElement('div');
+        div.className = 'terminal-output' + (isError ? ' terminal-error' : '');
+        div.textContent = text; // textContent: user input can never inject markup
+        terminalBody.appendChild(div);
+        scrollToBottom();
+    }
+
+    // Commands wired to real "things". Each returns a string to print (or '').
+    const commands = {
+        help() {
+            return [
+                'Available commands:',
+                '  whoami      get your IP info',
+                '  skills      jump to the tech stack',
+                '  projects    jump to projects',
+                '  experience  jump to work history',
+                '  certs       jump to certifications',
+                '  contact     how to reach me',
+                '  hire        for recruiters who mean it 💼',
+                '  resume      open my resume',
+                '  github      open my GitHub',
+                '  linkedin    open my LinkedIn',
+                '  theme       toggle dark / light',
+                '  clear       clear the screen',
+                '  exit        back to the live feed',
+                '',
+                "  ...and maybe a few more. Neo would approve of the curious. 🕶️",
+            ].join('\n');
+        },
+        async whoami() {
+            try {
+                const response = await fetch('https://ipapi.co/json/', {
+                    signal: AbortSignal.timeout(5000)
+                });
+                if (!response.ok) throw new Error('API request failed');
+                const data = await response.json();
+
+                return [
+                    `IP Address: ${data.ip || 'Unknown'}`,
+                    `Location:   ${data.city || '?'}, ${data.region || '?'}, ${data.country_name || '?'}`,
+                    `ISP:        ${data.org || 'Unknown'}`,
+                    `Timezone:   ${data.timezone || 'Unknown'}`,
+                ].join('\n');
+            } catch (error) {
+                return 'Unable to fetch IP info (network error or API unavailable)';
+            }
+        },
+        about()      { goTo('#about');          return 'Scrolling to About...'; },
+        skills()     { goTo('#skills');         return 'Opening the tech stack...'; },
+        projects()   { goTo('#projects');       return 'Loading projects...'; },
+        experience() { goTo('#experience');     return 'Pulling up work history...'; },
+        certs()        { goTo('#certifications'); return 'Showing certifications...'; },
+        certifications() { return this.certs(); },
+        contact()    { goTo('#contact');        return 'Reach me at espresso20@pm.me  (recruiters: try `hire`)'; },
+        email()      { window.location.href = 'mailto:espresso20@pm.me'; return 'Opening mail client...'; },
+        resume()     { window.open('resume.html', '_blank', 'noopener'); return 'Opening resume in a new tab...'; },
+        cv()         { return this.resume(); },
+        github()     { window.open('https://github.com/espresso20', '_blank', 'noopener'); return 'Opening GitHub...'; },
+        linkedin()   { window.open('https://www.linkedin.com/in/adam-roffler/', '_blank', 'noopener'); return 'Opening LinkedIn...'; },
+        cloud()      { window.location.href = 'aws-cloud.html'; return 'Entering the cloud...'; },
+        theme(args) {
+            const target = (args[0] || '').toLowerCase();
+            const current = document.documentElement.getAttribute('data-theme') || 'dark';
+            const next = (target === 'dark' || target === 'light') ? target : (current === 'dark' ? 'light' : 'dark');
+            document.documentElement.setAttribute('data-theme', next);
+            try { localStorage.setItem('theme', next); } catch (e) {}
+            if (typeof updateThemeIcon === 'function') updateThemeIcon(next);
+            return `Theme set to ${next}.`;
+        },
+        echo(args)   { return args.join(' '); },
+        date()       { return new Date().toString(); },
+        sudo()       { return "Nice try. You don't have root here. 😏"; },
+        // --- hidden easter eggs (not listed in help) ---
+        matrix(args) {
+            const arg = (args[0] || '').toLowerCase();
+            if (arg === 'off') { stopMatrix(); return 'Disconnecting... welcome back to reality.'; }
+            if (arg === 'on')  { startMatrix(); return 'Wake up, Neo... the matrix is now your background. (type "matrix off" to leave)'; }
+            return toggleMatrix()
+                ? 'Wake up, Neo... the matrix is now your background. (type "matrix off" to leave)'
+                : 'Disconnecting... welcome back to reality.';
+        },
+        hire()       { showRecruitMessage(); return ''; },
+    };
+
+    function goTo(selector) {
+        const el = document.querySelector(selector);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    async function runCommand(raw) {
+        const value = raw.trim();
+        if (value) { history.push(value); historyIdx = history.length; }
+
+        if (value === '') { newPrompt(); return; }
+        if (value === 'clear') { terminalBody.innerHTML = ''; newPrompt(); return; }
+        if (value === 'exit') {
+            interactive = false;
+            terminalBody.innerHTML = '';
+            scenarioIndex = 0;
+            runScenario();
+            return;
+        }
+
+        const parts = value.split(/\s+/);
+        const name = parts[0].toLowerCase();
+        const args = parts.slice(1);
+        const handler = commands[name];
+
+        if (handler) {
+            let out = '';
+            try {
+                const result = handler.call(commands, args);
+                // Handle both sync and async commands
+                out = (result instanceof Promise ? await result : result) || '';
+            }
+            catch (e) { out = 'Error running command.'; }
+            if (out) printOutput(out);
+        } else {
+            printOutput(`command not found: ${name}  —  type 'help' for options`, true);
+        }
+        newPrompt();
+    }
+
+    function newPrompt() {
+        const line = document.createElement('div');
+        line.className = 'terminal-line terminal-input-line';
+
+        const prompt = document.createElement('span');
+        prompt.className = 'terminal-prompt';
+        prompt.textContent = '$';
+
+        const input = document.createElement('input');
+        input.className = 'terminal-input';
+        input.type = 'text';
+        input.setAttribute('autocomplete', 'off');
+        input.setAttribute('autocapitalize', 'off');
+        input.setAttribute('autocorrect', 'off');
+        input.setAttribute('spellcheck', 'false');
+        input.setAttribute('aria-label', 'Terminal command input');
+
+        line.appendChild(prompt);
+        line.appendChild(input);
+        terminalBody.appendChild(line);
+        input.focus();
+        scrollToBottom();
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const value = input.value;
+                const frozen = document.createElement('span');
+                frozen.className = 'terminal-command';
+                frozen.textContent = value;
+                line.replaceChild(frozen, input);
+                runCommand(value);
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (historyIdx > 0) { historyIdx--; input.value = history[historyIdx] || ''; }
+            } else if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (historyIdx < history.length) { historyIdx++; input.value = history[historyIdx] || ''; }
+            }
+        });
+    }
+
+    function enterInteractive() {
+        if (interactive) return;
+        interactive = true;
+        clearDemo();
+        terminalBody.innerHTML = '';
+        const hintEl = document.getElementById('terminalHint');
+        if (hintEl) hintEl.style.display = 'none';
+        printOutput("adam@cloud-ops — type 'help' to get started.");
+        newPrompt();
+    }
+
+    // Click anywhere in the terminal to take over
+    const terminalEl = terminalBody.closest('.terminal');
+    terminalEl.addEventListener('click', () => {
+        if (!interactive) enterInteractive();
+        else {
+            const input = terminalBody.querySelector('.terminal-input');
+            if (input) input.focus();
+        }
+    });
+
+    // Start the auto-demo when visible
     const terminalObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting && !terminalStarted) {
+            if (entry.isIntersecting && !terminalStarted && !interactive) {
                 terminalStarted = true;
                 terminalBody.innerHTML = '';
                 runScenario();
@@ -474,7 +682,187 @@ completed: <span class="value">success</span>`
         });
     }, { threshold: 0.3 });
 
-    terminalObserver.observe(terminalBody.closest('.terminal'));
+    terminalObserver.observe(terminalEl);
+}
+
+// ============================================
+// Matrix rain background (toggled via terminal: `matrix`)
+// Runs behind the page content and persists across visits via localStorage.
+// ============================================
+const MATRIX_KEY = 'matrixMode';
+let matrixActive = false;
+let stopMatrixImpl = null;
+
+function startMatrix(persist = true) {
+    if (matrixActive) return;
+    matrixActive = true;
+
+    const canvas = document.createElement('canvas');
+    canvas.className = 'matrix-canvas';
+    // Attach to <html> and let the .matrix-mode class turn it into the page background
+    document.documentElement.appendChild(canvas);
+    document.documentElement.classList.add('matrix-mode');
+    const ctx = canvas.getContext('2d');
+
+    function size() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    size();
+
+    // Radial fade: trails linger (brighter) in the center and decay faster at
+    // the edges, giving the whole field an atmospheric, focused-depth glow.
+    let fadeGradient;
+    function buildFade() {
+        const cx = canvas.width / 2, cy = canvas.height / 2;
+        const r = Math.hypot(cx, cy);
+        const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+        g.addColorStop(0, 'rgba(0, 0, 0, 0.045)');
+        g.addColorStop(1, 'rgba(0, 0, 0, 0.13)');
+        fadeGradient = g;
+    }
+    buildFade();
+
+    const glyphs = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ0123456789ABCDEFｦｧｨｩ$+*=<>'.split('');
+
+    // Three depth layers, drawn far -> near. Far layers are smaller, dimmer
+    // and slower; near layers are larger, brighter, faster -> parallax depth.
+    const layerDefs = [
+        { fontSize: 11, speed: 0.12, head: '170, 255, 200', tail: '0, 150, 70',  glow: 0,  resetChance: 0.985 },
+        { fontSize: 16, speed: 0.25, head: '200, 255, 215', tail: '0, 200, 95',  glow: 0,  resetChance: 0.975 },
+        { fontSize: 24, speed: 0.40, head: '225, 255, 235', tail: '20, 255, 120', glow: 12, resetChance: 0.965 },
+    ];
+
+    function buildLayer(def) {
+        const columns = Math.ceil(canvas.width / def.fontSize) + 1;
+        const drops = new Array(columns);
+        for (let i = 0; i < columns; i++) {
+            // Stagger initial positions so the layers don't start in lockstep.
+            drops[i] = Math.random() * -canvas.height / def.fontSize;
+        }
+        return { ...def, columns, drops };
+    }
+
+    let layers = layerDefs.map(buildLayer);
+    let raf;
+
+    function drawLayer(layer) {
+        ctx.font = `${layer.fontSize}px monospace`;
+        ctx.shadowColor = layer.glow ? `rgba(${layer.tail}, 0.9)` : 'transparent';
+        for (let i = 0; i < layer.columns; i++) {
+            const x = i * layer.fontSize;
+            const y = layer.drops[i] * layer.fontSize;
+            const glyph = glyphs[Math.floor(Math.random() * glyphs.length)];
+
+            // Bright leading character with optional glow...
+            ctx.shadowBlur = layer.glow;
+            ctx.fillStyle = `rgb(${layer.head})`;
+            ctx.fillText(glyph, x, y);
+
+            // ...and a dimmer character just behind it to thicken the trail.
+            ctx.shadowBlur = 0;
+            ctx.fillStyle = `rgb(${layer.tail})`;
+            ctx.fillText(glyphs[Math.floor(Math.random() * glyphs.length)], x, y - layer.fontSize);
+
+            if (y > canvas.height && Math.random() > layer.resetChance) layer.drops[i] = 0;
+            layer.drops[i] += layer.speed;
+        }
+    }
+
+    function draw() {
+        // Soft radial fade leaves trailing streaks and focuses depth at center.
+        ctx.fillStyle = fadeGradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        for (const layer of layers) drawLayer(layer);
+        ctx.shadowBlur = 0;
+        raf = requestAnimationFrame(draw);
+    }
+    draw();
+
+    function onResize() {
+        size();
+        buildFade();
+        layers = layerDefs.map(buildLayer);
+    }
+    window.addEventListener('resize', onResize);
+
+    // Closure that fully tears the background down again.
+    stopMatrixImpl = function () {
+        cancelAnimationFrame(raf);
+        window.removeEventListener('resize', onResize);
+        canvas.remove();
+        document.documentElement.classList.remove('matrix-mode');
+        matrixActive = false;
+        stopMatrixImpl = null;
+    };
+
+    if (persist) {
+        try { localStorage.setItem(MATRIX_KEY, 'on'); } catch (e) {}
+    }
+}
+
+function stopMatrix() {
+    if (stopMatrixImpl) stopMatrixImpl();
+    try { localStorage.removeItem(MATRIX_KEY); } catch (e) {}
+}
+
+function toggleMatrix() {
+    if (matrixActive) { stopMatrix(); return false; }
+    startMatrix();
+    return true;
+}
+
+// Restore the matrix background if it was left on during a previous visit.
+// Not for anyone who asked the OS for reduced motion -- a full-screen rain
+// they did not trigger this visit is exactly the thing that setting is for.
+// Typing `matrix on` still works, because that is an explicit request.
+try {
+    if (localStorage.getItem(MATRIX_KEY) === 'on' && !PREFERS_REDUCED_MOTION) {
+        startMatrix(false);
+    }
+} catch (e) {}
+
+// ============================================
+// Secret recruiting message (triggered via terminal: `hire`)
+// ============================================
+function showRecruitMessage() {
+    if (document.querySelector('.recruit-overlay')) return;
+
+    const overlay = document.createElement('div');
+    overlay.className = 'recruit-overlay';
+
+    const card = document.createElement('div');
+    card.className = 'recruit-card glass-card';
+
+    const close = document.createElement('button');
+    close.className = 'recruit-close';
+    close.setAttribute('aria-label', 'Close');
+    close.textContent = '✕';
+
+    const h = document.createElement('h3');
+    h.textContent = 'You found the secret. 🎯';
+
+    const p1 = document.createElement('p');
+    p1.textContent = "Most people just scroll. You went digging — that's exactly the kind of curiosity I like to work with.";
+
+    const p2 = document.createElement('p');
+    p2.textContent = "If you're hiring (or just want to talk cloud, automation, or terminal games), let's talk:";
+
+    const cta = document.createElement('a');
+    cta.className = 'btn btn-primary';
+    cta.href = 'mailto:espresso20@pm.me';
+    cta.textContent = 'espresso20@pm.me';
+
+    card.append(close, h, p1, p2, cta);
+    overlay.appendChild(card);
+    document.documentElement.appendChild(overlay);
+
+    function dismiss() {
+        overlay.remove();
+        document.removeEventListener('keydown', onKey);
+    }
+    function onKey(e) { if (e.key === 'Escape') dismiss(); }
+
+    close.addEventListener('click', dismiss);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) dismiss(); });
+    document.addEventListener('keydown', onKey);
 }
 
 // ============================================
@@ -681,19 +1069,162 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+let easterEggActive = false;
+
 function activateEasterEgg() {
+    if (easterEggActive) return;
+    easterEggActive = true;
+
+    // 1. Rainbow color flash across the whole page
     document.body.style.animation = 'rainbow 2s linear infinite';
+
+    // 2. Giant centered "KONAMI" banner.
+    // Attach to <html>, NOT <body>: the rainbow filter on <body> would make it
+    // the containing block for fixed children, breaking viewport centering.
+    const banner = document.createElement('div');
+    banner.className = 'konami-banner';
+    banner.textContent = 'KONAMI';
+    document.documentElement.appendChild(banner);
+
+    // 3. After the banner, sweep the Konami arrow sequence across the screen
+    const ARROWS = ['↑', '↑', '↓', '↓', '←', '→', '←', '→', 'B', 'A'];
+    const BANNER_MS = 3000;
+
     setTimeout(() => {
-        document.body.style.animation = '';
-    }, 5000);
+        banner.classList.add('konami-banner-out');
+        setTimeout(() => banner.remove(), 500);
+
+        const arrowLayer = document.createElement('div');
+        arrowLayer.className = 'konami-arrow-layer';
+        document.documentElement.appendChild(arrowLayer);
+
+        ARROWS.forEach((symbol, i) => {
+            setTimeout(() => {
+                const el = document.createElement('span');
+                el.className = 'konami-arrow';
+                el.textContent = symbol;
+                arrowLayer.appendChild(el);
+                // Clean up each arrow after it finishes flying
+                setTimeout(() => el.remove(), 1200);
+            }, i * 180);
+        });
+
+        // Tear down the arrow layer and stop the rainbow once the sweep ends
+        const totalArrowTime = ARROWS.length * 180 + 1200;
+        setTimeout(() => {
+            arrowLayer.remove();
+            document.body.style.animation = '';
+            easterEggActive = false;
+        }, totalArrowTime);
+    }, BANNER_MS);
 }
 
-// Add rainbow animation
+// Add easter egg animations + styling
 const style = document.createElement('style');
 style.textContent = `
     @keyframes rainbow {
         0% { filter: hue-rotate(0deg); }
         100% { filter: hue-rotate(360deg); }
     }
+
+    .konami-banner {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.3);
+        z-index: 100000;
+        font-size: clamp(3rem, 18vw, 14rem);
+        font-weight: 900;
+        letter-spacing: 0.1em;
+        font-family: 'Courier New', monospace;
+        background: linear-gradient(135deg, #ff0080, #ff8c00, #ffe600, #00ff88, #00cfff, #8a2be2);
+        background-size: 300% 300%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 40px rgba(255, 255, 255, 0.4);
+        filter: drop-shadow(0 0 30px rgba(255, 0, 128, 0.6));
+        pointer-events: none;
+        opacity: 0;
+        animation: konamiPop 0.5s cubic-bezier(0.18, 1.5, 0.5, 1) forwards,
+                   konamiGradient 3s linear infinite,
+                   konamiPulse 0.8s ease-in-out 0.5s infinite alternate;
+    }
+
+    .konami-banner-out {
+        animation: konamiOut 0.5s ease forwards !important;
+    }
+
+    @keyframes konamiPop {
+        0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.3) rotate(-8deg); }
+        100% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+    }
+
+    @keyframes konamiPulse {
+        from { transform: translate(-50%, -50%) scale(1); }
+        to   { transform: translate(-50%, -50%) scale(1.08); }
+    }
+
+    @keyframes konamiGradient {
+        0%   { background-position: 0% 50%; }
+        100% { background-position: 300% 50%; }
+    }
+
+    @keyframes konamiOut {
+        from { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        to   { opacity: 0; transform: translate(-50%, -50%) scale(2.2); }
+    }
+
+    .konami-arrow-layer {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 100000;
+        pointer-events: none;
+        display: flex;
+        gap: 0.15em;
+        font-size: clamp(2.5rem, 10vw, 8rem);
+        font-weight: 900;
+        font-family: 'Courier New', monospace;
+    }
+
+    .konami-arrow {
+        display: inline-block;
+        opacity: 0;
+        color: #fff;
+        text-shadow: 0 0 20px #00cfff, 0 0 40px #ff0080;
+        animation: konamiArrow 1.2s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+    }
+
+    @keyframes konamiArrow {
+        0%   { opacity: 0; transform: translateY(60px) scale(0.4); }
+        25%  { opacity: 1; transform: translateY(0) scale(1.3); }
+        70%  { opacity: 1; transform: translateY(0) scale(1); }
+        100% { opacity: 0; transform: translateY(-50px) scale(0.8); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .konami-banner, .konami-arrow {
+            animation-duration: 0.01ms !important;
+        }
+    }
 `;
 document.head.appendChild(style);
+
+// ============================================
+// Console hints for the curious (devtools crowd)
+// Subtle nudges toward the hidden eggs without spelling them all out.
+// ============================================
+(function consoleHints() {
+    const title = 'color:#64ffda;font-weight:bold;font-size:14px;font-family:monospace;';
+    const body = 'color:#8a83ff;font-size:12px;font-family:monospace;';
+    const dim = 'color:#7a8290;font-size:12px;font-family:monospace;';
+
+    console.log('%cWell now — someone opened the console. 👀', title);
+    console.log('%cYou seem like the type who pokes around, so a couple of breadcrumbs:', body);
+    console.log('%c  • The terminal up top takes real commands. Start with: help', body);
+    console.log('%c  • Old-school gamers know this one:  ↑ ↑ ↓ ↓ ← → ← → B A', body);
+    console.log('%c  • Hiring? The terminal has a one-word shortcut to my inbox.', body);
+    console.log('%cFind them all and you have officially out-curious-ed 99%% of visitors.', dim);
+})();
