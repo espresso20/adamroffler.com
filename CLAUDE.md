@@ -96,12 +96,18 @@ python3 build/gen_mobile.py     # re-read index.html, rewrite m/index.html
 
 `build/gen_mobile.py` scrapes the experience timeline, tech stack,
 certifications, about copy and project cards out of `index.html` and re-lays
-them out for a phone. Editing `m/index.html` directly means the next run
+them out for a phone. It also generates `m/ageforge.html` and `m/abend.html`
+from the showcase pages of the same name, pulling their hero copy, stat
+numbers, section prose, core-loop diagram and screenshots. Editing `m/index.html` directly means the next run
 overwrites it -- change `index.html` and regenerate instead. That is the whole
 reason it is generated: a hand-maintained second page drifts the first time a
 job is added to one and not the other.
 
-**Re-run it after any content change to index.html.**
+**Re-run it after any content change to index.html, ageforge.html or abend.html.**
+
+The build fails if any local link on a generated page does not resolve. That
+check exists because the first version shipped `ageforge.html` instead of
+`../ageforge.html`, which 404'd from `/m/`.
 
 ### Routing
 An inline script in `index.html` sends `(max-width: 640px)` *and*

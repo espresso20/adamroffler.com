@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title><!--TITLE--> | Adam Roffler</title>
+<link rel="canonical" href="https://adamroffler.com/<!--SLUG-->.html">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<meta name="theme-color" content="#0a0e27">
+<style>
+:root{
+  --bg:#0a0e27; --bg2:#151932; --card:#1a1f3d;
+  --line:rgba(255,255,255,.09);
+  --text:#e8eaed; --dim:#b8bdc8; --faint:#8990a5;
+  --a:<!--A-->; --b:<!--B-->;
+  --bar-h:56px; --pad:18px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font:16px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  padding-bottom:calc(var(--bar-h) + env(safe-area-inset-bottom));
+}
+a{color:var(--a);text-decoration:none}
+h1,h2{margin:0;line-height:1.18}
+p{margin:0 0 12px}
+:focus-visible{outline:3px solid var(--a);outline-offset:3px;border-radius:8px}
+.wrap{padding:0 var(--pad)}
+
+/* ---------- hero ---------- */
+.phero{
+  position:relative;isolation:isolate;overflow:hidden;
+  padding:calc(34px + env(safe-area-inset-top)) var(--pad) 26px;
+  text-align:center;border-bottom:1px solid var(--line);
+}
+.phero::before{
+  content:"";position:absolute;inset:0;z-index:-1;opacity:.17;
+  background:radial-gradient(120% 90% at 50% 0%, var(--a) 0%, transparent 62%);
+}
+.phero h1{
+  font-size:34px;font-weight:800;letter-spacing:-.03em;
+  background:linear-gradient(135deg,var(--a),var(--b));
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:var(--a);
+}
+.ptag{margin:8px 0 0;font-size:15px;font-weight:600;color:var(--text)}
+.psub{margin:4px 0 0;font-size:13.5px;color:var(--faint)}
+.plinks{display:flex;gap:10px;margin-top:20px}
+.plinks a{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  min-height:48px;border-radius:14px;font-weight:650;font-size:14.5px;
+}
+.plinks .primary{background:linear-gradient(135deg,var(--a),var(--b));color:#08120c}
+.plinks .ghost{border:1px solid var(--line);color:var(--text)}
+
+/* ---------- stats ---------- */
+.pstats{
+  list-style:none;margin:20px 0 0;padding:0;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:8px;
+}
+.pstats li{
+  background:var(--bg2);border:1px solid var(--line);border-radius:13px;
+  padding:11px 6px;display:flex;flex-direction:column;align-items:center;gap:1px;
+}
+.pstats b{font-size:19px;font-weight:800;color:var(--a);line-height:1.1}
+.pstats span{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);text-align:center}
+
+/* ---------- content ---------- */
+.pblock{padding:26px 0 4px;border-bottom:1px solid var(--line)}
+.pblock:last-of-type{border-bottom:0}
+.pblock h2{
+  font-size:19px;font-weight:750;letter-spacing:-.015em;margin-bottom:11px;
+  padding-left:11px;border-left:3px solid var(--a);
+}
+.pblock p{font-size:14.5px;color:var(--dim)}
+.plist{list-style:none;margin:10px 0 4px;padding:0;display:grid;gap:7px}
+.plist li{
+  font-size:13.5px;color:var(--dim);
+  padding:9px 12px;background:var(--bg2);
+  border:1px solid var(--line);border-radius:11px;
+}
+
+.pshot{display:block;margin:12px 0}
+.pshot img{
+  width:100%;height:auto;display:block;
+  border-radius:13px;border:1px solid var(--line);
+}
+
+.ploop{
+  list-style:none;margin:12px 0 4px;padding:0;
+  display:flex;flex-wrap:wrap;gap:7px;counter-reset:step;
+}
+.ploop li{
+  display:flex;align-items:center;gap:7px;
+  font-size:13px;font-weight:600;color:var(--dim);
+  padding:8px 12px;background:var(--bg2);
+  border:1px solid var(--line);border-radius:20px;
+}
+.ploop li::before{
+  counter-increment:step;content:counter(step);
+  display:grid;place-items:center;width:17px;height:17px;border-radius:50%;
+  background:linear-gradient(135deg,var(--a),var(--b));
+  color:#08120c;font-size:10px;font-weight:800;
+}
+
+/* A project with no external CTA should not render an empty button row. */
+.plinks:empty{display:none}
+
+footer{padding:26px 0 30px;text-align:center;color:var(--faint);font-size:12.5px}
+
+/* ---------- back bar ---------- */
+.backbar{
+  position:fixed;left:0;right:0;bottom:0;z-index:50;
+  height:calc(var(--bar-h) + env(safe-area-inset-bottom));
+  padding-bottom:env(safe-area-inset-bottom);
+  display:grid;grid-template-columns:1fr 1fr;
+  background:#0d1230;border-top:1px solid var(--line);
+}
+.backbar a{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  color:var(--dim);font-size:13.5px;font-weight:650;
+}
+.backbar a+a{border-left:1px solid var(--line);color:var(--a)}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="phero">
+  <h1><!--LOGO--></h1>
+  <p class="ptag"><!--TAGLINE--></p>
+  <p class="psub"><!--SUBTITLE--></p>
+  <div class="plinks"><!--LINKS--></div>
+  <!--STATS-->
+</header>
+
+<main class="wrap">
+  <!--BLOCKS-->
+  <footer>&copy; 2026 Adam Roffler</footer>
+</main>
+
+<nav class="backbar" aria-label="Site">
+  <a href="index.html">&larr; Portfolio</a>
+  <a href="../<!--SLUG-->.html?desktop=1">Full page</a>
+</nav>
+
+</body>
+</html>

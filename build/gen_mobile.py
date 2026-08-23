@@ -68,12 +68,16 @@ def scrape():
 
     projects = []
     for m in re.finditer(r'<a class="hero-project hp-(\w+)" href="([^"]+)"', s):
-        href = m.group(2)
-        # These hrefs are written relative to the site root, but this page is
-        # served from /m/ -- without the hop up they resolve to /m/ageforge.html.
-        if not re.match(r"^(https?:|mailto:|#|/|\.\./)", href):
+        key, href = m.group(1), m.group(2)
+        # Prefer the mobile build of a project page when one exists -- sending a
+        # phone from a mobile card to a desktop page is the whole bug this was
+        # meant to fix. Otherwise hop up: this page is served from /m/, so a
+        # bare ageforge.html would resolve to /m/ageforge.html.
+        if key in PROJECTS:
+            href = key + ".html"
+        elif not re.match(r"^(https?:|mailto:|#|/|\.\./)", href):
             href = "../" + href
-        projects.append({"key": m.group(1), "href": href})
+        projects.append({"key": key, "href": href})
 
     return {"jobs": jobs, "skills": skills, "certs": certs, "about": about, "projects": projects}
 
@@ -152,5 +156,144 @@ def build():
 TEMPLATE = open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
                              "mobile_template.html")).read()
 
+
+# ---------------------------------------------------------------- project pages
+
+PROJECTS = {
+    "ageforge": {
+        "title": "AgeForge", "a": "#f0a500", "b": "#ff6b35",
+        "hero_logo": "ageforge-logo", "hero_tag": "ageforge-tagline",
+        "hero_sub": "ageforge-subtitle", "stat_num": "ageforge-stat-number",
+        "stat_lab": "ageforge-stat-label",
+    },
+    "abend": {
+        "title": "ABEND", "a": "#00ff41", "b": "#39ffb0",
+        "hero_logo": "abend-logo", "hero_tag": "abend-tagline",
+        "hero_sub": "abend-subtitle", "stat_num": "abend-stat-number",
+        "stat_lab": "abend-stat-label",
+    },
+}
+
+
+def scrape_project(slug, cfg):
+    src = open(os.path.join(ROOT, slug + ".html")).read()
+
+    def grab(cls):
+        m = re.search(r'class="%s"[^>]*>(.*?)</' % cls, src, re.S)
+        return txt(m.group(1)) if m else ""
+
+    hero = {
+        "logo": grab(cfg["hero_logo"]) or cfg["title"],
+        "tagline": grab(cfg["hero_tag"]),
+        "subtitle": grab(cfg["hero_sub"]),
+    }
+
+    # Hero call-to-action links, kept as-is: they are absolute.
+    links = []
+    hero_block = re.search(r'<section class="%s-hero".*?</section>' % slug, src, re.S)
+    if hero_block:
+        for m in re.finditer(r'<a href="(https?://[^"]+)"[^>]*>(.*?)</a>', hero_block.group(0), re.S):
+            links.append({"href": m.group(1), "label": txt(m.group(2))})
+
+    stats = []
+    for m in re.finditer(r'class="%s">(.*?)</div>\s*<p class="%s">(.*?)</p>'
+                         % (cfg["stat_num"], cfg["stat_lab"]), src, re.S):
+        stats.append({"n": txt(m.group(1)), "label": txt(m.group(2))})
+
+    # Each content section becomes one card: its heading plus its prose.
+    sections = []
+    for m in re.finditer(r'<section class="section"[^>]*>(.*?)</section>', src, re.S):
+        body = m.group(1)
+        h2 = re.search(r'class="section-title"[^>]*>(.*?)</h2>', body, re.S)
+        if not h2:
+            continue
+        paras = [txt(p) for p in re.findall(r'<p[^>]*>(.*?)</p>', body, re.S)]
+        paras = [p for p in paras if len(p) > 40][:3]
+        items = [txt(li) for li in re.findall(r'<li[^>]*>(.*?)</li>', body, re.S)][:6]
+        items = [i for i in items if 3 < len(i) < 120]
+        # Some sections are diagrams rather than prose -- the core loop is a row
+        # of .loop-step divs with no <p> or <li> anywhere in it.
+        steps = [txt(x) for x in
+                 re.findall(r'class="loop-step"[^>]*>.*?<span>(.*?)</span>', body, re.S)]
+        # Screenshots are content too, and they are already WebP with a JPEG
+        # fallback on the desktop page -- reuse both sources, not just the jpg.
+        shots = []
+        for pic in re.finditer(r'<picture>(.*?)</picture>', body, re.S):
+            blk = pic.group(1)
+            webp = re.search(r'srcset="([^"]+\.webp)"', blk)
+            img = re.search(r'<img[^>]*src="([^"]+)"[^>]*>', blk)
+            alt = re.search(r'alt="([^"]*)"', blk)
+            dims = re.search(r'width="(\d+)"\s+height="(\d+)"', blk)
+            if img:
+                shots.append({"webp": webp.group(1) if webp else "",
+                              "src": img.group(1),
+                              "alt": alt.group(1) if alt else "",
+                              "w": dims.group(1) if dims else "",
+                              "h": dims.group(2) if dims else ""})
+        if not paras and not items and not steps and not shots:
+            continue
+        sections.append({"title": txt(h2.group(1)), "paras": paras,
+                         "items": items, "steps": steps, "shots": shots})
+
+    return {"hero": hero, "links": links, "stats": stats[:6], "sections": sections}
+
+
+def build_project(slug):
+    cfg = PROJECTS[slug]
+    d = scrape_project(slug, cfg)
+
+    stats = "".join(f'<li><b>{html.escape(s["n"])}</b><span>{html.escape(s["label"])}</span></li>'
+                    for s in d["stats"])
+    links = "".join(
+        '<a class="{c}" href="{h}" target="_blank" rel="noopener noreferrer">{l}</a>'.format(
+            c="primary" if i == 0 else "ghost", h=l["href"], l=html.escape(l["label"]))
+        for i, l in enumerate(d["links"][:2]))
+
+    blocks = ""
+    for sec in d["sections"]:
+        body = "".join(f"<p>{html.escape(p)}</p>" for p in sec["paras"])
+        if sec["items"]:
+            body += "<ul class='plist'>" + "".join(
+                f"<li>{html.escape(i)}</li>" for i in sec["items"]) + "</ul>"
+        for sh in sec.get("shots", []):
+            src = "../" + sh["src"].lstrip("./")
+            webp = ("../" + sh["webp"].lstrip("./")) if sh["webp"] else ""
+            dim = f' width="{sh["w"]}" height="{sh["h"]}"' if sh["w"] else ""
+            source = f'<source srcset="{webp}" type="image/webp">' if webp else ""
+            body += (f'<picture class="pshot">{source}'
+                     f'<img src="{src}" alt="{html.escape(sh["alt"])}"{dim} '
+                     f'loading="lazy" decoding="async"></picture>')
+        if sec.get("steps"):
+            body += "<ol class='ploop'>" + "".join(
+                f"<li>{html.escape(x)}</li>" for x in sec["steps"]) + "</ol>"
+        blocks += f'<section class="pblock"><h2>{html.escape(sec["title"])}</h2>{body}</section>'
+
+    page = PROJECT_TEMPLATE
+    for marker, value in (
+        ("<!--TITLE-->", html.escape(cfg["title"])),
+        ("<!--A-->", cfg["a"]), ("<!--B-->", cfg["b"]),
+        ("<!--LOGO-->", html.escape(d["hero"]["logo"])),
+        ("<!--TAGLINE-->", html.escape(d["hero"]["tagline"])),
+        ("<!--SUBTITLE-->", html.escape(d["hero"]["subtitle"])),
+        ("<!--LINKS-->", links),
+        ("<!--STATS-->", f'<ul class="pstats">{stats}</ul>' if stats else ""),
+        ("<!--BLOCKS-->", blocks),
+        ("<!--SLUG-->", slug),
+    ):
+        page = page.replace(marker, value)
+
+    path = os.path.join(OUT_DIR, slug + ".html")
+    open(path, "w").write(page)
+    print(f"  m/{slug}.html  {len(d['stats'])} stats, {len(d['sections'])} sections, "
+          f"{len(d['links'])} links")
+    return path
+
+
+PROJECT_TEMPLATE = open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                     "mobile_project_template.html")).read()
+
+
 if __name__ == "__main__":
     build()
+    for _slug in PROJECTS:
+        build_project(_slug)
