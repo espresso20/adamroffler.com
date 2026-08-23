@@ -68,7 +68,12 @@ def scrape():
 
     projects = []
     for m in re.finditer(r'<a class="hero-project hp-(\w+)" href="([^"]+)"', s):
-        projects.append({"key": m.group(1), "href": m.group(2)})
+        href = m.group(2)
+        # These hrefs are written relative to the site root, but this page is
+        # served from /m/ -- without the hop up they resolve to /m/ageforge.html.
+        if not re.match(r"^(https?:|mailto:|#|/|\.\./)", href):
+            href = "../" + href
+        projects.append({"key": m.group(1), "href": href})
 
     return {"jobs": jobs, "skills": skills, "certs": certs, "about": about, "projects": projects}
 
@@ -127,6 +132,18 @@ def build():
 
     path = os.path.join(OUT_DIR, "index.html")
     open(path, "w").write(page)
+
+    # This page lives one directory down, so every root-relative href needs a
+    # hop up. Shipping ../ageforge.html as ageforge.html once was enough.
+    broken = []
+    for href in sorted(set(re.findall(r'href="([^"]+)"', page))):
+        if href.startswith(("http", "mailto:", "#")):
+            continue
+        target = os.path.normpath(os.path.join(OUT_DIR, href.split("?")[0]))
+        if not os.path.exists(target):
+            broken.append(href)
+    if broken:
+        raise SystemExit("  broken local links in m/index.html: " + ", ".join(broken))
     print(f"  m/index.html  {len(d['jobs'])} roles, {len(d['skills'])} skills, "
           f"{len(d['certs'])} certs, {len(d['projects'])} projects")
     return path
