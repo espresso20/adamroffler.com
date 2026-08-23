@@ -83,7 +83,7 @@ const typedTextSpan = document.querySelector('.typed-text');
 const cursorSpan = document.querySelector('.cursor');
 
 const textArray = [
-    'Principal Cloud Ops Engineer',
+    'Senior Engineer III @ 27Global',
     'AWS Architecture & Security',
     'Infrastructure Automation Expert',
     'DevOps & Cloud Architecture',
