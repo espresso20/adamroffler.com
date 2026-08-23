@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ABEND - A command-line civilization simulation. Type commands. Run empires. 22 ages, 288 buildings, 7 epochs. Built in Godot 4.">
+    <meta name="description" content="ABEND - a cold-war terminal simulator. A bunker that goes on forever, explored by typing, where every upgrade you find is a new command.">
     <meta name="author" content="Adam Roffler">
     <title>ABEND | Adam Roffler</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -71,8 +71,8 @@
         <div class="hero-content">
             <div class="abend-system-badge">OPERATOR TERMINAL // ACTIVE</div>
             <h1 class="abend-logo">ABEND</h1>
-            <p class="abend-tagline">Command-Line Civilization Simulation idler</p>
-            <p class="abend-subtitle">Type commands. Run the simulations. Build empires. 22 ages from the primitive to the stars.</p>
+            <p class="abend-tagline">A Cold-War Terminal Simulator</p>
+            <p class="abend-subtitle">A bunker that goes on forever. You explore it by typing.</p>
 
             <div class="abend-hero-buttons">
                 <a href="index.html#projects" class="btn btn-secondary">
@@ -86,373 +86,97 @@
     <section class="section">
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">Situation Report</h2>
-            <div class="abend-about glass-card" data-aos="fade-up" data-aos-delay="100">
                 <p>
-                    ABEND is a civilization simulation idler where the interface is the users only access to unravel the mystery of project-abend. 
-                    You are an Operator running a purpose-built bunker full of old retro hardware seemingly cobbled together hastily. YOu are in a decommissioned Cold War bunker. 
-                    The terminal is not just a choice you have, its the only link between you and what remains of your world. The simulations must go on, you MUST complete the simulation, the data gathered could save humanity.
-                    You will type commands. The simulation will flourish or die at your fingertips.
+                    You work a set of terminals inside a bunker system that seems to go on
+                    forever. The lights are on in the room you are in. Everything past that
+                    is dark, and the only way to find out what is down there is to type.
                 </p>
                 <p>
-                    Built in Godot 4 with a full CRT shader aesthetic: phosphor glow, scanlines, monochrome
-                    display, and retro keyboard input.
-                </p>
-                <p>
-                    ABEND is a long-term project. The simulation engine is complete and the core systems are in place.
-                    The current focus is on content creation -- 288 buildings, 70 technologies, 74 milestones, 26 random events, and the full tech tree. 
-                    The first public release will be a beta with the full simulation and a subset of content, followed by regular updates until the full release.
+                    What you find lets you build out your computer system. A better system
+                    reaches further into the bunker, and reaching further turns on more of
+                    the system. That loop is the game.
                 </p>
             </div>
-        </div>
     </section>
-
-    <!-- Screenshots -->
-    <section class="section">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Screenshots</h2>
-
-            <!-- Main menu screenshot -->
-            <div class="abend-screenshot-main" data-aos="fade-up" data-aos-delay="100">
-                <picture><source srcset="abend-mainmenu.webp" type="image/webp"><img src="abend-mainmenu-1400.jpg" alt="ABEND -- title screen" class="abend-screenshot" width="1400" height="951" loading="lazy" decoding="async"></picture>
-            </div>
-
-            <!-- Gameplay screenshot -->
-            <div class="abend-screenshot-main" data-aos="fade-up" data-aos-delay="200">
-                <picture><source srcset="abend-playscreen-1.webp" type="image/webp"><img src="abend-playscreen-1-1400.jpg" alt="ABEND -- gameplay, Primitive Age" class="abend-screenshot" width="1400" height="955" loading="lazy" decoding="async"></picture>
-            </div>
-        </div>
-    </section>
-
-    <!-- By the Numbers -->
-    <section class="section">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">By the Numbers</h2>
-            <div class="abend-stats-grid" data-aos="fade-up" data-aos-delay="100">
-                <div class="abend-stat-card glass-card">
-                    <div class="abend-stat-number">22</div>
-                    <p class="abend-stat-label">Ages</p>
-                </div>
-                <div class="abend-stat-card glass-card">
-                    <div class="abend-stat-number">7</div>
-                    <p class="abend-stat-label">Epochs</p>
-                </div>
-                <div class="abend-stat-card glass-card">
-                    <div class="abend-stat-number">288</div>
-                    <p class="abend-stat-label">Buildings</p>
-                </div>
-                <div class="abend-stat-card glass-card">
-                    <div class="abend-stat-number">70</div>
-                    <p class="abend-stat-label">Technologies</p>
-                </div>
-            </div>
-            <div class="abend-stats-grid" data-aos="fade-up" data-aos-delay="200" style="margin-top: 20px;">
-                <div class="abend-stat-card glass-card">
-                    <div class="abend-stat-number">74</div>
-                    <p class="abend-stat-label">Milestones</p>
-                </div>
-                <div class="abend-stat-card glass-card">
-                    <div class="abend-stat-number">201</div>
-                    <p class="abend-stat-label">Worker Tiers</p>
-                </div>
-                <div class="abend-stat-card glass-card">
-                    <div class="abend-stat-number">735</div>
-                    <p class="abend-stat-label">Building Sprites</p>
-                </div>
-                <div class="abend-stat-card glass-card">
-                    <div class="abend-stat-number">26</div>
-                    <p class="abend-stat-label">Random Events</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    
 
     <!-- Game Systems -->
     <section class="section">
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">Game Systems</h2>
-            <div class="skills-grid">
-                <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="skill-icon"><svg class="icon" aria-hidden="true"><use href="#fa-s-building"/></svg></div>
-                    <h3>Buildings and Wonders</h3>
-                    <p>288 buildings across 22 ages including unique Wonders that grant permanent civilization bonuses and unlock age transitions.</p>
-                </div>
-                <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="150">
-                    <div class="skill-icon"><svg class="icon" aria-hidden="true"><use href="#fa-s-flask"/></svg></div>
-                    <h3>Technology Tree</h3>
-                    <p>70 technologies with prerequisite chains that multiply production, unlock new mechanics, and open paths through the epoch system.</p>
-                </div>
-                <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="skill-icon"><svg class="icon" aria-hidden="true"><use href="#fa-s-shield-alt"/></svg></div>
-                    <h3>Military and Expeditions</h3>
-                    <p>Command soldiers. Launch expeditions with escalating risk and reward. Defend trade routes. Conquer ruins. The army is a resource, not a minigame.</p>
-                </div>
-                <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="250">
-                    <div class="skill-icon"><svg class="icon" aria-hidden="true"><use href="#fa-s-handshake"/></svg></div>
-                    <h3>Trade and Diplomacy</h3>
-                    <p>Six NPC factions, multiple trade routes per faction. Diplomatic standing shifts with your choices and directly affects exchange rates.</p>
-                </div>
-                <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="skill-icon"><svg class="icon" aria-hidden="true"><use href="#fa-s-crown"/></svg></div>
-                    <h3>Prestige and Legacy</h3>
-                    <p>Sacrifice your civilization for permanent meta-progression. Prestige bonuses carry across all future runs. The long game has a long game.</p>
-                </div>
-                <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="350">
-                    <div class="skill-icon"><svg class="icon" aria-hidden="true"><use href="#fa-s-radiation"/></svg></div>
-                    <h3>Epoch Catastrophes</h3>
-                    <p>Every epoch boundary triggers a catastrophe. Endure, succumb, or defer. Each choice reshapes the civilization's trajectory and legacy score.</p>
-                </div>
+                <p>
+                    The tech tree, the interface and the fiction are the same object.
+                </p>
+                <p>
+                    Every upgrade you find is a new command you can type. Not a menu item
+                    that lights up &mdash; a word that starts working. Most games have to fake
+                    the connection between a progression system and the thing you actually
+                    do all day. This one gets it from the premise, and protecting that is
+                    the constraint every other decision answers to.
+                </p>
             </div>
-        </div>
     </section>
 
     <!-- The Interface -->
     <section class="section">
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">The Interface</h2>
-            <div class="abend-about glass-card" data-aos="fade-up" data-aos-delay="100" style="margin-bottom: 30px;">
                 <p>
-                    The entire game renders inside a terminal-style layout. The status bar tracks session
-                    state. The main panel switches between Buildings, Research, Army, Trade, Workers, and more.
-                    The log at the bottom is where the Operator types -- the machine responds there too.
-                    Everything else is context.
+                    The whole game is a terminal. Panels declare a tree of regions and the
+                    display renders it; there is no HUD layered over the top and no second
+                    screen to manage.
+                </p>
+                <p>
+                    The CRT treatment is not a filter applied to a game. It is the thing
+                    you are looking at.
                 </p>
             </div>
-            <div class="abend-interface-svg-wrap" data-aos="fade-up" data-aos-delay="200">
-                <svg class="abend-interface-svg" viewBox="0 0 820 490" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ABEND game interface layout diagram">
-                    <defs>
-                        <style>
-                            .ai-bg       { fill: #030a03; }
-                            .ai-panel    { fill: rgba(0,20,5,0.9); stroke: rgba(0,255,65,0.25); stroke-width: 1; }
-                            .ai-divider  { stroke: rgba(0,255,65,0.15); stroke-width: 1; stroke-dasharray: 3 3; }
-                            .ai-hi       { fill: rgba(0,255,65,0.08); }
-                            .ai-dim      { font-family:'Courier New',Courier,monospace; fill: rgba(0,255,65,0.3);  font-size: 8.5px; }
-                            .ai-mid      { font-family:'Courier New',Courier,monospace; fill: rgba(0,255,65,0.55); font-size: 8.5px; }
-                            .ai-lbl      { font-family:'Courier New',Courier,monospace; fill: rgba(0,255,65,0.55); font-size: 8px; letter-spacing: 1px; }
-                            .ai-bright   { font-family:'Courier New',Courier,monospace; fill: rgba(0,255,65,0.88); font-size: 8.5px; }
-                            .ai-active   { font-family:'Courier New',Courier,monospace; fill: #00ff41;             font-size: 8.5px; }
-                            .ai-alert    { font-family:'Courier New',Courier,monospace; fill: rgba(255,90,90,0.8); font-size: 8px; }
-                            .ai-cursor   { fill: rgba(0,255,65,0.9); animation: ai-cur 1.1s step-end infinite; }
-                            @keyframes ai-cur { 0%,100%{opacity:1} 50%{opacity:0} }
-                        </style>
-                    </defs>
-
-                    <!-- Background -->
-                    <rect width="820" height="490" class="ai-bg" rx="5"/>
-
-                    <!-- STATUS BAR -->
-                    <rect x="10" y="10" width="800" height="44" class="ai-panel"/>
-                    <text x="22" y="28" class="ai-lbl">SESSION 1  |  STAGE: PRIMITIVE AGE  |  CYC: 62.0K  |  PGY-0007  |  POP: 0/0  |  SPEED: 1.0x</text>
-                    <text x="22" y="46" class="ai-alert">[!] EVENT: Drought (1886 cyc remaining)</text>
-
-                    <!-- LEFT PANEL — Resources -->
-                    <rect x="10" y="64" width="168" height="310" class="ai-panel"/>
-                    <text x="22" y="80" class="ai-lbl">-- RESOURCES</text>
-
-                    <text x="22" y="98"  class="ai-mid">Food</text>
-                    <text x="140" y="98"  class="ai-bright">200</text>
-                    <text x="22" y="110" class="ai-dim">+8.00/cyc</text>
-
-                    <text x="22" y="126" class="ai-mid">Wood</text>
-                    <text x="140" y="126" class="ai-bright">100</text>
-                    <text x="22" y="138" class="ai-dim">+0.00/cyc</text>
-
-                    <text x="22" y="154" class="ai-mid">Knowledge</text>
-                    <text x="140" y="154" class="ai-bright">0.00</text>
-                    <text x="22" y="166" class="ai-dim">+0.00/cyc</text>
-
-                    <text x="22" y="182" class="ai-mid">Faith</text>
-                    <text x="140" y="182" class="ai-bright">0.00</text>
-                    <text x="22" y="194" class="ai-dim">+0.00/cyc</text>
-
-                    <line x1="10" y1="208" x2="178" y2="208" class="ai-divider"/>
-                    <text x="22" y="224" class="ai-lbl">[ BUILD QUEUE ]</text>
-                    <text x="22" y="239" class="ai-dim">Nothing queued</text>
-
-                    <!-- CENTER PANEL — Main (Buildings) -->
-                    <rect x="188" y="64" width="432" height="310" class="ai-panel"/>
-                    <text x="200" y="80" class="ai-lbl">UNCLASSIFIED//SIMULANT</text>
-                    <text x="200" y="94" class="ai-mid">-- BUILDINGS</text>
-                    <line x1="188" y1="102" x2="620" y2="102" class="ai-divider"/>
-                    <text x="200" y="118" class="ai-mid">Primitive Age ─────────────────────────────────────────</text>
-
-                    <text x="200" y="136" class="ai-bright">Hut</text>
-                    <text x="320"  y="136" class="ai-dim">x0  [passive]</text>
-                    <text x="212"  y="148" class="ai-dim">A crude shelter of sticks and leaves.  +10 pop cap.</text>
-
-                    <text x="200" y="164" class="ai-bright">Gathering Camp</text>
-                    <text x="320"  y="164" class="ai-dim">x0  [0/0 wkrs]</text>
-                    <text x="212"  y="176" class="ai-dim">Foragers gather berries and roots.  +0.50 food/cyc (1 worker).</text>
-
-                    <text x="200" y="192" class="ai-bright">Wood Camp</text>
-                    <text x="320"  y="192" class="ai-dim">x0  [0/0 wkrs]</text>
-                    <text x="212"  y="204" class="ai-dim">A basic camp for collecting wood.  +8.20 wood/cyc (3 workers).</text>
-
-                    <text x="200" y="220" class="ai-bright">Story Circle</text>
-                    <text x="320"  y="220" class="ai-dim">x0  [0/0 wkrs]</text>
-                    <text x="212"  y="232" class="ai-dim">Elders share stories around the fire.  +0.002 knowledge/cyc (2 workers).</text>
-
-                    <text x="200" y="248" class="ai-bright">Shrine</text>
-                    <text x="320"  y="248" class="ai-dim">x0  [0/0 wkrs]</text>
-                    <text x="212"  y="260" class="ai-dim">A small spirit shrine.  +0.002 faith/cyc (2 workers).</text>
-
-                    <text x="200" y="276" class="ai-bright">Sacred Grove</text>
-                    <text x="320"  y="276" class="ai-dim">x0  [passive]</text>
-                    <text x="212"  y="288" class="ai-dim">Nature's power flows here.  +0.02 knowledge, +0.05 food/cyc.  Unlocks +0.5x speed.</text>
-
-                    <!-- RIGHT PANEL — Nav -->
-                    <rect x="630" y="64" width="180" height="310" class="ai-panel"/>
-                    <text x="642" y="80" class="ai-lbl">DATA</text>
-
-                    <text x="642" y="98"  class="ai-mid">[F1] Help</text>
-                    <text x="642" y="113" class="ai-mid">[F2] Stats</text>
-                    <rect x="631" y="119" width="178" height="15" class="ai-hi"/>
-                    <text x="642" y="131" class="ai-active">[F3] Buildings  ▸</text>
-                    <text x="642" y="146" class="ai-mid">[F4] Workers</text>
-                    <text x="642" y="161" class="ai-mid">[F5] Research</text>
-                    <text x="642" y="176" class="ai-mid">[F6] Milestones</text>
-                    <text x="642" y="191" class="ai-mid">[F7] Army</text>
-                    <text x="642" y="206" class="ai-mid">[F8] Trade</text>
-                    <text x="642" y="221" class="ai-mid">[F9] Prestige</text>
-                    <text x="642" y="236" class="ai-mid">[F10] Vault</text>
-                    <line x1="630" y1="248" x2="810" y2="248" class="ai-divider"/>
-                    <text x="642" y="264" class="ai-dim">Archive</text>
-                    <text x="642" y="279" class="ai-dim">Achievements</text>
-                    <text x="642" y="294" class="ai-dim">Logs</text>
-                    <text x="642" y="309" class="ai-dim">Overlook</text>
-                    <text x="642" y="324" class="ai-dim">Decrypt</text>
-                    <text x="642" y="339" class="ai-dim">Radio</text>
-
-                    <!-- LOG / TERMINAL -->
-                    <rect x="10" y="384" width="800" height="96" class="ai-panel"/>
-                    <text x="22" y="400" class="ai-dim">[22:19:24]  FRAGMENT : 1 of 1</text>
-                    <text x="22" y="414" class="ai-dim">[22:19:24]  DATED    : 1966-05-01 18:00Z  |  CRC: OK  DECRYPTED</text>
-                    <text x="22" y="428" class="ai-dim">[22:19:25]  RECOVERED FRAGMENT</text>
-                    <text x="22" y="442" class="ai-mid">Halon ghost event. The halon dump fires with no cause logged.</text>
-                    <text x="22" y="470" class="ai-bright">&gt;</text>
-                    <rect x="36" y="458" width="6" height="13" class="ai-cursor"/>
-                </svg>
-            </div>
-        </div>
     </section>
-
-    <!-- The 7 Epochs -->
-    <section class="section">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">The 7 Epochs</h2>
-            <div class="epochs-grid">
-                <div class="epoch-card glass-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="epoch-number">EPOCH I</div>
-                    <h3>Stone Era</h3>
-                    <p>Primitive, Stone, and Bronze Ages. Humanity's first steps. Wood, stone, and fire.</p>
-                </div>
-                <div class="epoch-card glass-card" data-aos="fade-up" data-aos-delay="150">
-                    <div class="epoch-number">EPOCH II</div>
-                    <h3>Iron Era</h3>
-                    <p>Iron, Classical, and Medieval Ages. Empires of iron and faith rise and fall.</p>
-                </div>
-                <div class="epoch-card glass-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="epoch-number">EPOCH III</div>
-                    <h3>Steel Era</h3>
-                    <p>Renaissance, Colonial, and Industrial Ages. Steam, steel, and global ambition.</p>
-                </div>
-                <div class="epoch-card glass-card" data-aos="fade-up" data-aos-delay="250">
-                    <div class="epoch-number">EPOCH IV</div>
-                    <h3>Electric Era</h3>
-                    <p>Victorian, Electric, and Atomic Ages. Electricity and the atom reshape civilization.</p>
-                </div>
-                <div class="epoch-card glass-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="epoch-number">EPOCH V</div>
-                    <h3>Digital Era</h3>
-                    <p>Modern, Information, and Digital Ages. Data flows become the rivers of power.</p>
-                </div>
-                <div class="epoch-card glass-card" data-aos="fade-up" data-aos-delay="350">
-                    <div class="epoch-number">EPOCH VI</div>
-                    <h3>Neon Era</h3>
-                    <p>Cyberpunk, Fusion, and Space Ages. Augmented reality and the conquest of the solar system.</p>
-                </div>
-                <div class="epoch-card glass-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="epoch-number">EPOCH VII</div>
-                    <h3>Cosmic Era</h3>
-                    <p>Interstellar, Galactic, Quantum, and Transcendent Ages. Between stars and beyond time itself.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    
 
     <!-- Status -->
     <section class="section">
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">Status</h2>
-            <div class="abend-version-card glass-card abend-version-featured" data-aos="fade-up" data-aos-delay="100" style="max-width: 600px; margin: 0 auto;">
-                <div class="abend-version-icon"><svg class="icon" aria-hidden="true"><use href="#fa-s-gamepad"/></svg></div>
-                <h3>ABEND</h3>
-                <div class="abend-version-badge badge-dev">In Development</div>
                 <p>
-                    Godot 4 engine, CRT shader, real audio, and the full depth of the civilization
-                    simulation. Terminal soul -- real game engine underneath.
+                    Early, and honest about it. The command registry, the panel and region
+                    layout and the headless core are in. There is a terminal you can type
+                    into.
                 </p>
-                <ul class="abend-version-features">
-                    <li><svg class="icon" aria-hidden="true"><use href="#fa-s-check"/></svg> Godot 4 + C# engine</li>
-                    <li><svg class="icon" aria-hidden="true"><use href="#fa-s-check"/></svg> CRT terminal aesthetic</li>
-                    <li><svg class="icon" aria-hidden="true"><use href="#fa-s-check"/></svg> 288 buildings, 70 technologies, 22 ages</li>
-                    <li><svg class="icon" aria-hidden="true"><use href="#fa-s-check"/></svg> Full release planned</li>
-                </ul>
+                <p>
+                    An earlier version of ABEND was a civilization idler spanning 22 ages.
+                    That design is retired. This is a different game wearing the same name.
+                </p>
             </div>
-        </div>
     </section>
 
     <!-- Under the Hood -->
     <section class="section">
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">Under the Hood</h2>
-            <div class="abend-stack-grid" data-aos="fade-up" data-aos-delay="100">
-                <div class="abend-stack-item glass-card">
-                    <div class="abend-stack-icon"><svg class="icon" aria-hidden="true"><use href="#fa-s-cube"/></svg></div>
-                    <div class="abend-stack-info">
-                        <h4>Godot 4.6.1</h4>
-                        <p>MIT license, no royalties, excellent 2D pipeline. The right call.</p>
-                    </div>
-                </div>
-                <div class="abend-stack-item glass-card">
-                    <div class="abend-stack-icon"><svg class="icon" aria-hidden="true"><use href="#fa-s-code"/></svg></div>
-                    <div class="abend-stack-info">
-                        <h4>C# / .NET 10</h4>
-                        <p>Strongly typed, struct-friendly. Every mechanic ports cleanly from the original simulation engine.</p>
-                    </div>
-                </div>
-                <div class="abend-stack-item glass-card">
-                    <div class="abend-stack-icon"><svg class="icon" aria-hidden="true"><use href="#fa-s-tv"/></svg></div>
-                    <div class="abend-stack-info">
-                        <h4>CRT Shader</h4>
-                        <p>Phosphor glow, scanlines, ambient flicker. In-world the display is 30 years old and running because nothing better exists for this purpose.</p>
-                    </div>
-                </div>
-                <div class="abend-stack-item glass-card">
-                    <div class="abend-stack-icon"><svg class="icon" aria-hidden="true"><use href="#fa-s-database"/></svg></div>
-                    <div class="abend-stack-info">
-                        <h4>Data-Driven Design</h4>
-                        <p>288 buildings, 70 techs, 74 milestones -- all defined in JSON. The simulation engine reads config, not hardcode.</p>
-                    </div>
-                </div>
+                <p>
+                    Godot 4 and GDScript. The game logic runs headless and Godot is a
+                    display layer only, so the core is testable without the editor and
+                    every command carries a golden transcript that gets diffed on each
+                    change.
+                </p>
+                <p>
+                    Five guardrails run on every commit: no source file over 300 lines,
+                    one file per command found by a registry with no dispatch table
+                    anywhere, the core runs headless, every command has a transcript, and
+                    the documentation stays smaller than the game.
+                </p>
             </div>
-        </div>
     </section>
 
     <!-- CTA -->
     <section class="section">
         <div class="container" style="text-align: center;">
             <h2 class="section-title" data-aos="fade-up">Follow Development</h2>
-            <div class="abend-about glass-card" data-aos="fade-up" data-aos-delay="100" style="margin-bottom: 40px;">
                 <p>
-                    ABEND is actively in development. Check back here as milestones ship.
+                    ABEND is actively in development. Check back as it takes shape.
                 </p>
             </div>
-            <div class="abend-hero-buttons" data-aos="fade-up" data-aos-delay="200">
-                <a href="index.html#projects" class="btn btn-secondary">
-                    <svg class="icon" aria-hidden="true" style="margin-right: 8px;"><use href="#fa-s-arrow-left"/></svg>Back to Projects
-                </a>
-            </div>
-        </div>
     </section>
 
     <!-- Footer -->

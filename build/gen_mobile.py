@@ -84,7 +84,7 @@ def scrape():
 
 PROJECT_META = {
     "ageforge":   ("AgeForge",   "Idle empire builder in Go",        "#f0a500", "#ff6b35"),
-    "abend":      ("ABEND",      "Command-line civilization sim",     "#00ff41", "#39ffb0"),
+    "abend":      ("ABEND",      "Cold-war terminal simulator",       "#00ff41", "#39ffb0"),
     "neonferatu": ("Neonferatu", "A theme for the whole toolchain",   "#ff3a8b", "#b767fc"),
 }
 
