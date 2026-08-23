@@ -208,7 +208,9 @@ def scrape_project(slug, cfg):
         if not h2:
             continue
         paras = [txt(p) for p in re.findall(r'<p[^>]*>(.*?)</p>', body, re.S)]
-        paras = [p for p in paras if len(p) > 40][:3]
+        long = [p for p in paras if len(p) > 40][:3]
+        # A section whose whole body is one short line still has a body.
+        paras = long or [p for p in paras if len(p) > 8][:3]
         items = [txt(li) for li in re.findall(r'<li[^>]*>(.*?)</li>', body, re.S)][:6]
         items = [i for i in items if 3 < len(i) < 120]
         # Some sections are diagrams rather than prose -- the core loop is a row
