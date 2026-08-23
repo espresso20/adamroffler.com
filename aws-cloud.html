@@ -6,19 +6,37 @@
     <meta name="description" content="Adam Roffler - Cloud Projects & Infrastructure">
     <title>Cloud Projects | Adam Roffler</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true"><symbol id="fa-s-chart-area" viewBox="0 0 512 512">
+<path d="M64 64c0-17.7-14.3-32-32-32S0 46.3 0 64V400c0 44.2 35.8 80 80 80H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H80c-8.8 0-16-7.2-16-16V64zm96 288H448c17.7 0 32-14.3 32-32V251.8c0-7.6-2.7-15-7.7-20.8l-65.8-76.8c-12.1-14.2-33.7-15-46.9-1.8l-21 21c-10 10-26.4 9.2-35.4-1.6l-39.2-47c-12.6-15.1-35.7-15.4-48.7-.6L135.9 215c-5.1 5.8-7.9 13.3-7.9 21.1v84c0 17.7 14.3 32 32 32z"/>
+</symbol><symbol id="fa-s-cloud" viewBox="0 0 640 512">
+<path d="M0 336c0 79.5 64.5 144 144 144H512c70.7 0 128-57.3 128-128c0-61.9-44-113.6-102.4-125.4c4.1-10.7 6.4-22.4 6.4-34.6c0-53-43-96-96-96c-19.7 0-38.1 6-53.3 16.2C367 64.2 315.3 32 256 32C167.6 32 96 103.6 96 192c0 2.7 .1 5.4 .2 8.1C40.2 219.8 0 273.2 0 336z"/>
+</symbol><symbol id="fa-s-database" viewBox="0 0 448 512">
+<path d="M448 80v48c0 44.2-100.3 80-224 80S0 172.2 0 128V80C0 35.8 100.3 0 224 0S448 35.8 448 80zM393.2 214.7c20.8-7.4 39.9-16.9 54.8-28.6V288c0 44.2-100.3 80-224 80S0 332.2 0 288V186.1c14.9 11.8 34 21.2 54.8 28.6C99.7 230.7 159.5 240 224 240s124.3-9.3 169.2-25.3zM0 346.1c14.9 11.8 34 21.2 54.8 28.6C99.7 390.7 159.5 400 224 400s124.3-9.3 169.2-25.3c20.8-7.4 39.9-16.9 54.8-28.6V432c0 44.2-100.3 80-224 80S0 476.2 0 432V346.1z"/>
+</symbol><symbol id="fa-s-envelope" viewBox="0 0 512 512">
+<path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/>
+</symbol><symbol id="fa-s-home" viewBox="0 0 576 512">
+<path d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/>
+</symbol><symbol id="fa-s-moon" viewBox="0 0 384 512">
+<path d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"/>
+</symbol><symbol id="fa-s-network-wired" viewBox="0 0 640 512">
+<path d="M256 64H384v64H256V64zM240 0c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48h48v32H32c-17.7 0-32 14.3-32 32s14.3 32 32 32h96v32H80c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48H240c26.5 0 48-21.5 48-48V368c0-26.5-21.5-48-48-48H192V288H448v32H400c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48H560c26.5 0 48-21.5 48-48V368c0-26.5-21.5-48-48-48H512V288h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H352V192h48c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48H240zM96 448V384H224v64H96zm320-64H544v64H416V384z"/>
+</symbol><symbol id="fa-s-server" viewBox="0 0 512 512">
+<path d="M64 32C28.7 32 0 60.7 0 96v64c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm280 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm48 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zM64 288c-35.3 0-64 28.7-64 64v64c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V352c0-35.3-28.7-64-64-64H64zm280 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm56 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z"/>
+</symbol><symbol id="fa-s-shield-alt" viewBox="0 0 512 512">
+<path d="M256 0c4.6 0 9.2 1 13.4 2.9L457.7 82.8c22 9.3 38.4 31 38.3 57.2c-.5 99.2-41.3 280.7-213.6 363.2c-16.7 8-36.1 8-52.8 0C57.3 420.7 16.5 239.2 16 140c-.1-26.2 16.3-47.9 38.3-57.2L242.7 2.9C246.8 1 251.4 0 256 0zm0 66.8V444.8C394 378 431.1 230.1 432 141.4L256 66.8l0 0z"/>
+</symbol></svg>
     <a class="skip-link" href="#main">Skip to content</a>
     <!-- Theme Toggle -->
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-        <i class="fas fa-moon"></i>
+        <svg class="icon" aria-hidden="true"><use href="#fa-s-moon"/></svg>
     </button>
 
     <!-- Back to Home -->
     <nav class="nav-menu" id="navMenu">
         <ul>
-            <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="index.html" class="nav-link"><svg class="icon" aria-hidden="true"><use href="#fa-s-home"/></svg> Home</a></li>
         </ul>
     </nav>
 
@@ -40,7 +58,7 @@
             <div class="skills-grid">
                 <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="150">
                     <div class="skill-icon">
-                        <i class="fas fa-cloud"></i>
+                        <svg class="icon" aria-hidden="true"><use href="#fa-s-cloud"/></svg>
                     </div>
                     <h3>Multi-Region Architecture</h3>
                     <p>Designed and deployed highly available infrastructure across multiple AWS regions with automated failover</p>
@@ -48,7 +66,7 @@
 
                 <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="skill-icon">
-                        <i class="fas fa-server"></i>
+                        <svg class="icon" aria-hidden="true"><use href="#fa-s-server"/></svg>
                     </div>
                     <h3>Serverless Solutions</h3>
                     <p>Built cost-effective serverless applications using Lambda, API Gateway, and DynamoDB</p>
@@ -56,7 +74,7 @@
 
                 <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="250">
                     <div class="skill-icon">
-                        <i class="fas fa-network-wired"></i>
+                        <svg class="icon" aria-hidden="true"><use href="#fa-s-network-wired"/></svg>
                     </div>
                     <h3>VPC & Networking</h3>
                     <p>Complex VPC designs with Transit Gateway, PrivateLink, and hybrid cloud connectivity</p>
@@ -64,7 +82,7 @@
 
                 <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="skill-icon">
-                        <i class="fas fa-database"></i>
+                        <svg class="icon" aria-hidden="true"><use href="#fa-s-database"/></svg>
                     </div>
                     <h3>Database Migration</h3>
                     <p>Zero-downtime database migrations from on-premises to RDS and Aurora with DMS</p>
@@ -72,7 +90,7 @@
 
                 <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="350">
                     <div class="skill-icon">
-                        <i class="fas fa-shield-alt"></i>
+                        <svg class="icon" aria-hidden="true"><use href="#fa-s-shield-alt"/></svg>
                     </div>
                     <h3>Security & Compliance</h3>
                     <p>Implemented security best practices with IAM, KMS, GuardDuty, and compliance automation</p>
@@ -80,7 +98,7 @@
 
                 <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="400">
                     <div class="skill-icon">
-                        <i class="fas fa-chart-area"></i>
+                        <svg class="icon" aria-hidden="true"><use href="#fa-s-chart-area"/></svg>
                     </div>
                     <h3>Cost Optimization</h3>
                     <p>Reduced cloud spend by 40% through rightsizing, reserved instances, and spot instances</p>
@@ -89,7 +107,7 @@
 
             <div style="text-align: center; margin-top: 60px;" data-aos="fade-up" data-aos-delay="450">
                 <a href="index.html#contact" class="btn btn-primary">
-                    <i class="fas fa-envelope"></i> Get In Touch
+                    <svg class="icon" aria-hidden="true"><use href="#fa-s-envelope"/></svg> Get In Touch
                 </a>
             </div>
         </div>

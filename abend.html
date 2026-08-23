@@ -8,19 +8,49 @@
     <title>ABEND | Adam Roffler</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="abend-page">
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true"><symbol id="fa-s-arrow-left" viewBox="0 0 448 512">
+<path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
+</symbol><symbol id="fa-s-building" viewBox="0 0 384 512">
+<path d="M48 0C21.5 0 0 21.5 0 48V464c0 26.5 21.5 48 48 48h96V432c0-26.5 21.5-48 48-48s48 21.5 48 48v80h96c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48H48zM64 240c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V240zm112-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V240c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V240zM80 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V112zM272 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16z"/>
+</symbol><symbol id="fa-s-check" viewBox="0 0 448 512">
+<path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/>
+</symbol><symbol id="fa-s-code" viewBox="0 0 640 512">
+<path d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3L562.7 256l-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z"/>
+</symbol><symbol id="fa-s-crown" viewBox="0 0 576 512">
+<path d="M309 106c11.4-7 19-19.7 19-34c0-22.1-17.9-40-40-40s-40 17.9-40 40c0 14.4 7.6 27 19 34L209.7 220.6c-9.1 18.2-32.7 23.4-48.6 10.7L72 160c5-6.7 8-15 8-24c0-22.1-17.9-40-40-40S0 113.9 0 136s17.9 40 40 40c.2 0 .5 0 .7 0L86.4 427.4c5.5 30.4 32 52.6 63 52.6H426.6c30.9 0 57.4-22.1 63-52.6L535.3 176c.2 0 .5 0 .7 0c22.1 0 40-17.9 40-40s-17.9-40-40-40s-40 17.9-40 40c0 9 3 17.3 8 24l-89.1 71.3c-15.9 12.7-39.5 7.5-48.6-10.7L309 106z"/>
+</symbol><symbol id="fa-s-cube" viewBox="0 0 512 512">
+<path d="M234.5 5.7c13.9-5 29.1-5 43.1 0l192 68.6C495 83.4 512 107.5 512 134.6V377.4c0 27-17 51.2-42.5 60.3l-192 68.6c-13.9 5-29.1 5-43.1 0l-192-68.6C17 428.6 0 404.5 0 377.4V134.6c0-27 17-51.2 42.5-60.3l192-68.6zM256 66L82.3 128 256 190l173.7-62L256 66zm32 368.6l160-57.1v-188L288 246.6v188z"/>
+</symbol><symbol id="fa-s-database" viewBox="0 0 448 512">
+<path d="M448 80v48c0 44.2-100.3 80-224 80S0 172.2 0 128V80C0 35.8 100.3 0 224 0S448 35.8 448 80zM393.2 214.7c20.8-7.4 39.9-16.9 54.8-28.6V288c0 44.2-100.3 80-224 80S0 332.2 0 288V186.1c14.9 11.8 34 21.2 54.8 28.6C99.7 230.7 159.5 240 224 240s124.3-9.3 169.2-25.3zM0 346.1c14.9 11.8 34 21.2 54.8 28.6C99.7 390.7 159.5 400 224 400s124.3-9.3 169.2-25.3c20.8-7.4 39.9-16.9 54.8-28.6V432c0 44.2-100.3 80-224 80S0 476.2 0 432V346.1z"/>
+</symbol><symbol id="fa-s-flask" viewBox="0 0 448 512">
+<path d="M288 0H160 128C110.3 0 96 14.3 96 32s14.3 32 32 32V196.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512H378.6c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H288zM192 196.8V64h64V196.8c0 23.7 6.6 46.9 19 67.1L309.5 320h-171L173 263.9c12.4-20.2 19-43.4 19-67.1z"/>
+</symbol><symbol id="fa-s-gamepad" viewBox="0 0 640 512">
+<path d="M192 64C86 64 0 150 0 256S86 448 192 448H448c106 0 192-86 192-192s-86-192-192-192H192zM496 168a40 40 0 1 1 0 80 40 40 0 1 1 0-80zM392 304a40 40 0 1 1 80 0 40 40 0 1 1 -80 0zM168 200c0-13.3 10.7-24 24-24s24 10.7 24 24v32h32c13.3 0 24 10.7 24 24s-10.7 24-24 24H216v32c0 13.3-10.7 24-24 24s-24-10.7-24-24V280H136c-13.3 0-24-10.7-24-24s10.7-24 24-24h32V200z"/>
+</symbol><symbol id="fa-s-handshake" viewBox="0 0 640 512">
+<path d="M323.4 85.2l-96.8 78.4c-16.1 13-19.2 36.4-7 53.1c12.9 17.8 38 21.3 55.3 7.8l99.3-77.2c7-5.4 17-4.2 22.5 2.8s4.2 17-2.8 22.5l-20.9 16.2L512 316.8V128h-.7l-3.9-2.5L434.8 79c-15.3-9.8-33.2-15-51.4-15c-21.8 0-43 7.5-60 21.2zm22.8 124.4l-51.7 40.2C263 274.4 217.3 268 193.7 235.6c-22.2-30.5-16.6-73.1 12.7-96.8l83.2-67.3c-11.6-4.9-24.1-7.4-36.8-7.4C234 64 215.7 69.6 200 80l-72 48V352h28.2l91.4 83.4c19.6 17.9 49.9 16.5 67.8-3.1c5.5-6.1 9.2-13.2 11.1-20.6l17 15.6c19.5 17.9 49.9 16.6 67.8-2.9c4.5-4.9 7.8-10.6 9.9-16.5c19.4 13 45.8 10.3 62.1-7.5c17.9-19.5 16.6-49.9-2.9-67.8l-134.2-123zM16 128c-8.8 0-16 7.2-16 16V352c0 17.7 14.3 32 32 32H64c17.7 0 32-14.3 32-32V128H16zM48 320a16 16 0 1 1 0 32 16 16 0 1 1 0-32zM544 128V352c0 17.7 14.3 32 32 32h32c17.7 0 32-14.3 32-32V144c0-8.8-7.2-16-16-16H544zm32 208a16 16 0 1 1 32 0 16 16 0 1 1 -32 0z"/>
+</symbol><symbol id="fa-s-home" viewBox="0 0 576 512">
+<path d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/>
+</symbol><symbol id="fa-s-moon" viewBox="0 0 384 512">
+<path d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"/>
+</symbol><symbol id="fa-s-radiation" viewBox="0 0 512 512">
+<path d="M216 186.7c-23.9 13.8-40 39.7-40 69.3L32 256C14.3 256-.2 241.6 2 224.1C10.7 154 47.8 92.7 101.3 52c14.1-10.7 33.8-5.3 42.7 10l72 124.7zM256 336c14.6 0 28.2-3.9 40-10.7l72 124.8c8.8 15.3 3.7 35.1-12.6 41.9c-30.6 12.9-64.2 20-99.4 20s-68.9-7.1-99.4-20c-16.3-6.9-21.4-26.6-12.6-41.9l72-124.8c11.8 6.8 25.4 10.7 40 10.7zm224-80l-144 0c0-29.6-16.1-55.5-40-69.3L368 62c8.8-15.3 28.6-20.7 42.7-10c53.6 40.7 90.6 102 99.4 172.1c2.2 17.5-12.4 31.9-30 31.9zM256 208a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
+</symbol><symbol id="fa-s-shield-alt" viewBox="0 0 512 512">
+<path d="M256 0c4.6 0 9.2 1 13.4 2.9L457.7 82.8c22 9.3 38.4 31 38.3 57.2c-.5 99.2-41.3 280.7-213.6 363.2c-16.7 8-36.1 8-52.8 0C57.3 420.7 16.5 239.2 16 140c-.1-26.2 16.3-47.9 38.3-57.2L242.7 2.9C246.8 1 251.4 0 256 0zm0 66.8V444.8C394 378 431.1 230.1 432 141.4L256 66.8l0 0z"/>
+</symbol><symbol id="fa-s-tv" viewBox="0 0 640 512">
+<path d="M64 64V352H576V64H64zM0 64C0 28.7 28.7 0 64 0H576c35.3 0 64 28.7 64 64V352c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zM128 448H512c17.7 0 32 14.3 32 32s-14.3 32-32 32H128c-17.7 0-32-14.3-32-32s14.3-32 32-32z"/>
+</symbol></svg>
     <a class="skip-link" href="#main">Skip to content</a>
     <!-- Theme Toggle -->
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-        <i class="fas fa-moon"></i>
+        <svg class="icon" aria-hidden="true"><use href="#fa-s-moon"/></svg>
     </button>
 
     <!-- Navigation -->
     <nav class="nav-menu" id="navMenu">
         <ul>
-            <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="index.html" class="nav-link"><svg class="icon" aria-hidden="true"><use href="#fa-s-home"/></svg> Home</a></li>
             <li><a href="index.html#projects" class="nav-link">Projects</a></li>
         </ul>
     </nav>
@@ -36,7 +66,7 @@
 
             <div class="abend-hero-buttons">
                 <a href="index.html#projects" class="btn btn-secondary">
-                    <i class="fas fa-arrow-left" style="margin-right: 8px;"></i>Back to Projects
+                    <svg class="icon" aria-hidden="true" style="margin-right: 8px;"><use href="#fa-s-arrow-left"/></svg>Back to Projects
                 </a>
             </div>
         </div>
@@ -73,12 +103,12 @@
 
             <!-- Main menu screenshot -->
             <div class="abend-screenshot-main" data-aos="fade-up" data-aos-delay="100">
-                <img src="abend-mainmenu.jpg" alt="ABEND -- title screen" class="abend-screenshot" width="1484" height="1008" loading="lazy" decoding="async">
+                <picture><source srcset="abend-mainmenu.webp" type="image/webp"><img src="abend-mainmenu-1400.jpg" alt="ABEND -- title screen" class="abend-screenshot" width="1400" height="951" loading="lazy" decoding="async"></picture>
             </div>
 
             <!-- Gameplay screenshot -->
             <div class="abend-screenshot-main" data-aos="fade-up" data-aos-delay="200">
-                <img src="abend-playscreen-1.jpg" alt="ABEND -- gameplay, Primitive Age" class="abend-screenshot" width="1902" height="1297" loading="lazy" decoding="async">
+                <picture><source srcset="abend-playscreen-1.webp" type="image/webp"><img src="abend-playscreen-1-1400.jpg" alt="ABEND -- gameplay, Primitive Age" class="abend-screenshot" width="1400" height="955" loading="lazy" decoding="async"></picture>
             </div>
         </div>
     </section>
@@ -132,32 +162,32 @@
             <h2 class="section-title" data-aos="fade-up">Game Systems</h2>
             <div class="skills-grid">
                 <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="skill-icon"><i class="fas fa-building"></i></div>
+                    <div class="skill-icon"><svg class="icon" aria-hidden="true"><use href="#fa-s-building"/></svg></div>
                     <h3>Buildings and Wonders</h3>
                     <p>288 buildings across 22 ages including unique Wonders that grant permanent civilization bonuses and unlock age transitions.</p>
                 </div>
                 <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="150">
-                    <div class="skill-icon"><i class="fas fa-flask"></i></div>
+                    <div class="skill-icon"><svg class="icon" aria-hidden="true"><use href="#fa-s-flask"/></svg></div>
                     <h3>Technology Tree</h3>
                     <p>70 technologies with prerequisite chains that multiply production, unlock new mechanics, and open paths through the epoch system.</p>
                 </div>
                 <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="skill-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="skill-icon"><svg class="icon" aria-hidden="true"><use href="#fa-s-shield-alt"/></svg></div>
                     <h3>Military and Expeditions</h3>
                     <p>Command soldiers. Launch expeditions with escalating risk and reward. Defend trade routes. Conquer ruins. The army is a resource, not a minigame.</p>
                 </div>
                 <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="250">
-                    <div class="skill-icon"><i class="fas fa-handshake"></i></div>
+                    <div class="skill-icon"><svg class="icon" aria-hidden="true"><use href="#fa-s-handshake"/></svg></div>
                     <h3>Trade and Diplomacy</h3>
                     <p>Six NPC factions, multiple trade routes per faction. Diplomatic standing shifts with your choices and directly affects exchange rates.</p>
                 </div>
                 <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="skill-icon"><i class="fas fa-crown"></i></div>
+                    <div class="skill-icon"><svg class="icon" aria-hidden="true"><use href="#fa-s-crown"/></svg></div>
                     <h3>Prestige and Legacy</h3>
                     <p>Sacrifice your civilization for permanent meta-progression. Prestige bonuses carry across all future runs. The long game has a long game.</p>
                 </div>
                 <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="350">
-                    <div class="skill-icon"><i class="fas fa-radiation"></i></div>
+                    <div class="skill-icon"><svg class="icon" aria-hidden="true"><use href="#fa-s-radiation"/></svg></div>
                     <h3>Epoch Catastrophes</h3>
                     <p>Every epoch boundary triggers a catastrophe. Endure, succumb, or defer. Each choice reshapes the civilization's trajectory and legacy score.</p>
                 </div>
@@ -344,7 +374,7 @@
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">Status</h2>
             <div class="abend-version-card glass-card abend-version-featured" data-aos="fade-up" data-aos-delay="100" style="max-width: 600px; margin: 0 auto;">
-                <div class="abend-version-icon"><i class="fas fa-gamepad"></i></div>
+                <div class="abend-version-icon"><svg class="icon" aria-hidden="true"><use href="#fa-s-gamepad"/></svg></div>
                 <h3>ABEND</h3>
                 <div class="abend-version-badge badge-dev">In Development</div>
                 <p>
@@ -352,10 +382,10 @@
                     simulation. Terminal soul -- real game engine underneath.
                 </p>
                 <ul class="abend-version-features">
-                    <li><i class="fas fa-check"></i> Godot 4 + C# engine</li>
-                    <li><i class="fas fa-check"></i> CRT terminal aesthetic</li>
-                    <li><i class="fas fa-check"></i> 288 buildings, 70 technologies, 22 ages</li>
-                    <li><i class="fas fa-check"></i> Full release planned</li>
+                    <li><svg class="icon" aria-hidden="true"><use href="#fa-s-check"/></svg> Godot 4 + C# engine</li>
+                    <li><svg class="icon" aria-hidden="true"><use href="#fa-s-check"/></svg> CRT terminal aesthetic</li>
+                    <li><svg class="icon" aria-hidden="true"><use href="#fa-s-check"/></svg> 288 buildings, 70 technologies, 22 ages</li>
+                    <li><svg class="icon" aria-hidden="true"><use href="#fa-s-check"/></svg> Full release planned</li>
                 </ul>
             </div>
         </div>
@@ -367,28 +397,28 @@
             <h2 class="section-title" data-aos="fade-up">Under the Hood</h2>
             <div class="abend-stack-grid" data-aos="fade-up" data-aos-delay="100">
                 <div class="abend-stack-item glass-card">
-                    <div class="abend-stack-icon"><i class="fas fa-cube"></i></div>
+                    <div class="abend-stack-icon"><svg class="icon" aria-hidden="true"><use href="#fa-s-cube"/></svg></div>
                     <div class="abend-stack-info">
                         <h4>Godot 4.6.1</h4>
                         <p>MIT license, no royalties, excellent 2D pipeline. The right call.</p>
                     </div>
                 </div>
                 <div class="abend-stack-item glass-card">
-                    <div class="abend-stack-icon"><i class="fas fa-code"></i></div>
+                    <div class="abend-stack-icon"><svg class="icon" aria-hidden="true"><use href="#fa-s-code"/></svg></div>
                     <div class="abend-stack-info">
                         <h4>C# / .NET 10</h4>
                         <p>Strongly typed, struct-friendly. Every mechanic ports cleanly from the original simulation engine.</p>
                     </div>
                 </div>
                 <div class="abend-stack-item glass-card">
-                    <div class="abend-stack-icon"><i class="fas fa-tv"></i></div>
+                    <div class="abend-stack-icon"><svg class="icon" aria-hidden="true"><use href="#fa-s-tv"/></svg></div>
                     <div class="abend-stack-info">
                         <h4>CRT Shader</h4>
                         <p>Phosphor glow, scanlines, ambient flicker. In-world the display is 30 years old and running because nothing better exists for this purpose.</p>
                     </div>
                 </div>
                 <div class="abend-stack-item glass-card">
-                    <div class="abend-stack-icon"><i class="fas fa-database"></i></div>
+                    <div class="abend-stack-icon"><svg class="icon" aria-hidden="true"><use href="#fa-s-database"/></svg></div>
                     <div class="abend-stack-info">
                         <h4>Data-Driven Design</h4>
                         <p>288 buildings, 70 techs, 74 milestones -- all defined in JSON. The simulation engine reads config, not hardcode.</p>
@@ -409,7 +439,7 @@
             </div>
             <div class="abend-hero-buttons" data-aos="fade-up" data-aos-delay="200">
                 <a href="index.html#projects" class="btn btn-secondary">
-                    <i class="fas fa-arrow-left" style="margin-right: 8px;"></i>Back to Projects
+                    <svg class="icon" aria-hidden="true" style="margin-right: 8px;"><use href="#fa-s-arrow-left"/></svg>Back to Projects
                 </a>
             </div>
         </div>

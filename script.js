@@ -27,12 +27,10 @@ themeToggle.addEventListener('click', () => {
 });
 
 function updateThemeIcon(theme) {
-    const icon = themeToggle.querySelector('i');
-    if (theme === 'dark') {
-        icon.className = 'fas fa-sun';
-    } else {
-        icon.className = 'fas fa-moon';
-    }
+    // Icons are <use> references into the inline sprite now, not font classes.
+    const use = themeToggle.querySelector('.icon use');
+    if (!use) return;
+    use.setAttribute('href', theme === 'dark' ? '#fa-s-sun' : '#fa-s-moon');
 }
 
 // ============================================
@@ -538,10 +536,10 @@ if (githubReposContainer) {
                 footerHTML += `<span><span class="repo-language-dot" style="background: ${color};"></span>${repo.language}</span>`;
             }
             if (repo.stargazers_count > 0) {
-                footerHTML += `<span><i class="fas fa-star"></i> ${repo.stargazers_count}</span>`;
+                footerHTML += `<span><svg class="icon" aria-hidden="true"><use href="#fa-s-star"/></svg> ${repo.stargazers_count}</span>`;
             }
             if (repo.forks_count > 0) {
-                footerHTML += `<span><i class="fas fa-code-branch"></i> ${repo.forks_count}</span>`;
+                footerHTML += `<span><svg class="icon" aria-hidden="true"><use href="#fa-s-code-branch"/></svg> ${repo.forks_count}</span>`;
             }
 
             card.innerHTML = `
@@ -564,7 +562,7 @@ if (githubReposContainer) {
             <div class="glass-card" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
                 <p style="color: var(--text-secondary); margin-bottom: 15px;">Unable to load repositories</p>
                 <a href="https://github.com/${GITHUB_USER}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="display: inline-block;">
-                    <i class="fab fa-github" style="margin-right: 8px;"></i>View on GitHub
+                    <svg class="icon" aria-hidden="true" style="margin-right: 8px;"><use href="#fa-b-github"/></svg>View on GitHub
                 </a>
             </div>
         `;

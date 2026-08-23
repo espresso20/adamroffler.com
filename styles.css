@@ -2767,3 +2767,43 @@ select:focus-visible {
         transform: none !important;
     }
 }
+
+
+/* ============================================
+   Icons
+   ============================================ */
+/* Inline SVG sprite replaced the Font Awesome CDN. Sized in em so icons track
+   whatever font-size they sit in, exactly as the icon font did. */
+.icon {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+    vertical-align: -0.125em;
+    flex-shrink: 0;
+}
+
+
+/* Secondary hero actions. Three equal buttons meant the hero had no ask; the
+   resume is the ask, these are just doors. */
+.hero-links {
+    margin-top: 18px;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.hero-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.hero-links a:hover {
+    color: var(--accent-primary);
+    border-bottom-color: currentColor;
+}
