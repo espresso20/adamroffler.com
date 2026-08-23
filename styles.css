@@ -148,7 +148,8 @@ body {
    Hero Section
    ============================================ */
 .hero {
-    min-height: 100vh;
+    min-height: 100vh;          /* fallback */
+    min-height: 100svh;         /* iOS counts its own toolbar in 100vh */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -3203,7 +3204,7 @@ select:focus-visible {
     50%      { transform: translateY(-9px); }
 }
 
-@media (max-width: 820px) {
+@media (max-width: 768px) {
     .hero-projects {
         width: 100%;
         max-width: 420px;
@@ -3217,4 +3218,179 @@ select:focus-visible {
 @media (prefers-reduced-motion: reduce) {
     .hero-project { animation: none; }
     .hero-project:hover { transform: none; }
+}
+
+
+/* ============================================
+   Mobile Navigation
+   ============================================ */
+/* The pill held eight links by scrolling sideways with the scrollbar hidden,
+   which is indistinguishable from six links simply not existing. Below the
+   breakpoint it collapses to a labelled toggle and a real panel. */
+
+.nav-toggle { display: none; }
+
+@media (max-width: 768px) {
+    .nav-menu {
+        top: 12px;
+        max-width: none;
+        width: auto;
+        padding: 0;
+        border-radius: 26px;
+        overflow: visible;          /* was clipping the panel */
+    }
+
+    .nav-toggle {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        /* 44px is the floor for a touch target. */
+        min-height: 44px;
+        padding: 0 20px;
+        background: none;
+        border: 0;
+        border-radius: 26px;
+        color: var(--text-primary);
+        font-family: inherit;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .nav-toggle-box {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 4px;
+        width: 18px;
+        height: 14px;
+    }
+
+    .nav-toggle-bar {
+        display: block;
+        height: 2px;
+        width: 100%;
+        border-radius: 2px;
+        background: var(--accent-primary);
+        transition: transform 0.25s ease, opacity 0.2s ease;
+    }
+
+    .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1) {
+        transform: translateY(6px) rotate(45deg);
+    }
+    .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(2) { opacity: 0; }
+    .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3) {
+        transform: translateY(-6px) rotate(-45deg);
+    }
+
+    .nav-menu ul {
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 50%;
+        transform: translateX(-50%) scale(0.97);
+        transform-origin: top center;
+
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+        width: max-content;
+        min-width: 260px;
+        max-width: calc(100vw - 32px);
+        padding: 12px;
+
+        background: var(--bg-secondary);
+        border: 1px solid var(--glass-border);
+        border-radius: 18px;
+        box-shadow: 0 20px 50px var(--glass-shadow);
+
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    }
+
+    .nav-menu[data-open="true"] ul {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateX(-50%) scale(1);
+    }
+
+    .nav-menu ul li { display: block; }
+
+    .nav-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        padding: 10px 14px;
+        font-size: 0.9rem;
+        border-radius: 12px;
+        white-space: nowrap;
+    }
+}
+
+/* The 480 and 360 rules below were tuned for the sideways-scrolling strip and
+   fight the panel, so restate what the panel needs at those sizes. */
+@media (max-width: 480px) {
+    .nav-menu {
+        padding: 0;
+        max-width: none;
+        overflow: visible;
+    }
+
+    .nav-menu ul {
+        flex-wrap: wrap;
+        gap: 6px;
+        min-width: 240px;
+    }
+
+    .nav-link {
+        min-width: 0;
+        font-size: 0.88rem;
+        padding: 10px 12px;
+        min-height: 44px;
+    }
+}
+
+@media (max-width: 360px) {
+    .nav-link { font-size: 0.85rem; padding: 10px; min-width: 0; }
+    .nav-menu ul { grid-template-columns: 1fr; min-width: 200px; }
+}
+
+/* ============================================
+   Mobile Hero
+   ============================================ */
+/* Three full banner cards plus a 180px mark plus a typing headline is more
+   than a phone viewport holds. Compact the stack instead. */
+@media (max-width: 768px) {
+    .hero {
+        padding: 84px 20px 40px;
+    }
+
+    .hero-projects {
+        max-width: 340px;
+        gap: 10px;
+        margin-bottom: 28px;
+    }
+
+    .hero-project {
+        min-height: 0;
+        padding: 11px 16px;
+        border-radius: 13px;
+        gap: 2px;
+    }
+
+    .hp-name { font-size: 1.05rem; }
+    .hp-abend .hp-name,
+    .hp-neonferatu .hp-name { font-size: 1rem; }
+}
+
+@media (max-width: 480px) {
+    .hero { padding: 78px 16px 32px; }
+    .hero-projects { max-width: 100%; gap: 8px; margin-bottom: 24px; }
+    .hero-project { padding: 9px 14px; }
+    .hp-kicker { display: none; }   /* the name carries it at this size */
+    .hp-name { font-size: 1rem; }
+    .hero-links { font-size: 0.85rem; gap: 8px; }
 }

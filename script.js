@@ -1249,3 +1249,51 @@ document.head.appendChild(style);
     // Fonts land after first paint and change the nav's intrinsic width.
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(sync);
 })();
+
+
+// ============================================
+// Mobile Navigation Toggle
+// ============================================
+// Below the breakpoint the nav collapses to a button and a panel. Everything
+// here is state the CSS reads; nothing is measured or animated in JS.
+(function mobileNav() {
+    const nav = document.getElementById('navMenu');
+    const toggle = document.getElementById('navToggle');
+    if (!nav || !toggle) return;
+
+    const setOpen = (open) => {
+        nav.dataset.open = String(open);
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    };
+
+    setOpen(false);
+
+    toggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setOpen(nav.dataset.open !== 'true');
+    });
+
+    // Anchor links do not navigate away, so the panel has to close itself.
+    nav.querySelectorAll('.nav-link').forEach((link) => {
+        link.addEventListener('click', () => setOpen(false));
+    });
+
+    document.addEventListener('click', (e) => {
+        if (nav.dataset.open === 'true' && !nav.contains(e.target)) setOpen(false);
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && nav.dataset.open === 'true') {
+            setOpen(false);
+            toggle.focus();
+        }
+    });
+
+    // Leaving mobile width with the panel open would strand the open state on
+    // a nav that is no longer a panel.
+    const mq = window.matchMedia('(max-width: 768px)');
+    const onChange = (e) => { if (!e.matches) setOpen(false); };
+    mq.addEventListener ? mq.addEventListener('change', onChange)
+                        : mq.addListener(onChange);
+})();
