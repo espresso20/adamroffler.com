@@ -1,4 +1,12 @@
 // ============================================
+// Motion Preference
+// ============================================
+// Respected by the decorative canvases below. Anything that only moves for
+// atmosphere should check this before starting a rAF loop.
+const PREFERS_REDUCED_MOTION =
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// ============================================
 // Theme Toggle
 // ============================================
 const themeToggle = document.getElementById('themeToggle');
@@ -257,7 +265,7 @@ document.addEventListener('click', (e) => {
 // ============================================
 const particleCanvas = document.getElementById('particleCanvas');
 
-if (particleCanvas) {
+if (particleCanvas && !PREFERS_REDUCED_MOTION) {
     const ctx = particleCanvas.getContext('2d');
     let particles = [];
     let animationId;
@@ -599,7 +607,7 @@ if (githubReposContainer) {
 // ============================================
 const starfieldCanvas = document.getElementById('starfieldCanvas');
 
-if (starfieldCanvas) {
+if (starfieldCanvas && !PREFERS_REDUCED_MOTION) {
     const sCtx = starfieldCanvas.getContext('2d');
     let stars = [];
 

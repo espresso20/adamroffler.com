@@ -2700,3 +2700,70 @@ body.loaded {
         font-size: 1.5rem;
     }
 }
+
+
+/* ============================================
+   Accessibility
+   ============================================ */
+
+/* Keyboard users get a way past the nav. Visible only when focused. */
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 16px;
+    z-index: 10000;
+    padding: 12px 20px;
+    border-radius: 8px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--accent-primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+    top: 16px;
+}
+
+/* There was exactly one :focus rule in this stylesheet, so keyboard focus was
+   effectively invisible. :focus-visible keeps it off mouse clicks. */
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 3px solid var(--accent-primary);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* ============================================
+   Reduced Motion
+   ============================================ */
+/* This site has a typing hero, a particle field, a starfield, parallax, scroll
+   reveals and a counter. That is a lot of movement for anyone with a
+   vestibular disorder. Honour the OS setting. */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .particle-canvas,
+    #starfieldCanvas,
+    .hero-background {
+        display: none;
+    }
+
+    /* Scroll reveals must not leave content stuck invisible. */
+    [data-aos] {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}

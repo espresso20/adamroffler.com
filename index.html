@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <a class="skip-link" href="#home">Skip to content</a>
     <!-- Theme Toggle -->
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
         <i class="fas fa-moon"></i>
@@ -38,12 +39,12 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero">
+    <section id="home" class="hero" tabindex="-1" role="main">
         <div class="hero-background"></div>
         <canvas id="particleCanvas" class="particle-canvas"></canvas>
         <div class="hero-content">
             <div class="profile-image-container">
-                <img src="profile-image.jpg" alt="Adam Roffler" class="profile-image">
+                <img src="profile-image.jpg" alt="Adam Roffler" class="profile-image" width="1024" height="1024" loading="eager" decoding="async">
             </div>
             <h1 class="hero-title">
                 <span class="greeting">Hello, I'm</span>
@@ -459,6 +460,33 @@
                     </div>
                     <div class="featured-project-buttons">
                         <a href="abend.html" class="btn btn-primary"><i class="fas fa-info-circle" style="margin-right: 8px;"></i>Learn More</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Neonferatu Card -->
+            <div class="featured-project glass-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="featured-project-icon">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <div class="featured-project-info">
+                    <h3 class="featured-project-title">Neonferatu</h3>
+                    <p class="featured-project-tagline">A Retro-Cyberpunk Theme for the Whole Toolchain</p>
+                    <p class="featured-project-description">
+                        Most themes are a color scheme for one editor and a best-effort port for everything else.
+                        Neonferatu is a single palette file and a build step: the same colors land in VS Code,
+                        Zed, iTerm2, Terminal.app, Claude Code, bat and Sublime. Colors are referenced or derived,
+                        never copied, and the build refuses to ship a palette whose contrast, accent separation
+                        or background ramp has drifted.
+                    </p>
+                    <div class="featured-project-stats">
+                        <span class="featured-stat"><strong>3</strong> Tubes</span>
+                        <span class="featured-stat"><strong>8</strong> Targets</span>
+                        <span class="featured-stat"><strong>0</strong> Dependencies</span>
+                    </div>
+                    <div class="featured-project-buttons">
+                        <a href="https://neonferatu.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary"><i class="fas fa-eye" style="margin-right: 8px;"></i>See It</a>
+                        <a href="https://github.com/espresso20/neonferatu" target="_blank" rel="noopener noreferrer" class="btn btn-secondary"><i class="fab fa-github" style="margin-right: 8px;"></i>Source</a>
                     </div>
                 </div>
             </div>
