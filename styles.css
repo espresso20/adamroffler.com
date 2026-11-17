@@ -3394,3 +3394,12 @@ select:focus-visible {
     .hp-name { font-size: 1rem; }
     .hero-links { font-size: 0.85rem; gap: 8px; }
 }
+
+/* Credential badges */
+.cert-badge-link { display: inline-block; margin-bottom: 20px; }
+.cert-badge { display: block; width: 96px; height: 96px; border-radius: 50%; }
+.resume-cert-item .cert-badge { width: 56px; height: 56px; }
+.resume-cert-item > div { display: flex; flex-direction: column; gap: 2px; }
+.resume-cert-date { color: var(--text-secondary); font-size: 0.8rem; }
+.resume-cert-date a, .skill-card small a { color: var(--accent-primary); }
+.resume-summary p { color: var(--text-secondary); line-height: 1.8; margin: 0; }

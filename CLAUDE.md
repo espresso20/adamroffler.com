@@ -127,6 +127,21 @@ pale box on several mobile browsers), the particle canvas, the typing animation
 and parallax. Navigation is a bottom tab bar rather than a top hamburger,
 because that is where thumbs are.
 
+## Resume PDF
+
+`adam-roffler-resume.pdf` is also **generated**, from `resume.html`:
+
+```bash
+python3 build/gen_resume_pdf.py     # re-read resume.html, print the PDF with headless Chrome
+```
+
+It scrapes the header, summary, jobs and bullets, skills, certifications and
+education and lays them out as a plain two-page print document. Edit
+`resume.html` and regenerate; never hand-export the PDF again (the hand-made one
+drifted: old address, old title, no current job). **Re-run it after any content
+change to resume.html.** The PDF is public, so it carries no phone number and no
+references' contact details.
+
 ## Important Notes
 
 - Contact email: `espresso20@pm.me`
