@@ -353,39 +353,46 @@ if (terminalBody) {
     const scenarios = [
         [
             {
-                cmd: 'aws sts get-caller-identity',
-                output: `{
-    <span class="key">"UserId"</span>: <span class="value">"AROA3XFRBF47CLOUD0PS"</span>,
-    <span class="key">"Account"</span>: <span class="value">"**** **** 9420"</span>,
-    <span class="key">"Arn"</span>: <span class="value">"arn:aws:iam::role/PrincipalCloudOps"</span>
-}`
+                cmd: 'aws sts get-caller-identity --query Arn --output text',
+                output: `<span class="value">arn:aws:sts::************:assumed-role/MultiCloudArchitect/adam</span>`
             },
             {
-                cmd: 'aws organizations list-accounts --query "length(Accounts)"',
-                output: `<span class="value">12</span>`
+                cmd: 'gcloud config list --format="value(core.account)"',
+                output: `<span class="value">adam@adamroffler.com</span>`
             }
         ],
         [
             {
-                cmd: 'terraform plan -out=infra.tfplan',
+                cmd: 'terraform plan -out=tfplan',
                 output: `Plan: <span class="value">14 to add</span>, 2 to change, 0 to destroy.`
             },
             {
-                cmd: 'terraform apply infra.tfplan',
+                cmd: 'terraform apply tfplan',
                 output: `<span class="value">Apply complete!</span> Resources: 14 added, 2 changed, 0 destroyed.`
             }
         ],
         [
             {
-                cmd: 'kubectl get nodes -o wide | head -5',
-                output: `NAME          STATUS   ROLES    VERSION    AGE
-eks-node-01   <span class="value">Ready</span>    &lt;none&gt;   v1.29.3    42d
-eks-node-02   <span class="value">Ready</span>    &lt;none&gt;   v1.29.3    42d
-eks-node-03   <span class="value">Ready</span>    &lt;none&gt;   v1.29.3    42d`
+                cmd: 'gcloud run services list --format="value(name)"',
+                output: `api      <span class="value">Ready</span>   public · scales to zero
+worker   <span class="value">Ready</span>   OIDC only · no public invoker`
             },
             {
-                cmd: 'kubectl get pods -A --field-selector=status.phase=Running | wc -l',
-                output: `<span class="value">186</span> pods running`
+                cmd: 'gcloud iam service-accounts keys list --iam-account=deployer --managed-by=user',
+                output: `Listed <span class="value">0</span> items.  <span class="key"># CI uses Workload Identity Federation</span>`
+            }
+        ],
+        [
+            {
+                cmd: 'kubectl get nodes -L karpenter.sh/capacity-type',
+                output: `NAME                  STATUS   VERSION   CAPACITY-TYPE
+ip-10-0-41-17         <span class="value">Ready</span>    v1.31.2   spot
+ip-10-0-58-203        <span class="value">Ready</span>    v1.31.2   spot
+ip-10-0-77-90         <span class="value">Ready</span>    v1.31.2   on-demand`
+            },
+            {
+                cmd: 'argocd app list -o name | wc -l',
+                output: `<span class="value">9</span> apps · all Synced, Healthy`
             }
         ],
         [
@@ -401,17 +408,17 @@ eks-node-03   <span class="value">Ready</span>    &lt;none&gt;   v1.29.3    42d`
         [
             {
                 cmd: 'gh repo list --limit 5 --json name -q ".[].name"',
-                output: `infra-modules
-ci-cd-pipelines
-security-automation
-eks-platform
-lambda-toolkit`
+                output: `familygradebook-infra
+gcp-secure-landing-zone
+full-eks-deployment-terraform
+aws-stack-tf-bedrock
+acronomicon`
             },
             {
-                cmd: 'gh run list --limit 3 --json status,conclusion -q ".[] | .status + \\": \\" + .conclusion"',
-                output: `completed: <span class="value">success</span>
-completed: <span class="value">success</span>
-completed: <span class="value">success</span>`
+                cmd: 'gh run list --limit 3 --json conclusion -q ".[].conclusion"',
+                output: `<span class="value">success</span>
+<span class="value">success</span>
+<span class="value">success</span>`
             }
         ]
     ];
@@ -1229,27 +1236,6 @@ document.head.appendChild(style);
     console.log('%c  • Old-school gamers know this one:  ↑ ↑ ↓ ↓ ← → ← → B A', body);
     console.log('%c  • Hiring? The terminal has a one-word shortcut to my inbox.', body);
     console.log('%cFind them all and you have officially out-curious-ed 99%% of visitors.', dim);
-})();
-
-
-// ============================================
-// Hero Project Banner Width
-// ============================================
-// The nav pill is sized by its own content, so there is no number to hardcode
-// here. Measure it and let the hero banner row mirror it.
-(function matchNavWidth() {
-    const nav = document.getElementById('navMenu');
-    const row = document.querySelector('.hero-projects');
-    if (!nav || !row) return;
-
-    const sync = () => {
-        document.documentElement.style.setProperty('--nav-width', nav.offsetWidth + 'px');
-    };
-
-    sync();
-    window.addEventListener('resize', sync, { passive: true });
-    // Fonts land after first paint and change the nav's intrinsic width.
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(sync);
 })();
 
 

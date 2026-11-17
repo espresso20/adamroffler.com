@@ -74,7 +74,7 @@
         </button>
         <ul id="navList">
             <li><a href="index.html" class="nav-link"><svg class="icon" aria-hidden="true"><use href="#fa-s-home"/></svg> Home</a></li>
-            <li><a href="index.html#projects" class="nav-link">Projects</a></li>
+            <li><a href="index.html#games" class="nav-link">Game Dev</a></li>
         </ul>
     </nav>
 
@@ -83,14 +83,14 @@
         <canvas id="starfieldCanvas" class="starfield-canvas"></canvas>
         <div class="hero-content">
             <h1 class="ageforge-logo">AgeForge</h1>
-            <p class="ageforge-tagline">A Terminal-Based Idle Empire Builder</p>
-            <p class="ageforge-subtitle">From Primitive Survival to Transcendent Civilization</p>
+            <p class="ageforge-tagline">A Civilization for Your Terminal</p>
+            <p class="ageforge-subtitle">22 Ages, From the Primitive Age to the Transcendent Age</p>
             <div class="ageforge-buttons">
                 <a href="https://ageforge.io" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
                     <svg class="icon" aria-hidden="true" style="margin-right: 8px;"><use href="#fa-s-play"/></svg>Play Now
                 </a>
-                <a href="https://github.com/espresso20/ageforge" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-                    <svg class="icon" aria-hidden="true" style="margin-right: 8px;"><use href="#fa-b-github"/></svg>View on GitHub
+                <a href="https://ageforge.io/docs/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                    <svg class="icon" aria-hidden="true" style="margin-right: 8px;"><use href="#fa-s-flask"/></svg>The Compendium
                 </a>
             </div>
         </div>
@@ -102,15 +102,15 @@
             <h2 class="section-title" data-aos="fade-up">What is AgeForge?</h2>
             <div class="ageforge-about glass-card" data-aos="fade-up" data-aos-delay="100">
                 <p>
-                    AgeForge is a full terminal-based idle empire builder written in Go that runs
-                    entirely in your terminal. No browser needed. No install wizard. No cloud account. Just
-                    download a single binary, open your terminal, and start building civilizations that span
-                    from the dawn of stone tools to transcendent post-human existence.
+                    AgeForge is an idle civilization game written in Go and shipped as a single binary for
+                    macOS, Linux and Windows. You steer by typing commands at a prompt; your civilization keeps
+                    working between commands, and when you open a save again it credits the time you were away.
                 </p>
                 <p>
-                    With 22 ages of progression, deep resource management, technology trees, military expeditions,
-                    trade diplomacy, and a prestige system that rewards long-term play, AgeForge delivers real
-                    strategy depth in a package that fits inside any terminal window.
+                    A run climbs 22 ages in 7 epochs. Workers staff themselves, a build plan queues up to 60
+                    builds, upgrades and trades, and the Map draws your town as a glyph world from the buildings
+                    you actually own. From the Iron Era on, a harbinger warns of the catastrophe ahead and you
+                    choose to Endure or Succumb. Prestige and Era Mastery make every later run faster.
                 </p>
             </div>
         </div>
@@ -126,34 +126,34 @@
                     <p class="ageforge-stat-label">Ages</p>
                 </div>
                 <div class="ageforge-stat-card glass-card">
-                    <div class="ageforge-stat-number">284</div>
+                    <div class="ageforge-stat-number">302</div>
                     <p class="ageforge-stat-label">Buildings</p>
                 </div>
                 <div class="ageforge-stat-card glass-card">
-                    <div class="ageforge-stat-number">52</div>
+                    <div class="ageforge-stat-number">203</div>
                     <p class="ageforge-stat-label">Technologies</p>
                 </div>
                 <div class="ageforge-stat-card glass-card">
-                    <div class="ageforge-stat-number">25</div>
+                    <div class="ageforge-stat-number">24</div>
                     <p class="ageforge-stat-label">Resources</p>
                 </div>
             </div>
             <div class="ageforge-stats-grid" data-aos="fade-up" data-aos-delay="200" style="margin-top: 20px;">
                 <div class="ageforge-stat-card glass-card">
-                    <div class="ageforge-stat-number">12</div>
+                    <div class="ageforge-stat-number">11</div>
                     <p class="ageforge-stat-label">Worker Domains</p>
                 </div>
                 <div class="ageforge-stat-card glass-card">
-                    <div class="ageforge-stat-number">15</div>
-                    <p class="ageforge-stat-label">Expeditions</p>
+                    <div class="ageforge-stat-number">22</div>
+                    <p class="ageforge-stat-label">Wonders</p>
                 </div>
                 <div class="ageforge-stat-card glass-card">
-                    <div class="ageforge-stat-number">74</div>
+                    <div class="ageforge-stat-number">77</div>
                     <p class="ageforge-stat-label">Milestones</p>
                 </div>
                 <div class="ageforge-stat-card glass-card">
-                    <div class="ageforge-stat-number">9</div>
-                    <p class="ageforge-stat-label">Prestige Tiers</p>
+                    <div class="ageforge-stat-number">21</div>
+                    <p class="ageforge-stat-label">Trade Routes</p>
                 </div>
             </div>
         </div>
@@ -169,42 +169,42 @@
                         <svg class="icon" aria-hidden="true"><use href="#fa-s-building"/></svg>
                     </div>
                     <h3>Buildings & Wonders</h3>
-                    <p>284 buildings across 22 ages including 22 unique Wonders that grant permanent civilization bonuses and unlock the next age.</p>
+                    <p>302 buildings: 251 in 14 production lineages, plus storage, monuments and one wonder per age. You need an age's wonder to advance.</p>
                 </div>
                 <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="150">
                     <div class="skill-icon">
                         <svg class="icon" aria-hidden="true"><use href="#fa-s-flask"/></svg>
                     </div>
-                    <h3>Technology Tree</h3>
-                    <p>52 technologies with prerequisite chains that multiply production, unlock new mechanics, and reveal hidden paths forward.</p>
+                    <h3>Research</h3>
+                    <p>203 technologies in prerequisite chains across 24 resources, from food and wood up to Quantum Flux. Scholars come with your knowledge buildings.</p>
                 </div>
                 <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="skill-icon">
                         <svg class="icon" aria-hidden="true"><use href="#fa-s-shield-alt"/></svg>
                     </div>
-                    <h3>Military Expeditions</h3>
-                    <p>15 missions with escalating risk and reward. Send soldiers to raid ruins, defend trade routes, and conquer new lands.</p>
+                    <h3>Army & Missions</h3>
+                    <p>Soldiers come with your military buildings, soften raids and march on short, long and grand missions, each a gamble of cost against reward.</p>
                 </div>
                 <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="250">
                     <div class="skill-icon">
                         <svg class="icon" aria-hidden="true"><use href="#fa-s-handshake"/></svg>
                     </div>
-                    <h3>Trade & Diplomacy</h3>
-                    <p>15 trade routes across 6 NPC factions. Negotiate, ally, or rival. Diplomatic status directly affects exchange rates.</p>
+                    <h3>Trade & Factions</h3>
+                    <p>21 trade routes, harbors and a Black Market, plus an 11-civilization roster with opinion, diplomacy, embassies and war.</p>
                 </div>
                 <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="skill-icon">
                         <svg class="icon" aria-hidden="true"><use href="#fa-s-crown"/></svg>
                     </div>
-                    <h3>Prestige System</h3>
-                    <p>Sacrifice your civilization for permanent meta-progression upgrades. 9 tiers of 5 levels each carry across all future runs.</p>
+                    <h3>Prestige & Era Mastery</h3>
+                    <p>From the Medieval Age, start over for a lasting production bonus. Every age a run finished runs faster next time, up to 4.2x.</p>
                 </div>
                 <div class="skill-card glass-card" data-aos="fade-up" data-aos-delay="350">
                     <div class="skill-icon">
                         <svg class="icon" aria-hidden="true"><use href="#fa-s-meteor"/></svg>
                     </div>
-                    <h3>Catastrophes & Legacy</h3>
-                    <p>Every 3 ages, face epoch-defining catastrophes. Endure, succumb, or defer. Each choice shapes your civilization's legacy.</p>
+                    <h3>Catastrophes & Harbingers</h3>
+                    <p>From the Iron Era on, each epoch can hold a fated doom. A harbinger warns you first, and when it strikes you Endure or Succumb.</p>
                 </div>
             </div>
         </div>
@@ -222,12 +222,12 @@
                 <span class="loop-arrow"><svg class="icon" aria-hidden="true"><use href="#fa-s-chevron-right"/></svg></span>
                 <div class="loop-step">
                     <svg class="icon" aria-hidden="true"><use href="#fa-s-users"/></svg>
-                    <span>Recruit</span>
+                    <span>Staff</span>
                 </div>
                 <span class="loop-arrow"><svg class="icon" aria-hidden="true"><use href="#fa-s-chevron-right"/></svg></span>
                 <div class="loop-step">
                     <svg class="icon" aria-hidden="true"><use href="#fa-s-tasks"/></svg>
-                    <span>Assign</span>
+                    <span>Plan</span>
                 </div>
                 <span class="loop-arrow"><svg class="icon" aria-hidden="true"><use href="#fa-s-chevron-right"/></svg></span>
                 <div class="loop-step">
@@ -242,7 +242,7 @@
                 <span class="loop-arrow"><svg class="icon" aria-hidden="true"><use href="#fa-s-redo"/></svg></span>
                 <div class="loop-step">
                     <svg class="icon" aria-hidden="true"><use href="#fa-s-sync-alt"/></svg>
-                    <span>Repeat</span>
+                    <span>Prestige</span>
                 </div>
             </div>
         </div>
@@ -298,8 +298,13 @@
             <h2 class="section-title" data-aos="fade-up">Start Your Empire</h2>
             <div class="ageforge-about glass-card" data-aos="fade-up" data-aos-delay="100" style="margin-bottom: 40px;">
                 <p>
-                    AgeForge is free to download. Grab the binary for your platform and start building
-                    your civilization today. Available for macOS, Linux, and Windows.
+                    AgeForge is free. Grab the binary for your platform from the latest GitHub release and run it.
+                    On Apple Silicon:
+                </p>
+                <pre class="ageforge-install"><code>curl -fLo ageforge https://github.com/espresso20/ageforge/releases/latest/download/ageforge-macos-arm64 &amp;&amp; chmod +x ageforge &amp;&amp; ./ageforge</code></pre>
+                <p class="ageforge-version-note">
+                    Release downloads are version 3.6. Version 4.0, which the Compendium describes, is on the
+                    master branch and builds from source.
                 </p>
             </div>
             <div class="ageforge-buttons" data-aos="fade-up" data-aos-delay="200">
@@ -309,8 +314,8 @@
                 <a href="https://github.com/espresso20/ageforge" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
                     <svg class="icon" aria-hidden="true" style="margin-right: 8px;"><use href="#fa-b-github"/></svg>Source Code
                 </a>
-                <a href="index.html#projects" class="btn btn-secondary">
-                    <svg class="icon" aria-hidden="true" style="margin-right: 8px;"><use href="#fa-s-arrow-left"/></svg>Back to Projects
+                <a href="index.html#games" class="btn btn-secondary">
+                    <svg class="icon" aria-hidden="true" style="margin-right: 8px;"><use href="#fa-s-arrow-left"/></svg>Back to Game Dev
                 </a>
             </div>
         </div>

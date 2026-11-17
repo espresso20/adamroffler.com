@@ -66,42 +66,43 @@ def scrape():
     about = [txt(p) for p in re.findall(
         r"<p>\s*((?:From managing|I started in the trenches|What sets me apart).*?)</p>", s, re.S)]
 
+    # Project cards carry their mobile label on data-m* attributes, so the
+    # phone page lists exactly what the desktop page shows, in the same order.
     projects = []
-    for m in re.finditer(r'<a class="hero-project hp-(\w+)" href="([^"]+)"', s):
-        key, href = m.group(1), m.group(2)
-        # Prefer the mobile build of a project page when one exists -- sending a
-        # phone from a mobile card to a desktop page is the whole bug this was
-        # meant to fix. Otherwise hop up: this page is served from /m/, so a
-        # bare ageforge.html would resolve to /m/ageforge.html.
-        if key in PROJECTS:
-            href = key + ".html"
+    for m in re.finditer(r"<div class=\"[^\"]*\"[^>]*?data-mcard=\"(\w+)\"(.*?)>", s, re.S):
+        attrs = dict(re.findall(r'data-m(\w+)="([^"]*)"', m.group(2)))
+        href = attrs["href"]
+        # Prefer the mobile build of a project page when one exists; otherwise
+        # hop up, because this page is served from /m/.
+        slug = href[:-5] if href.endswith(".html") else ""
+        if slug in PROJECTS:
+            href = slug + ".html"
         elif not re.match(r"^(https?:|mailto:|#|/|\.\./)", href):
             href = "../" + href
-        projects.append({"key": key, "href": href})
+        projects.append({"group": m.group(1), "name": html.unescape(attrs["name"]),
+                         "desc": html.unescape(attrs["desc"]), "href": href,
+                         "a": attrs.get("a", "#64ffda"), "b": attrs.get("b", "#6c63ff")})
 
     return {"jobs": jobs, "skills": skills, "certs": certs, "about": about, "projects": projects}
-
-
-PROJECT_META = {
-    "ageforge":   ("AgeForge",   "Idle empire builder in Go",        "#f0a500", "#ff6b35"),
-    "abend":      ("ABEND",      "Cold-war terminal simulator",       "#00ff41", "#39ffb0"),
-    "neonferatu": ("Neonferatu", "A theme for the whole toolchain",   "#ff3a8b", "#b767fc"),
-}
 
 
 def build():
     d = scrape()
     os.makedirs(OUT_DIR, exist_ok=True)
 
-    projects = "".join(
-        '<a class="pcard" style="--a:{a};--b:{b}" href="{href}"{ext}>'
-        '<span class="pcard-name">{name}</span>'
-        '<span class="pcard-desc">{desc}</span>'
-        '<span class="pcard-go" aria-hidden="true">&rarr;</span></a>'.format(
-            a=PROJECT_META[p["key"]][2], b=PROJECT_META[p["key"]][3],
-            href=p["href"], name=PROJECT_META[p["key"]][0], desc=PROJECT_META[p["key"]][1],
-            ext=' target="_blank" rel="noopener noreferrer"' if p["href"].startswith("http") else "")
-        for p in d["projects"] if p["key"] in PROJECT_META)
+    def pcards(group):
+        return "".join(
+            '<a class="pcard" style="--a:{a};--b:{b}" href="{href}"{ext}>'
+            '<span class="pcard-name">{name}</span>'
+            '<span class="pcard-desc">{desc}</span>'
+            '<span class="pcard-go" aria-hidden="true">&rarr;</span></a>'.format(
+                a=p["a"], b=p["b"], href=html.escape(p["href"]), name=html.escape(p["name"]),
+                desc=html.escape(p["desc"]),
+                ext=' target="_blank" rel="noopener noreferrer"' if p["href"].startswith("http") else "")
+            for p in d["projects"] if p["group"] == group)
+
+    projects = pcards("work")
+    games = pcards("games")
 
     about = "".join(f"<p>{html.escape(p)}</p>" for p in d["about"])
 
@@ -127,6 +128,7 @@ def build():
     page = TEMPLATE
     for marker, value in (
         ("<!--PROJECTS-->", projects),
+        ("<!--GAMES-->", games),
         ("<!--ABOUT-->", about),
         ("<!--SKILLS-->", skills),
         ("<!--JOBS-->", jobs),
@@ -165,12 +167,6 @@ PROJECTS = {
         "hero_logo": "ageforge-logo", "hero_tag": "ageforge-tagline",
         "hero_sub": "ageforge-subtitle", "stat_num": "ageforge-stat-number",
         "stat_lab": "ageforge-stat-label",
-    },
-    "abend": {
-        "title": "ABEND", "a": "#00ff41", "b": "#39ffb0",
-        "hero_logo": "abend-logo", "hero_tag": "abend-tagline",
-        "hero_sub": "abend-subtitle", "stat_num": "abend-stat-number",
-        "stat_lab": "abend-stat-label",
     },
 }
 

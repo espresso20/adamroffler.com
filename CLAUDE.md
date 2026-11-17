@@ -16,7 +16,7 @@ The site uses CSS custom properties (variables) for theming, defined in `styles.
 - Theme toggle logic is in `script.js:3-28`
 
 ### Page Structure
-- `index.html` - Main portfolio page with sections: Hero, About, Skills, Experience, Contact
+- `index.html` - Main portfolio page with sections: Hero, About, Skills, Experience, Certifications, Projects (Family Gradebook + cloud work), Game Dev & Side Projects, Contact. Games stay below the professional sections on purpose.
 - `aws-cloud.html` - Secondary page showcasing cloud projects
 - Both pages share the same `styles.css` and `script.js`
 
@@ -96,14 +96,19 @@ python3 build/gen_mobile.py     # re-read index.html, rewrite m/index.html
 
 `build/gen_mobile.py` scrapes the experience timeline, tech stack,
 certifications, about copy and project cards out of `index.html` and re-lays
-them out for a phone. It also generates `m/ageforge.html` and `m/abend.html`
-from the showcase pages of the same name, pulling their hero copy, stat
+them out for a phone. It also generates `m/ageforge.html` from the showcase page
+of the same name, pulling their hero copy, stat
 numbers, section prose, core-loop diagram and screenshots. Editing `m/index.html` directly means the next run
 overwrites it -- change `index.html` and regenerate instead. That is the whole
 reason it is generated: a hand-maintained second page drifts the first time a
 job is added to one and not the other.
 
-**Re-run it after any content change to index.html, ageforge.html or abend.html.**
+**Re-run it after any content change to index.html or ageforge.html.**
+
+Mobile project cards come from `data-mcard` attributes on the desktop project
+cards (`data-mcard="work"` for Projects, `"games"` for Game Dev & Side Projects,
+plus `data-mname`, `data-mdesc`, `data-mhref`, `data-ma`, `data-mb`). A new project
+card without them does not appear on the phone page.
 
 The build fails if any local link on a generated page does not resolve. That
 check exists because the first version shipped `ageforge.html` instead of

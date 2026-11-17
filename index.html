@@ -129,6 +129,7 @@
             <li><a href="#experience" class="nav-link">Experience</a></li>
             <li><a href="#certifications" class="nav-link">Certifications</a></li>
             <li><a href="#projects" class="nav-link">Projects</a></li>
+            <li><a href="#games" class="nav-link">Games</a></li>
             <li><a href="resume.html" class="nav-link">Resume</a></li>
             <li><a href="#contact" class="nav-link">Contact</a></li>
         </ul>
@@ -139,20 +140,6 @@
         <div class="hero-background"></div>
         <canvas id="particleCanvas" class="particle-canvas"></canvas>
         <div class="hero-content">
-            <nav class="hero-projects" aria-label="Featured projects">
-                <a class="hero-project hp-ageforge" href="ageforge.html">
-                    <span class="hp-kicker">Idle empire builder</span>
-                    <span class="hp-name">AgeForge</span>
-                </a>
-                <a class="hero-project hp-abend" href="abend.html">
-                    <span class="hp-kicker">Civilization sim</span>
-                    <span class="hp-name">ABEND</span>
-                </a>
-                <a class="hero-project hp-neonferatu" href="https://neonferatu.com" target="_blank" rel="noopener noreferrer">
-                    <span class="hp-kicker">Toolchain theme</span>
-                    <span class="hp-name">Neonferatu</span>
-                </a>
-            </nav>
 
             <div class="profile-image-container">
                 <img src="profile-image.jpg" alt="Adam Roffler" class="profile-image" width="1024" height="1024" loading="eager" decoding="async">
@@ -223,7 +210,7 @@
                     <div class="terminal-body" id="terminalBody">
                         <div class="terminal-line">
                             <span class="terminal-prompt">$</span>
-                            <span class="terminal-command" data-command="aws sts get-caller-identity"></span>
+                            <span class="terminal-command" data-command="aws sts get-caller-identity --query Arn --output text"></span>
                         </div>
                     </div>
                 </div>
@@ -551,20 +538,118 @@
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">Projects</h2>
 
-            <!-- Featured Ageforge Card -->
-            <div class="featured-project glass-card" data-aos="fade-up" data-aos-delay="100">
+            <!-- Featured: Family Gradebook -->
+            <div class="featured-project featured-project-fgb glass-card" data-aos="fade-up" data-aos-delay="100"
+                 data-mcard="work" data-mname="Family Gradebook" data-mdesc="Live SaaS on Google Cloud"
+                 data-mhref="https://familygradebook.com" data-ma="#4f9cf9" data-mb="#34c38f">
+                <div class="featured-project-icon">
+                    <svg class="icon" aria-hidden="true"><use href="#fa-s-graduation-cap"/></svg>
+                </div>
+                <div class="featured-project-info">
+                    <h3 class="featured-project-title">
+                        Family Gradebook
+                        <span class="project-badge">Live &middot; Invite-only beta</span>
+                    </h3>
+                    <p class="featured-project-tagline">A Production SaaS I Built and Run on Google Cloud</p>
+                    <p class="featured-project-description">
+                        Record-keeping for homeschool families: grades, attendance and daily work, with report
+                        cards and transcripts that print on demand. I designed, built and operate it end to end.
+                        Serverless on GCP: Firebase Hosting in front of Cloud Run (a public API and an OIDC-only
+                        worker), Firestore, Cloud Storage with signed-URL uploads, and Identity Platform with
+                        passkeys. Every family's records are encrypted under their own data key wrapped by Cloud
+                        KMS, so closing an account crypto-erases it. All of it is Terraform, applied only from CI
+                        through Workload Identity Federation, gated by tfsec, checkov and gitleaks, with controls
+                        mapped to NIST CSF 2.0.
+                    </p>
+                    <div class="featured-project-stats">
+                        <span class="featured-stat"><strong>14</strong> Terraform Modules</span>
+                        <span class="featured-stat"><strong>16</strong> Architecture Decisions</span>
+                        <span class="featured-stat"><strong>0</strong> Service Account Keys</span>
+                        <span class="featured-stat"><strong>~$0</strong> Monthly Run Cost</span>
+                    </div>
+                    <div class="featured-project-buttons">
+                        <a href="https://familygradebook.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary"><svg class="icon" aria-hidden="true" style="margin-right: 8px;"><use href="#fa-s-eye"/></svg>Visit Site</a>
+                        <a href="fgb-architecture.webp" target="_blank" rel="noopener" class="btn btn-secondary"><svg class="icon" aria-hidden="true" style="margin-right: 8px;"><use href="#fa-s-sitemap"/></svg>Architecture Diagram</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cloud & infrastructure work -->
+            <h3 class="projects-subhead" data-aos="fade-up">Cloud &amp; Infrastructure</h3>
+            <div class="skills-grid project-grid">
+                <div class="skill-card glass-card project-card" data-aos="fade-up" data-aos-delay="100"
+                     data-mcard="work" data-mname="GCP Secure Landing Zone" data-mdesc="Folder-scoped NIST 800-53 landing zone"
+                     data-mhref="https://github.com/espresso20/gcp-secure-landing-zone" data-ma="#4f9cf9" data-mb="#6c63ff">
+                    <div class="skill-icon"><svg class="icon" aria-hidden="true"><use href="#fa-s-shield-alt"/></svg></div>
+                    <h3>GCP Secure Landing Zone</h3>
+                    <p>Terraform landing zone built on NIST 800-53 Moderate and Google's Enterprise Foundation Blueprint, scoped to one folder. A guard script refuses any plan that writes above it.</p>
+                    <div class="project-card-tags"><span class="tag">GCP</span><span class="tag">Terraform</span><span class="tag">Org Policy</span></div>
+                    <a class="project-card-link" href="https://github.com/espresso20/gcp-secure-landing-zone" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#fa-b-github"/></svg> Source</a>
+                </div>
+                <div class="skill-card glass-card project-card" data-aos="fade-up" data-aos-delay="150"
+                     data-mcard="work" data-mname="EKS Platform Lab" data-mdesc="EKS + Karpenter + Argo CD, GitOps"
+                     data-mhref="https://github.com/espresso20/full-eks-deployment-terraform" data-ma="#ff9900" data-mb="#6c63ff">
+                    <div class="skill-icon"><svg class="icon" aria-hidden="true"><use href="#fa-s-dharmachakra"/></svg></div>
+                    <h3>EKS Platform Lab</h3>
+                    <p>Terraform bootstraps EKS 1.31 with Pod Identity, then Argo CD takes over: spot-first Karpenter, ingress, cert-manager and Prometheus, all Git-managed.</p>
+                    <div class="project-card-tags"><span class="tag">AWS EKS</span><span class="tag">Karpenter</span><span class="tag">Argo CD</span></div>
+                    <a class="project-card-link" href="https://github.com/espresso20/full-eks-deployment-terraform" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#fa-b-github"/></svg> Source</a>
+                </div>
+                <div class="skill-card glass-card project-card" data-aos="fade-up" data-aos-delay="200"
+                     data-mcard="work" data-mname="Amazon Bedrock Test Bed" data-mdesc="Least-privilege Bedrock in Terraform"
+                     data-mhref="https://github.com/espresso20/aws-stack-tf-bedrock" data-ma="#ff9900" data-mb="#ff6b35">
+                    <div class="skill-icon"><svg class="icon" aria-hidden="true"><use href="#fa-s-rocket"/></svg></div>
+                    <h3>Amazon Bedrock Test Bed</h3>
+                    <p>Auditable Bedrock in Terraform: a least-privilege invoke role, every prompt and response logged to S3 and CloudWatch, and a guardrail with PII redaction.</p>
+                    <div class="project-card-tags"><span class="tag">Bedrock</span><span class="tag">IAM</span><span class="tag">Guardrails</span></div>
+                    <a class="project-card-link" href="https://github.com/espresso20/aws-stack-tf-bedrock" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#fa-b-github"/></svg> Source</a>
+                </div>
+                <div class="skill-card glass-card project-card" data-aos="fade-up" data-aos-delay="250"
+                     data-mcard="work" data-mname="The Acronomicon" data-mdesc="917+ cloud acronyms in your terminal"
+                     data-mhref="https://github.com/espresso20/acronomicon" data-ma="#f59e0b" data-mb="#8b5cf6">
+                    <div class="skill-icon"><svg class="icon" aria-hidden="true"><use href="#fa-s-terminal"/></svg></div>
+                    <h3>The Acronomicon</h3>
+                    <p>A zero-dependency Go CLI that decodes 917+ cloud, Kubernetes, security and DevOps acronyms, so nobody on the Sev-1 bridge has to ask what CNAPP means.</p>
+                    <div class="project-card-tags"><span class="tag">Go</span><span class="tag">CLI</span><span class="tag">Zero Deps</span></div>
+                    <a class="project-card-link" href="https://github.com/espresso20/acronomicon" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#fa-b-github"/></svg> Source</a>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px;" data-aos="fade-up">
+                <a href="https://github.com/espresso20?tab=repositories" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                    <svg class="icon" aria-hidden="true" style="margin-right: 8px;"><use href="#fa-b-github"/></svg>View All Repositories
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Game Dev & Side Projects Section -->
+    <section id="games" class="section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Game Dev &amp; Side Projects</h2>
+
+            <!-- Featured AgeForge Card -->
+            <div class="featured-project glass-card" data-aos="fade-up" data-aos-delay="100"
+                 data-mcard="games" data-mname="AgeForge" data-mdesc="A civilization for your terminal, in Go"
+                 data-mhref="ageforge.html" data-ma="#f0a500" data-mb="#ff6b35">
                 <div class="featured-project-icon">
                     <svg class="icon" aria-hidden="true"><use href="#fa-s-chess-rook"/></svg>
                 </div>
                 <div class="featured-project-info">
                     <h3 class="featured-project-title">AgeForge</h3>
-                    <p class="featured-project-tagline">A Terminal-Based Idle Empire Builder</p>
+                    <p class="featured-project-tagline">A Civilization for Your Terminal</p>
                     <p class="featured-project-description">
-                        Build civilizations from stone tools to the stars. AgeForge is a full terminal game
-                        written in Go that runs entirely in your terminal. No browser, no install wizard,
-                        just a keyboard and a terminal wide enough to dream big.
+                        An idle civilization game written in Go and shipped as a single binary for macOS, Linux
+                        and Windows. Twenty-two ages in seven epochs, from the Primitive Age to the Transcendent
+                        Age: 302 buildings, 203 technologies, wonders, trade, factions, catastrophes and prestige,
+                        with your town drawn as a glyph map from the buildings you actually own.
                     </p>
-                    
+                    <div class="featured-project-stats">
+                        <span class="featured-stat"><strong>22</strong> Ages</span>
+                        <span class="featured-stat"><strong>302</strong> Buildings</span>
+                        <span class="featured-stat"><strong>203</strong> Technologies</span>
+                        <span class="featured-stat"><strong>7</strong> Epochs</span>
+                    </div>
                     <div class="featured-project-buttons">
                         <a href="ageforge.html" class="btn btn-primary"><svg class="icon" aria-hidden="true" style="margin-right: 8px;"><use href="#fa-s-info-circle"/></svg>Learn More</a>
                         <a href="https://ageforge.io" target="_blank" rel="noopener noreferrer" class="btn btn-secondary"><svg class="icon" aria-hidden="true" style="margin-right: 8px;"><use href="#fa-s-play"/></svg>Play Now</a>
@@ -572,37 +657,10 @@
                 </div>
             </div>
 
-            <!-- Featured ABEND Card -->
-            <div class="featured-project featured-project-abend glass-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="featured-project-icon">
-                    <svg class="icon" aria-hidden="true"><use href="#fa-s-terminal"/></svg>
-                </div>
-                <div class="featured-project-info">
-                    <h3 class="featured-project-title">
-                        ABEND
-                        <span class="abend-badge">In Development</span>
-                    </h3>
-                    <p class="featured-project-tagline">A Cold-War Terminal Simulator</p>
-                    <p class="featured-project-description">
-                        You play on a set of terminals inside a bunker system that seems to go on
-                        forever. You explore it by playing a text adventure, finding resources that
-                        let you build out your computer system, which lets you do more, faster,
-                        which reaches further into the bunker, which turns on more of the system.
-                    </p>
-                    <div class="featured-project-stats">
-                        <span class="featured-stat"><strong>22</strong> Ages</span>
-                        <span class="featured-stat"><strong>288</strong> Buildings</span>
-                        <span class="featured-stat"><strong>7</strong> Epochs</span>
-                        <span class="featured-stat"><strong>70</strong> Technologies</span>
-                    </div>
-                    <div class="featured-project-buttons">
-                        <a href="abend.html" class="btn btn-primary"><svg class="icon" aria-hidden="true" style="margin-right: 8px;"><use href="#fa-s-info-circle"/></svg>Learn More</a>
-                    </div>
-                </div>
-            </div>
-
             <!-- Featured Neonferatu Card -->
-            <div class="featured-project glass-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="featured-project glass-card" data-aos="fade-up" data-aos-delay="200"
+                 data-mcard="games" data-mname="Neonferatu" data-mdesc="A theme for the whole toolchain"
+                 data-mhref="https://neonferatu.com" data-ma="#ff3a8b" data-mb="#b767fc">
                 <div class="featured-project-icon">
                     <svg class="icon" aria-hidden="true"><use href="#fa-s-palette"/></svg>
                 </div>
@@ -628,16 +686,6 @@
                 </div>
             </div>
 
-            <!-- GitHub Repos Grid (dynamically populated) -->
-            <div id="github-repos" class="skills-grid" style="margin-top: 40px;">
-                <!-- Loading skeletons inserted by JS, then replaced with repo cards -->
-            </div>
-
-            <div style="text-align: center; margin-top: 40px;" data-aos="fade-up">
-                <a href="https://github.com/espresso20?tab=repositories" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-                    <svg class="icon" aria-hidden="true" style="margin-right: 8px;"><use href="#fa-b-github"/></svg>View All Repositories
-                </a>
-            </div>
         </div>
     </section>
 
