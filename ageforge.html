@@ -26,20 +26,20 @@
 
 <section class="page-hero"><div class="wrap">
   <a class="back" href="index.html#projects">← Projects</a>
-  <p class="eyebrow">From Primitive Survival to Transcendent Civilization</p>
+  <p class="eyebrow">22 Ages, From the Primitive Age to the Transcendent Age</p>
   <h1>AgeForge</h1>
-  <p class="lede">A Terminal-Based Idle Empire Builder</p>
+  <p class="lede">A Civilization for Your Terminal</p>
   <div class="actions">
     <a class="btn btn-primary" href="https://ageforge.io" target="_blank" rel="noopener noreferrer">Play Now</a>
-    <a class="btn" href="https://github.com/espresso20/ageforge" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+    <a class="btn" href="https://ageforge.io/docs/" target="_blank" rel="noopener noreferrer">The Compendium</a>
   </div>
 </div></section>
 
 <section class="block"><div class="wrap">
   <div class="section-head"><h2>What is AgeForge?</h2></div>
   <div class="prose">
-    <p>AgeForge is a full terminal-based idle empire builder written in Go that runs entirely in your terminal. No browser needed. No install wizard. No cloud account. Just download a single binary, open your terminal, and start building civilizations that span from the dawn of stone tools to transcendent post-human existence.</p>
-    <p>With 22 ages of progression, deep resource management, technology trees, military expeditions, trade diplomacy, and a prestige system that rewards long-term play, AgeForge delivers real strategy depth in a package that fits inside any terminal window.</p>
+    <p>AgeForge is an idle civilization game written in Go and shipped as a single binary for macOS, Linux and Windows. You steer by typing commands at a prompt; your civilization keeps working between commands, and when you open a save again it credits the time you were away.</p>
+    <p>A run climbs 22 ages in 7 epochs. Workers staff themselves, a build plan queues up to 60 builds, upgrades and trades, and the Map draws your town as a glyph world from the buildings you actually own. From the Iron Era on, a harbinger warns of the catastrophe ahead and you choose to Endure or Succumb. Prestige and Era Mastery make every later run faster.</p>
   </div>
 </div></section>
 
@@ -47,25 +47,25 @@
   <div class="section-head"><h2>By the Numbers</h2></div>
   <dl class="facts">
     <div><dt>Ages</dt><dd>22</dd></div>
-    <div><dt>Buildings</dt><dd>284</dd></div>
-    <div><dt>Technologies</dt><dd>52</dd></div>
-    <div><dt>Resources</dt><dd>25</dd></div>
-    <div><dt>Worker Domains</dt><dd>12</dd></div>
-    <div><dt>Expeditions</dt><dd>15</dd></div>
-    <div><dt>Milestones</dt><dd>74</dd></div>
-    <div><dt>Prestige Tiers</dt><dd>9</dd></div>
+    <div><dt>Buildings</dt><dd>302</dd></div>
+    <div><dt>Technologies</dt><dd>203</dd></div>
+    <div><dt>Resources</dt><dd>24</dd></div>
+    <div><dt>Worker Domains</dt><dd>11</dd></div>
+    <div><dt>Wonders</dt><dd>22</dd></div>
+    <div><dt>Milestones</dt><dd>77</dd></div>
+    <div><dt>Trade Routes</dt><dd>21</dd></div>
   </dl>
 </div></section>
 
 <section class="block"><div class="wrap">
   <div class="section-head"><h2>Game Systems</h2></div>
   <div class="skill-groups">
-    <div class="skill-group"><h3>Buildings &amp; Wonders</h3><p>284 buildings across 22 ages including 22 unique Wonders that grant permanent civilization bonuses and unlock the next age.</p></div>
-    <div class="skill-group"><h3>Technology Tree</h3><p>52 technologies with prerequisite chains that multiply production, unlock new mechanics, and reveal hidden paths forward.</p></div>
-    <div class="skill-group"><h3>Military Expeditions</h3><p>15 missions with escalating risk and reward. Send soldiers to raid ruins, defend trade routes, and conquer new lands.</p></div>
-    <div class="skill-group"><h3>Trade &amp; Diplomacy</h3><p>15 trade routes across 6 NPC factions. Negotiate, ally, or rival. Diplomatic status directly affects exchange rates.</p></div>
-    <div class="skill-group"><h3>Prestige System</h3><p>Sacrifice your civilization for permanent meta-progression upgrades. 9 tiers of 5 levels each carry across all future runs.</p></div>
-    <div class="skill-group"><h3>Catastrophes &amp; Legacy</h3><p>Every 3 ages, face epoch-defining catastrophes. Endure, succumb, or defer. Each choice shapes your civilization's legacy.</p></div>
+    <div class="skill-group"><h3>Buildings &amp; Wonders</h3><p>302 buildings: 251 in 14 production lineages, plus storage, monuments and one wonder per age. You need an age's wonder to advance.</p></div>
+    <div class="skill-group"><h3>Research</h3><p>203 technologies in prerequisite chains across 24 resources, from food and wood up to Quantum Flux. Scholars come with your knowledge buildings.</p></div>
+    <div class="skill-group"><h3>Army &amp; Missions</h3><p>Soldiers come with your military buildings, soften raids and march on short, long and grand missions, each a gamble of cost against reward.</p></div>
+    <div class="skill-group"><h3>Trade &amp; Factions</h3><p>21 trade routes, harbors and a Black Market, plus an 11-civilization roster with opinion, diplomacy, embassies and war.</p></div>
+    <div class="skill-group"><h3>Prestige &amp; Era Mastery</h3><p>From the Medieval Age, start over for a lasting production bonus. Every age a run finished runs faster next time, up to 4.2x.</p></div>
+    <div class="skill-group"><h3>Catastrophes &amp; Harbingers</h3><p>From the Iron Era on, each epoch can hold a fated doom. A harbinger warns you first, and when it strikes you Endure or Succumb.</p></div>
   </div>
 </div></section>
 
@@ -73,11 +73,11 @@
   <div class="section-head"><h2>The Core Loop</h2></div>
   <ol class="steps">
     <li>Build</li>
-    <li>Recruit</li>
-    <li>Assign</li>
+    <li>Staff</li>
+    <li>Plan</li>
     <li>Research</li>
     <li>Advance</li>
-    <li>Repeat</li>
+    <li>Prestige</li>
   </ol>
 </div></section>
 
@@ -97,7 +97,9 @@
 <section class="block"><div class="wrap">
   <div class="section-head"><h2>Start Your Empire</h2></div>
   <div class="prose">
-    <p>AgeForge is free to download. Grab the binary for your platform and start building your civilization today. Available for macOS, Linux, and Windows.</p>
+    <p>AgeForge is free. Grab the binary for your platform from the latest GitHub release and run it. On Apple Silicon:</p>
+    <pre><code>curl -fLo ageforge https://github.com/espresso20/ageforge/releases/latest/download/ageforge-macos-arm64 &amp;&amp; chmod +x ageforge &amp;&amp; ./ageforge</code></pre>
+    <p>Release downloads are version 3.6. Version 4.0, which the Compendium describes, is on the master branch and builds from source.</p>
   </div>
   <div class="actions">
     <a class="btn btn-primary" href="https://ageforge.io" target="_blank" rel="noopener noreferrer">Get AgeForge</a>
