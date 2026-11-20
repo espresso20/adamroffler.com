@@ -8,7 +8,7 @@ This is a personal portfolio website for Adam Roffler, a DevOps Engineer and Clo
 
 ## Architecture
 
-- Static HTML pages: `index.html` (portfolio), `resume.html`, `ageforge.html`, `abend.html`, `aws-cloud.html`.
+- Static HTML pages: `index.html` (portfolio), `resume.html`, `ageforge.html`, `aws-cloud.html`.
 - One stylesheet, `styles.css`. It is the design, and the class vocabulary lives in its header and selectors. Use only classes that exist there. Do not add inline `style` attributes.
 - No JavaScript anywhere. No scripts, no CDNs, no web fonts.
 - Colors are tokens on `:root`, redefined under `@media (prefers-color-scheme: dark)` and for print. There is no theme toggle.
@@ -52,7 +52,7 @@ The repository has two Claude Code GitHub Actions:
 - Sections use `id` attributes for navigation anchors.
 - Icons are inline SVG symbols in a hidden sprite at the top of the page, referenced with `<svg class="icon"><use href="#id"/></svg>`.
 - Images get explicit `width` and `height` that match their real pixel size. Use `loading="lazy"` below the fold.
-- Profile image is `profile-image.webp`. Project images are `abend-*.webp`.
+- Profile image is `profile-image.webp`.
 
 ## Important Notes
 
