@@ -227,3 +227,12 @@ a.cert-feature:hover { border-color: var(--accent); }
 .cert-feature span { display: block; font-size: .9rem; color: var(--muted); }
 .cert-feature .card-link { margin-top: 6px; }
 pre { overflow-x: auto; max-width: 100%; margin: 16px 0; padding: 12px 16px; border: 1px solid var(--border); font: .85rem/1.5 var(--mono); }
+
+/* ---- featured project: full row, media beside text on wide screens ---- */
+.cards > li:has(> .card-wide) { grid-column: 1 / -1; }
+@media (min-width: 860px) {
+    .card-wide { flex-direction: row; }
+    .card-wide .card-media { flex: 0 0 48%; aspect-ratio: auto; }
+    .card-wide .card-media img { object-position: left top; }
+    .card-wide .card-body { padding: 24px 28px; }
+}
