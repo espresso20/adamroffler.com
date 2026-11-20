@@ -32,7 +32,7 @@
 
 <section class="page-hero"><div class="wrap">
   <h1>Adam Roffler</h1>
-  <p class="lede">Principal Cloud / DevOps Engineer | AWS Architecture | Security | Automation</p>
+  <p class="lede">Multi-Cloud Architect | AWS &amp; Google Cloud | Platform Modernization | GovCloud | Generative AI Infrastructure</p>
   <div class="actions">
     <a class="btn btn-primary" href="adam-roffler-resume.pdf" download>Download PDF</a>
   </div>
@@ -40,16 +40,32 @@
     <li><a href="mailto:espresso20@pm.me">espresso20@pm.me</a></li>
     <li><a href="https://www.linkedin.com/in/adam-roffler/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
     <li><a href="https://github.com/espresso20" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-    <li>Bonners Ferry, ID</li>
+    <li>Kansas City, MO</li>
   </ul>
+</div></section>
+
+<section id="summary" class="block"><div class="wrap">
+  <div class="section-head"><h2>Summary</h2></div>
+  <div class="prose"><p>Multi-cloud architect with 9+ years designing, securing, and automating enterprise infrastructure across AWS and Google Cloud. Currently architecting for multiple consulting clients at once: platform modernization, compliance-regulated environments in AWS GovCloud and GCP Assured Workloads, and enterprise generative AI on Amazon Bedrock. Previously led greenfield design of an enterprise AWS Organization and Control Tower environment, drove company-wide Terraform adoption, and contributed to roughly $200K in cloud and platform cost savings while supporting 100+ engineers.</p></div>
 </div></section>
 
 <section id="experience" class="block"><div class="wrap">
   <div class="section-head"><h2>Experience</h2></div>
   <ol class="timeline">
     <li class="job">
-      <div class="job-meta">Jul 2026 - Present<br>Kansas City, KS</div>
-      <div><h3>Senior Engineer III</h3><p class="job-org">27Global</p></div>
+      <div class="job-meta">Jul 2026 - Present<br>Kansas City, MO</div>
+      <div>
+        <h3>Senior Cloud Engineer III</h3>
+        <p class="job-org">27Global</p>
+        <ul class="bullets">
+          <li>Re-platformed a production e-commerce site from a single EC2 instance (one AZ, no rollback) to ECS Fargate, Aurora MySQL, and CloudFront, with a build-once-promote pipeline delivering zero-downtime releases</li>
+          <li>Architected an enterprise generative AI platform on Amazon Bedrock in AWS GovCloud, federating Microsoft Entra ID with IAM Identity Center and building per-user cost attribution to support AI adoption</li>
+          <li>Design and implement Google Cloud Assured Workloads environments for compliance-regulated workloads</li>
+          <li>Led an architecture review of an enterprise Liferay DXP platform after repeated failed cutovers, tracing root causes across JVM memory, clustering, and load balancing</li>
+          <li>Built a governed GCP sandbox for internal engineers: folder hierarchy, per-engineer projects, org policy guardrails, budget controls, and centralized audit logging</li>
+          <li>Own production monitoring and alerting, and coordinate delivery across onshore and offshore engineering teams</li>
+        </ul>
+      </div>
     </li>
     <li class="job">
       <div class="job-meta">Dec 2024 - Feb 2026<br>Remote</div>
@@ -59,13 +75,14 @@
         <ul class="bullets">
           <li>Led greenfield design and architecture of the enterprise AWS Organization and Control Tower environment across 12+ accounts in two Organizations, establishing governance, security, and compliance foundations from the ground up</li>
           <li>Served as subject matter expert on cloud architecture and security, advising cross-functional teams and leadership on AWS design decisions and strategic direction for 100+ engineers across 5–6 teams</li>
-          <li>Drove enterprise Datadog deployment and observability strategy across all environments, leveraging Datadog dashboards and alerts, which contributed to approximately $200 K in combined cloud and platform cost savings</li>
+          <li>Drove enterprise Datadog deployment and observability strategy across all environments, leveraging Datadog dashboards and alerts, which contributed to approximately $200K in combined cloud and platform cost savings</li>
           <li>Directed company-wide Terraform adoption, building and maintaining 30+ reusable modules with Terragrunt that embed security best practices, which shortened deployment cycles and lowered configuration errors</li>
           <li>Maintained 99%+ infrastructure uptime over 3 years through proactive architecture, disaster recovery planning, and automated remediation</li>
           <li>Designed and deployed enterprise security solutions with GuardDuty, Security Hub, and Systems Manager, adding built-in redundancy and automated remediation across all accounts, which improved threat detection coverage and shortened incident response times</li>
           <li>Owned network security architecture and designed and implemented B2B VPN tunnels between business units using AWS Site-to-Site VPN, which increased cross-unit connectivity reliability and lowered latency</li>
           <li>Administered a large-scale enterprise GitHub organization, overseeing 75+ CI/CD pipelines, repository access, branching strategies, and deployment standards, which accelerated code delivery and reduced deployment errors</li>
           <li>Built custom automation tooling in Python and Go to streamline operations, monitoring, and incident response</li>
+          <li>Managed containerized workloads on Kubernetes with automated deployment pipelines supporting weekly production releases</li>
         </ul>
       </div>
     </li>
@@ -103,8 +120,8 @@
         <h3>Senior DevOps Engineer</h3>
         <p class="job-org">2nd Watch</p>
         <ul class="bullets">
+          <li>Led the enterprise patching solution on AWS Systems Manager, automating patching of thousands of instances via CodePipeline and CodeBuild for global enterprise clients</li>
           <li>Built ~20 reusable Ansible and Terraform automation stacks, supporting 50+ engineers across multiple client engagements</li>
-          <li>Led internal effort to create a fully reusable Terraform module library adopted across the engineering organization</li>
           <li>Provided expertise on AWS SAM and SSM Automation, developing a serverless architecture with SAM and SAR that streamlined client deployments and improved reliability</li>
           <li>Led internal effort to create a fully reusable Terraform module library adopted across the engineering organization</li>
         </ul>
@@ -141,7 +158,7 @@
     <div class="skill-group">
       <h3>Technology</h3>
       <ul class="tags">
-        <li>AWS (Expert)</li><li>Cloud Security</li><li>Terraform / Terragrunt</li><li>CloudFormation</li>
+        <li>AWS (Expert)</li><li>Google Cloud</li><li>AWS GovCloud</li><li>GCP Assured Workloads</li><li>Amazon Bedrock</li><li>Microsoft Entra ID</li><li>ECS Fargate / Aurora / CloudFront</li><li>Cloud Security</li><li>Terraform / Terragrunt</li><li>CloudFormation</li>
         <li>Kubernetes / Docker</li><li>Python</li><li>Go</li><li>GitHub / GitHub Actions</li>
         <li>GitLab CI/CD</li><li>Linux / Windows Server</li><li>Infrastructure as Code</li><li>AWS Lambda / SAM / SSM</li>
         <li>ECS / API Gateway</li><li>GuardDuty / Security Hub</li><li>Control Tower / Organizations</li><li>Datadog</li>
@@ -150,7 +167,7 @@
     <div class="skill-group">
       <h3>Top Skills</h3>
       <ul class="tags">
-        <li>Cloud Architecture &amp; Design</li><li>DevOps &amp; Automation</li><li>Enterprise Security</li>
+        <li>Multi-Cloud Architecture</li><li>Platform Modernization</li><li>Generative AI Infrastructure</li><li>Cloud Architecture &amp; Design</li><li>DevOps &amp; Automation</li><li>Enterprise Security</li>
         <li>Infrastructure as Code</li><li>CI/CD Pipeline Design</li><li>Cross-team Technical Leadership</li><li>Disaster Recovery Planning</li>
       </ul>
     </div>
@@ -159,11 +176,15 @@
 
 <section id="certifications" class="block"><div class="wrap">
   <div class="section-head"><h2>Certifications</h2></div>
+  <a class="cert-feature" href="https://www.credly.com/badges/93fe5d90-692f-462f-8697-6eec4d9b11b2/public_url" target="_blank" rel="noopener noreferrer">
+    <img src="gcp-ace-badge.webp" width="96" height="96" alt="Google Cloud Certified Associate Cloud Engineer badge" loading="lazy" decoding="async">
+    <div><strong>Google Cloud Associate Cloud Engineer</strong><span>Oct 2026</span><span class="card-link">Verify on Credly →</span></div>
+  </a>
   <ul class="cert-list">
-    <li><strong>AWS Cloud Practitioner</strong></li>
-    <li><strong>AWS Associate Architect</strong></li>
-    <li><strong>AWS Associate Developer</strong></li>
-    <li><strong>AWS Associate SysOps</strong></li>
+    <li><strong>AWS Cloud Practitioner</strong><span>Held 2017&ndash;2019</span></li>
+    <li><strong>AWS Associate Architect</strong><span>Held 2018&ndash;2020</span></li>
+    <li><strong>AWS Associate Developer</strong><span>Held 2018&ndash;2020</span></li>
+    <li><strong>AWS Associate SysOps</strong><span>Held 2019&ndash;2022</span></li>
     <li><strong>Microsoft Azure Fundamentals</strong></li>
     <li><strong>VMware VCA 6 - DCV</strong></li>
   </ul>

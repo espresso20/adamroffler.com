@@ -38,46 +38,52 @@ def section(s, sid):
 def scrape():
     s = open(SRC, encoding="utf-8").read()
     d = {}
-    d["title"] = txt(re.search(r'class="resume-title">(.*?)</p>', s, re.S).group(1))
-    d["location"] = txt(re.search(r'fa-s-map-marker-alt"/></svg>(.*?)</span', s, re.S).group(1))
-    d["summary"] = txt(re.search(r'resume-summary"[^>]*>\s*<p>(.*?)</p>', s, re.S).group(1))
+    d["title"] = txt(re.search(r'<p class="lede">(.*?)</p>', s, re.S).group(1))
+    hero = re.search(r'<section class="page-hero">.*?</section>', s, re.S).group(0)
+    d["location"] = txt(re.findall(r"<li>([^<]*)</li>", hero)[-1])
+    d["summary"] = txt(re.search(r"<p>(.*?)</p>", section(s, "summary"), re.S).group(1))
 
     jobs = []
-    for b in re.split(r'<div\s+class="resume-job glass-card"', section(s, "experience"))[1:]:
+    for b in re.split(r'<li class="job">', section(s, "experience"))[1:]:
         t = re.search(r"<h3>(.*?)</h3>", b, re.S)
-        co = re.search(r'class="resume-company">(.*?)</p>', b, re.S)
-        dt = re.search(r'class="resume-dates">(.*?)</span>', b, re.S)
-        if not (t and co and dt):
+        co = re.search(r'class="job-org">(.*?)</p>', b, re.S)
+        meta = re.search(r'class="job-meta">(.*?)</div>', b, re.S)
+        if not (t and co and meta):
             continue
-        loc = re.search(r'class="resume-location"\s*>(.*?)</span', co.group(1), re.S)
-        company = txt(re.sub(r'<span class="resume-location".*', "", co.group(1), flags=re.S))
+        parts = [txt(x) for x in re.split(r"<br\s*/?>", meta.group(1))]
         jobs.append({
             "title": txt(t.group(1)),
-            "company": company,
-            "location": txt(loc.group(1)).lstrip("| ").strip() if loc else "",
-            "dates": txt(dt.group(1)),
+            "company": txt(co.group(1)),
+            "location": parts[1] if len(parts) > 1 else "",
+            "dates": parts[0],
             "bullets": [txt(li) for li in re.findall(r"<li>(.*?)</li>", b, re.S)],
         })
     if not jobs:
         sys.exit("resume.html: no jobs found")
     d["jobs"] = jobs
 
-    sk = section(s, "skills")
-    d["tech"] = [txt(t) for t in re.findall(r'<span class="tag"\s*>(.*?)</span\s*>', sk, re.S)]
-    d["top"] = [txt(t) for t in re.findall(r"<li>(.*?)</li>", sk, re.S)]
+    groups = re.findall(r'<ul class="tags">(.*?)</ul>', section(s, "skills"), re.S)
+    if len(groups) != 2:
+        sys.exit("resume.html: expected 2 skill groups, found %d" % len(groups))
+    d["tech"], d["top"] = ([txt(t) for t in re.findall(r"<li>(.*?)</li>", g, re.S)] for g in groups)
 
+    cs = section(s, "certifications")
     certs = []
-    for b in re.findall(r'class="resume-cert-item">(.*?)</div>\s*</div>', section(s, "certifications"), re.S):
+    f = re.search(r'<a class="cert-feature".*?</a>', cs, re.S)
+    if f:
+        spans = re.findall(r"<span>(.*?)</span>", f.group(0), re.S)
+        certs.append((txt(re.search(r"<strong>(.*?)</strong>", f.group(0), re.S).group(1)),
+                      txt(spans[0]) if spans else ""))
+    for b in re.findall(r"<li>(.*?)</li>", cs, re.S):
         name = txt(re.search(r"<strong>(.*?)</strong>", b, re.S).group(1))
-        date = re.search(r'class="resume-cert-date">(.*?)</span>', b, re.S)
-        date = re.sub(r"\s*·\s*verify$", "", txt(date.group(1))) if date else ""
-        certs.append((name, date))
+        date = re.search(r"<span>(.*?)</span>", b, re.S)
+        certs.append((name, txt(date.group(1)) if date else ""))
     d["certs"] = certs
 
     ed = section(s, "education")
     d["edu"] = (txt(re.search(r"<h3>(.*?)</h3>", ed, re.S).group(1)),
-                txt(re.search(r'class="resume-company">(.*?)</p>', ed, re.S).group(1)),
-                txt(re.search(r'class="resume-dates">(.*?)</span>', ed, re.S).group(1)))
+                txt(re.search(r'class="job-org">(.*?)</p>', ed, re.S).group(1)),
+                txt(re.search(r'class="job-meta">(.*?)</div>', ed, re.S).group(1)))
     return d
 
 
