@@ -49,6 +49,7 @@ body {
     text-rendering: optimizeLegibility;
 }
 img, svg { display: block; max-width: 100%; height: auto; }
+[hidden] { display: none !important; }
 a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
 a:hover { text-decoration-thickness: 2px; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
@@ -145,6 +146,9 @@ ul, ol { margin: 0; padding: 0; }
     box-shadow: var(--shadow); color: inherit; text-decoration: none;
     transition: border-color .15s, transform .15s;
 }
+.cards > li { display: flex; flex-direction: column; gap: 10px; }
+.cards > li > .card { flex: 1; }
+.cards > li > p { margin: 0 4px; font-size: .9rem; }
 a.card:hover { border-color: var(--accent); }
 @media (prefers-reduced-motion: no-preference) { a.card:hover { transform: translateY(-2px); } }
 .card-media { aspect-ratio: 16 / 9; background: var(--border); }
